@@ -1,0 +1,56 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="org.metromenu.preview"
+    android:versionCode="1"
+    android:versionName="1.0" 
+    android:label="Menu Menu" >
+ 
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:icon="@drawable/metro_icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" 
+        android:process="android.process.acore" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MulticoreTaskManagerActivity"
+            android:label="@string/app_name" >
+        </activity>  
+        <activity
+            android:name=".AppDetailDialog"
+            android:theme="@style/activity_float" >
+            <intent-filter>
+                <action android:name="com.moko365.app.AppDetailDialog" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> 
+        <activity
+            android:process=":ApplicationManger"
+            android:name=".ApplicationManagerActivity" >
+            <intent-filter>
+                <action android:name="metromenu.intent.action.SETTINGS" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>            
+        </activity>                     
+    </application>
+
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    
+</manifest>

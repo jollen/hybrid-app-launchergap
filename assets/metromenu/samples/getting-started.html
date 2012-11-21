@@ -1,0 +1,32 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>jQuery Metro Menu - Metro UI Style Menus - jQuery Plugin</title>
+    <link href="../jq-metro.css" rel="stylesheet" type="text/css" />
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js" type="text/javascript"></script>
+    <script src="../jquery.metro.js" type="text/javascript"></script>
+    <script type="text/javascript">
+	var itemMenu1 = [
+		{bgcolor: '#f16529', text: 'Sub item 1', link: 'http://www.moko365.com/'},
+		{bgcolor: '#f16529', text: 'Sub item 2', link: 'http://www.moko365.com/'}
+	];    
+    
+    var itemMenu2 = [
+    	{bgcolor: '#03aeda', text: 'Sub item 1', link: 'http://www.moko365.com/ecourse-android-porting-embedded-linux'},
+    	{bgcolor: '#03aeda', text: 'Sub item 2', link: 'http://www.moko365.com/ecourse-android-porting-practice'},
+    ];
+          
+    $(document).ready(function () {
+   		$("#metroui_menu").AddMetroSimpleButton('metro-html5', '../images/HTML5.png', 'Menu 1', itemMenu1, "metroui_item", "item-menu1");
+		$("#metroui_menu").AddMetroSimpleButton('metro-seminar', '../images/CD.png', 'Menu 2', itemMenu2, "metroui_item", "ecourse-menu");
+				
+    });
+    </script>
+</head>
+<body>
+	<div id="metroui_menu" class="metro-ui" style="display:none;"></div>
+    <div id="metroui_item" class="metro-ui" style="display:none;"></div>	
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Contact Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="../cordova-2.2.0.js"></script>
+    <script src="../jquery-1.7.1.min.js" type="text/javascript"></script>
+    
+  </head>
+  <body>
+    <div id="message"><p>Contacts</p></div>
+    <div id="metroui_item" class="metro-ui fleft" style="display:none;"></div>
+  </body>
+   <script type="text/javascript" charset="utf-8">
+		function onSuccess(contacts) {
+		    $("#metroui_item").html(contacts[0].displayName);
+		}
+		
+		function onError(contactError) {
+		    alert('onError!');
+		}
+		
+		// find all contacts with 'Bob' in any name field
+		var options = new ContactFindOptions();
+		
+		options.filter = "";
+		options.multiple = true; 
+		
+		var fields = ["*"];
+		
+		navigator.contacts.find(fields, onSuccess, onError, options);   
+   </script>
+   
+   
+   
+   
+   
+   
+   
+</html>

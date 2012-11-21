@@ -1,0 +1,13 @@
+<resources>
+
+    <string name="app_name">Metro Menu Preview</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">Metro Menu</string>
+
+    <string name="please_wait">Getting running tasks list</string>
+    <string name="in_mega_bytes">MB</string>
+    <string name="available_mems">Available Mems: </string>
+    <string name="running_tasks">Running Tasks: </string>
+    <string name="unknow_process">Unknown system process</string>
+</resources>

@@ -1,0 +1,8 @@
+<resources>
+
+    <style name="AppTheme" parent="android:Theme.Light" />
+
+    <style name="activity_float" parent="@android:style/Theme.Dialog">
+       <item name="android:windowBackground">@drawable/float_background</item>
+    </style>
+</resources>
