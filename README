@@ -1,0 +1,26 @@
+
+核心架構
+=======
+
+MetroMenu 採用 MVC 模式，View 的部份全部採用 JavaScript & HTML5 實作。
+可在 assets/www/ 目錄下找到以下檔案：
+
+* index.html - 主畫面
+* jquery.metro.js - jQuery Metro 插件，主要用於顯示方塊
+* jq-metro.css - 樣式部份
+
+一開始研究 MetroMenu 應由 index.html/jquery.metro.js 二個檔案切入。原則上，
+未來的實作，應該都只會在 JavaScript 部份。
+
+方塊磚
+======
+
+方塊磚 (Tile) 分為二種：
+
+* Special Tile
+* 一般的 Tile
+
+Speicla Tile 是系統內建的方塊，使用者無法更改。一般的 Tile 是使用
+者透過 Package Manager 自行創立的方塊。
+
+
