@@ -12,9 +12,9 @@
   
     var contactItem = [
     	{bgcolor: '#0080ff', package: 'com.google.com', app: 'Contacts', activity: 'contacts.html', image: 'images/Globe.png'}, 
-    	{bgcolor: '#0080ff', package: 'com.google.com', app: 'Contacts', activity: 'contacts.html', image: ''}
+		{bgcolor: '#0080ff', package: 'com.google.com', app: 'Contacts', activity: 'contacts.html', image: ''}
     ];
-          
+
     $(document).ready(function () {
 		//$("#metroui_itemMenu").addMetroSimpleText(contactItem);
 		//createDefault();		
@@ -23,34 +23,38 @@
     // Callback from WebView when load first page finished.
     function createMetroMenu(json) {
     		createDefault();
-    		$("#metroui_itemMenu").addMetroSimpleText(json);
+			$("#metroui_itemMenu").addMetroSimpleText(json);
     }
     
     function updateMetroMenu(json) {
     		$("#metroui_itemMenu").empty();
-    		$("#metroui_itemMenu").addMetroSimpleText(json);
+			$("#metroui_itemMenu").addMetroSimpleText(json);
     }
     
-    // This is always the default Tiles.
+	// This is always the default Tiles.
     function createDefault() {
     	   	$("#metroui_menu").AddMetroImageTile('metro-black', 'tiles/Digital_Camera.png', 'Camera', "item-camera", false);
     	   	$("#metroui_menu").AddMetroImageTile('metro-default', 'images/Android-Browser-64.png', 'Browser', "item-camera", true);
+			$("#metroui_menu").AddMetroImageTile('metro-android', 'images/Android.png', 'Phone', 'item-camera', true);
+	}
 
-    }
-    
-    function startActivity(packageName, activityName) {
-    		MetroMenu.startActivity(packageName, activityName);
+	function startActivity(packageName, activityName) {
+		MetroMenu.startActivity(packageName, activityName);
     }
     
     /* Image tile modules. Callback back from jQuery Metro */
     function cameraModule(id) {
     	//$("#"+id).fadeOut('fast');
-    	MetroMenu.startActivity("com.android.camera", "com.android.camera.Camera");
+		MetroMenu.startActivity("com.android.camera", "com.android.camera.Camera");
     }
     
     function browserModule(id) {
-    	MetroMenu.startActivity("com.android.browser", "com.android.browser.BrowserActivity");
-    }    
+		MetroMenu.startActivity("com.android.browser", "com.android.browser.BrowserActivity");
+    }
+
+    function phoneModule(id) {
+		MetroMenu.startActivity("com.android.contacts", "com.android.contacts.ContactsApplication");
+    }
     </script>
 </head>
 <body>

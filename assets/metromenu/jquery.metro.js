@@ -52,6 +52,8 @@ $.fn.AddMetroImageTile = function (theme, image, module, id, single) {
 	    		html_code += " onclick='cameraModule(\"" + id + "\");'";
 		} else if (module =="Browser") {
     			html_code += " onclick='browserModule(\"" + id + "\");'";
+		} else if (module =="Phone") {
+				html_code += " onclick='phoneModule(\""+ id + "\");'";
 		}
 		
 		if (single == false) {

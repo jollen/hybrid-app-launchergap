@@ -18,6 +18,7 @@ package org.metromenu.preview;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.CallLog;
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -169,6 +170,12 @@ public class MainActivity extends Activity {
 				String activityName = data.getString("activityName");
 								
 				Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
+
+				if (packageName.matches("com.android.contacts")) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, CallLog.Calls.CONTENT_URI);
+					ctx.startActivity(intent);
+					break;
+				}
 
 				if (activityName != null) {
 					Intent intent = new Intent(Intent.ACTION_MAIN);
