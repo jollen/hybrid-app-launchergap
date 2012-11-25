@@ -1,0 +1,35 @@
+.metrosingle {
+	width: 108px;
+	height: 100px;
+	margin-left: 12px;
+}
+
+.metrodouble {
+	width: 228px;
+	height: 130px;
+	margin-left: 12px;
+}
+
+/* Grid */
+
+.grid {
+	margin-top: 0px;
+	padding: 0px;
+	background-color: #000;
+	color: #000;
+	border: 0px;
+	z-index: -300;
+	width: 320px;
+}
+
+.grid_1 {
+	width: 260px;
+	float: left;
+}
+
+.grid_2 {
+	width: 40px;
+	padding: 0;
+	margin-top: 15px;
+	float: right;
+}
