@@ -40,6 +40,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
     	     + "package_name TEXT,"
     	     + "app_name TEXT,"
     	     + "activity_name TEXT,"
+    	     + "module TEXT,"
     	     + "image"
         + ");";
     
@@ -85,6 +86,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 							"package_name", 
 							"app_name",
 							"activity_name",
+				    	     "module",	
 							"image"},
 			"package_name=\"" + package_name + "\"",	// WHERE
 			null, 						// Parameters to WHERE
@@ -110,6 +112,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		args.put("app_name", app_name);		
 		args.put("activity_name", activity_name);
 		args.put("image", "");
+		args.put("module", "");
 		
 		long id = db.insert("items", null, args);
 		Log.i(TAG, "Insert to: " + id + ", " + activity_name);
@@ -135,6 +138,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"package_name", 
 								"app_name",
 								"activity_name",
+								"module",
 								"image"},
 				null,						// WHERE
 				null, 						// Parameters to WHERE
@@ -154,7 +158,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	public String getJSON() {
 		Cursor items = getAll();
 		String json_code;
-		String packageName, appName, activityName;
+		String packageName, appName, activityName, moduleName;
 		
 		if (items.getCount() == 0) {
 			return null;
@@ -166,6 +170,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			packageName = items.getString(1);
 			appName = items.getString(2);
 			activityName = items.getString(3);
+			moduleName = items.getString(4);
 			
 			json_code += "{";
 			json_code += "bgcolor: \"#0000ff\",";
@@ -183,5 +188,53 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		json_code += "]";
 		
 		return json_code;
+	}
+
+	public String getPackageByModule(String moduleName) {
+		Cursor cursor = db.query(true,
+				"items",
+				new String[] {"_ID", 
+								"package_name", 
+								"app_name",
+								"activity_name",
+								"module",
+								"image"},
+								"module=\"" + moduleName + "\"",	// WHERE
+				null, 						// Parameters to WHERE
+				null, 						// GROUP BY
+				null, 						// HAVING
+				null, 						// ORDOR BY
+				null  						// Max num of return rows
+			);
+	 
+			// Must check
+			if (0 != cursor.getCount()) {
+				return cursor.getString(1); // package name
+			}
+			return null;
+	}
+
+	public String getActivityByModule(String moduleName) {
+		Cursor cursor = db.query(true,
+				"items",
+				new String[] {"_ID", 
+								"package_name", 
+								"app_name",
+								"activity_name",
+								"module",
+								"image"},
+								"module=\"" + moduleName + "\"",	// WHERE
+				null, 						// Parameters to WHERE
+				null, 						// GROUP BY
+				null, 						// HAVING
+				null, 						// ORDOR BY
+				null  						// Max num of return rows
+			);
+	 
+			// Must check
+			if (0 != cursor.getCount()) {
+				return cursor.getString(3); // activity name
+			}
+			return null;
 	}
 }

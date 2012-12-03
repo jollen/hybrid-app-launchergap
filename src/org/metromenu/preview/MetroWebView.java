@@ -1,10 +1,6 @@
 package org.metromenu.preview;
 
-import org.apache.cordova.CordovaWebView;
-
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.util.AttributeSet;
 import android.webkit.WebSettings;
 import android.webkit.WebView;

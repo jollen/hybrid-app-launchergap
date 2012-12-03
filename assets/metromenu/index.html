@@ -65,7 +65,7 @@
 			$("#metroui_itemMenu").addMetroSimpleText(json);
     }
     
-	// This is always the default Tiles.
+	// The special tiles. (built-in tiles)
     function createDefault() {
     	   	$("#metroui_menu").AddMetroImageTile('metro-black', 'tiles/Digital_Camera.png', 'Camera', "item-camera", false);
     	   	$("#metroui_menu").AddMetroImageTile('metro-default', 'images/Android-Browser-64.png', 'Browser', "item-camera", true);
@@ -79,15 +79,16 @@
     /* Image tile modules. Callback back from jQuery Metro */
     function cameraModule(id) {
     	//$("#"+id).fadeOut('fast');
-		MetroMenu.startActivity("com.android.camera", "com.android.camera.Camera");
+		//MetroMenu.startActivity("com.android.camera", "com.android.camera.Camera");
+		MetroMenu.startActivity("Camera");
     }
     
     function browserModule(id) {
-		MetroMenu.startActivity("com.android.browser", "com.android.browser.BrowserActivity");
+		//MetroMenu.startActivity("com.android.browser", "com.android.browser.BrowserActivity");
     }
 
     function phoneModule(id) {
-		MetroMenu.startActivity("com.android.contacts", "com.android.contacts.ContactsApplication");
+		//MetroMenu.startActivity("com.android.contacts", "com.android.contacts.ContactsApplication");
     }
     </script>
 </head>

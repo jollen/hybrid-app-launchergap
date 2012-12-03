@@ -48,6 +48,7 @@ $.fn.AddMetroImageTile = function (theme, image, module, id, single) {
 		
 	html_code += " id='" + id + "'";
 	 
+		/* Special tiles. */
 		if (module == 'Camera') {
 	    		html_code += " onclick='cameraModule(\"" + id + "\");'";
 		} else if (module =="Browser") {

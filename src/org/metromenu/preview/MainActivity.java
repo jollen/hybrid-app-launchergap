@@ -41,68 +41,18 @@ import android.widget.Toast;
 import org.apache.cordova.*;
 import org.metromenu.preview.database.MetroMenuDatabase;
   
-public class MainActivity extends Activity {
+public class MainActivity extends MetroActivity {
 	
-	private String TAG = "MetroMenu";
-	private MetroMenuDatabase mDatabase;
-	private MetroWebView mWebView;
-	private static String sJsonCode;
-	
-	protected LinearLayout root;
-	private MetroMenuHandler mHandler;
-	private BroadcastReceiver mMenuUpdateReceiver;
-	
-	public static final int MSG_START_ACTIVITY = 0;
+	private static final String LED_SERVICE  = "led";
+
+	private String TAG = "MetroMenu";		
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-                
-        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, 
-        		WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
         
-        Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();
-        int height = display.getHeight();
-        
-        // Use LinearLayout
-        root = new LinearLayout(this);
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setBackgroundColor(Color.BLACK);
-        root.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,
-        		ViewGroup.LayoutParams.FILL_PARENT, 0.0F));
-        
-        mHandler = new MetroMenuHandler(this);
-        mDatabase = new MetroMenuDatabase(this);
-        
-        // Broadcast receiver
-        IntentFilter filter = new IntentFilter("metromenu.intent.action.MENU_UPDATE");
-        mMenuUpdateReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context arg0, Intent arg1) {
-				updateMenu();
-			}
-        };
-        registerReceiver(mMenuUpdateReceiver, filter);
-        
-        // Load Url 
-		this.init();
-		this.loadUrl("file:///android_asset/metromenu/index.html");
+		loadUrl("file:///android_asset/metromenu/index.html");
 	}
-	
-	protected void loadUrl(String url) {
-		mWebView.loadUrl(url);
-	}
-
-	private void init() {
-        // Initializing WebView
-        mWebView = new MetroWebView(this);
-        
-        mWebView.setVisibility(View.INVISIBLE);
-        root.addView(mWebView);
-        setContentView(root);
-    }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -134,68 +84,4 @@ public class MainActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 	}	
- 
-	public void menuLoader() {
-        sJsonCode = mDatabase.getJSON(); 
-        
-        String url = "javascript: createMetroMenu(" + sJsonCode + ")";		
-        mWebView.loadUrl(url);	
-        Log.i(TAG , "url: " + url);
-	} 
-	
-	public void updateMenu() {
-        sJsonCode = mDatabase.getJSON(); 
-        
-        String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
-        mWebView.loadUrl(url);	
-        Log.i(TAG , "url: " + url);
-	}
-	
-	// Used by MetroJavaScriptInterface
-	private class MetroMenuHandler extends Handler {
-		
-		private Context ctx;
-
-		MetroMenuHandler(Context context) {
-			ctx = context;
-		}
-		
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case MSG_START_ACTIVITY:
-				Bundle data = msg.getData();
-				
-				String packageName = data.getString("packageName");
-				String activityName = data.getString("activityName");
-								
-				Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
-
-				if (packageName.matches("com.android.contacts")) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, CallLog.Calls.CONTENT_URI);
-					ctx.startActivity(intent);
-					break;
-				}
-
-				if (activityName != null) {
-					Intent intent = new Intent(Intent.ACTION_MAIN);
-					intent.addCategory(Intent.CATEGORY_LAUNCHER);
-					intent.setClassName(packageName, activityName);
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-					
-					ctx.startActivity(intent);
-				} else {
-					Toast.makeText(ctx, "by Package", Toast.LENGTH_SHORT).show();
-					
-					Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
-					ctx.startActivity(intent);
-				}
-			}
-			super.handleMessage(msg);
-		}
-	}
-	
-	public MetroMenuHandler getHandler() {
-		return mHandler;
-	}
 }

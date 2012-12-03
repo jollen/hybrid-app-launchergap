@@ -1,6 +1,5 @@
 package org.metromenu.preview;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;

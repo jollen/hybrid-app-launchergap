@@ -19,5 +19,4 @@ import android.app.Application;
 
 public class TaskInfoUtils extends Application {
 	public TaskInfo taskInfo;
-
 }

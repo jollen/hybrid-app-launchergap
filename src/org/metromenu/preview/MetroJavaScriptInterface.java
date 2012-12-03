@@ -37,6 +37,21 @@ public class MetroJavaScriptInterface {
 		handler.sendMessage(msg);
 	}
 	
+	public void startActivity(String moduleName) 
+	{
+		Log.i(TAG, "Start module: " + moduleName);
+		
+		Handler handler = mContext.getHandler();
+		Message msg = Message.obtain();
+		Bundle data = new Bundle();
+		
+		data.putString("moduleName", moduleName);
+		msg.setData(data);
+		
+		msg.what = MainActivity.MSG_START_MODULE;
+		handler.sendMessage(msg);
+	}
+	
 	public void lauchPackageManager() {
 		Intent i = new Intent();
 		
