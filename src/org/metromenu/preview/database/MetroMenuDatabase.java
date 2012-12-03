@@ -33,7 +33,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	private static final String TAG = "MetroMenuDatabase";
 
 	private static final String DATABASE_NAME = "metromenu_preview.db";
-	private static final int DATABASE_VERSION = 30; 
+	private static final int DATABASE_VERSION = 31; 
     private static final String TABLE_CREATE =
         "CREATE TABLE items ("
     	     + "_ID INTEGER PRIMARY KEY,"

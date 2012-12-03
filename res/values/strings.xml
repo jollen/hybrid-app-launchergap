@@ -10,4 +10,14 @@
     <string name="available_mems">Available Mems: </string>
     <string name="running_tasks">Running Tasks: </string>
     <string name="unknow_process">Unknown system process</string>
+    
+    <!--  Options menu -->
+    <string name="menu_add_special_tile">Add Special Tile</string>
+    <string name="menu_all_applications">All Applications</string>
+   
+    <!--  Radio Group Buttons -->
+    <string name="module_camera">Camera</string>
+    <string name="module_browser">Browser</string>
+    <string name="module_phone">Phone</string>
+    
 </resources>

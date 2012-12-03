@@ -43,7 +43,14 @@
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>            
-        </activity>                     
+        </activity>  
+        <activity android:name=".SpecialTileActivity" >
+            <intent-filter>
+                <action android:name="metromenu.intent.action.SPECIAL_TILE" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>            
+        </activity>                             
     </application>
 
 	<uses-permission android:name="android.permission.INTERNET" />

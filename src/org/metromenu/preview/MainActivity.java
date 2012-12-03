@@ -61,13 +61,29 @@ public class MainActivity extends MetroActivity {
     }    
     
     @Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		Intent i = new Intent();
+		int vid = item.getItemId();
 		
-		i.setAction("metromenu.intent.action.SETTINGS");
-    		startActivity(i);
+		Log.i(TAG, "onMenuItem");
+		
+		switch (vid) {
+			case R.id.menu_all_applications: {
+				i.setAction("metromenu.intent.action.SETTINGS");
+	    		startActivity(i);
+			} break;
+			
+			case R.id.menu_add_special_tile: {
+				i.setAction("metromenu.intent.action.SPECIAL_TILE");
+	    		startActivity(i);				
+			} break;
+			
+			default:
+				return false;
+		}
+
     		
-		return super.onMenuItemSelected(featureId, item);
+		return true;
 	}    
     
 	@Override

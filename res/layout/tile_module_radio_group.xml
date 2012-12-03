@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <RadioButton android:id="@+id/module_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/module_camera"
+        android:onClick="onRadioButtonClicked"/>
+    
+    <RadioButton android:id="@+id/module_browser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/module_browser"
+        android:onClick="onRadioButtonClicked"/>
+    
+    <RadioButton android:id="@+id/module_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/module_phone"
+        android:onClick="onRadioButtonClicked"/>
+        
+</RadioGroup>
