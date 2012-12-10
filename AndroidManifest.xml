@@ -44,7 +44,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>            
         </activity>  
-        <activity android:name=".SpecialTileActivity" >
+        <activity android:name=".SpecialTileActivity" 
+            android:theme="@style/SpecialTileActivity" >
             <intent-filter>
                 <action android:name="metromenu.intent.action.SPECIAL_TILE" />
 
