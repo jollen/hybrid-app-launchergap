@@ -22,14 +22,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="解除安裝" />
+            android:text="@string/popup_item_uninstall" />
     </LinearLayout>
 
     <View
         android:layout_width="1px"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="15dip"
-        android:background="#9966ff00" />
+        android:layout_marginLeft="10dip"
+        android:background="#00808080" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -47,38 +47,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="加入選單" />
+            android:text="@string/popup_item_add" />
     </LinearLayout>
 
     <View
         android:layout_width="1px"
         android:layout_height="fill_parent"
         android:layout_marginLeft="15dip"
-        android:background="#9966ff00" />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dip"
-        android:gravity="center_horizontal"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-                        android:id="@+id/iv_share"
-            android:src="@drawable/img3" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分享" />
-    </LinearLayout>
-
-    <View
-        android:layout_width="1px"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="15dip"
-        android:background="#9966ff00" />
+        android:background="#00808080" />
 
 </LinearLayout>

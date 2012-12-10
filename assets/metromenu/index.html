@@ -67,9 +67,9 @@
     
 	// The special tiles. (built-in tiles)
     function createDefault() {
-    	   	$("#metroui_menu").AddMetroImageTile('metro-black', 'tiles/Digital_Camera.png', 'Camera', "item-camera", false);
-    	   	$("#metroui_menu").AddMetroImageTile('metro-default', 'images/Android-Browser-64.png', 'Browser', "item-camera", true);
-			$("#metroui_menu").AddMetroImageTile('metro-android', 'images/Android.png', 'Phone', 'item-camera', true);
+    	   	$("#metroui_menu").AddMetroImageTile('metro-green', 'images/Android-Browser-64.png', 'Browser', "item-browser", true);
+			$("#metroui_menu").AddMetroImageTile('metro-green', 'images/Android.png', 'Phone', 'item-phone', true);
+    	   	$("#metroui_menu").AddMetroImageTile('metro-black', 'tiles/Digital_Camera.png', 'Camera', "item-camera", false);			
 	}
 
 	function startActivity(packageName, activityName) {
@@ -85,10 +85,12 @@
     
     function browserModule(id) {
 		//MetroMenu.startActivity("com.android.browser", "com.android.browser.BrowserActivity");
+		MetroMenu.startActivity("Browser");
     }
 
     function phoneModule(id) {
 		//MetroMenu.startActivity("com.android.contacts", "com.android.contacts.ContactsApplication");
+		MetroMenu.startActivity("Phone");
     }
     </script>
 </head>

@@ -62,21 +62,18 @@ public class MainActivity extends MetroActivity {
     
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		Intent i = new Intent();
 		int vid = item.getItemId();
 		
 		Log.i(TAG, "onMenuItem");
 		
 		switch (vid) {
 			case R.id.menu_all_applications: {
-				i.setAction("metromenu.intent.action.SETTINGS");
-	    		startActivity(i);
+				startApplicationManagerActivity();
 			} break;
 			
-			case R.id.menu_add_special_tile: {
-				i.setAction("metromenu.intent.action.SPECIAL_TILE");
-	    		startActivity(i);				
-			} break;
+			//case R.id.menu_add_special_tile: {	
+	    	//	startSpecialTileActivity();
+			//} break;
 			
 			default:
 				return false;
@@ -85,7 +82,7 @@ public class MainActivity extends MetroActivity {
     		
 		return true;
 	}    
-    
+
 	@Override
 	protected void onStop() {
 		super.onStop();
@@ -100,4 +97,20 @@ public class MainActivity extends MetroActivity {
 	protected void onResume() {
 		super.onResume();
 	}	
+	
+	/***** End of Life cycle control *****/
+	
+	private void startSpecialTileActivity() {
+		Intent i = new Intent();
+
+		i.setAction("metromenu.intent.action.SPECIAL_TILE");
+		startActivity(i);		
+	}
+
+	private void startApplicationManagerActivity() {
+		Intent i = new Intent();
+
+		i.setAction("metromenu.intent.action.SETTINGS");
+		startActivity(i);
+	}
 }

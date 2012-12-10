@@ -33,3 +33,32 @@
 	margin-top: 15px;
 	float: right;
 }
+
+/* Image */
+
+.metro .imgsingle {
+	height: 64px;
+	width: 64px;
+	padding: 8px 35px;
+	border: 0px;
+	position: absolute;
+	display: block;
+}
+
+/* text */
+
+.imagespan {
+	margin-top: 75px;	
+}
+
+.textspan {
+	margin-top: 65px;	
+}
+
+.metrotext {
+	text-transform: none;
+	font: 12px "Lucida Grande", Lucida, Verdana, sans-serif;
+	position: absolute;	
+	display: inline;
+	text-align: left;		
+}

@@ -21,9 +21,8 @@ $.fn.addMetroSimpleText = function (items) {
 			appName = items[i].app,				// Application Name
 			activityName = items[i].activity,	// Activity Name
 			image = items[i].image,
-			
 			func = "startActivity(\"" + packageName + "\",\"" + activityName + "\");";
-			
+						
 		 html_code += "<div";
 		
 	     html_code += " onclick='" + func + "'";
@@ -31,9 +30,9 @@ $.fn.addMetroSimpleText = function (items) {
 		 html_code += " class='metro metrosingle' style='background:" + bgcolor + ";'>";
 		 if (image != ''){
 			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
-			html_code += "<span class='metrotext'>" + appName + "</span>";
+			html_code += "<div class='imagespan'><span class='metrotext'>" + appName + "</span></div>";
 		 } else {
-			html_code += "<span class='metrotext'>" + appName + "</span>";
+			html_code += "<div class='textspan'><span class='metrotext'>" + appName + "</span></div>";
 		 }
 		 html_code += "</div>\n";
 	}
@@ -63,7 +62,7 @@ $.fn.AddMetroImageTile = function (theme, image, module, id, single) {
 		} else {
 			html_code += " class='metro metrosingle " + theme + "'>";
 			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
-			html_code += "<span class='metrotext'>" + module + "</span>";
+			html_code += "<div class='imagespan'><span class='metrotext'>" + module + "</span></div>";
 		}
 		html_code += "</div>\n";
 		

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:umadsdk="http://schemas.android.com/apk/res/com.xiaobawang.appinstall"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="#ffffffff"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <!-- RelativeLayout
         android:id="@+id/rl_app_list"
         android:layout_width="fill_parent"
         android:layout_height="52.0dip"
@@ -28,13 +27,12 @@
             android:textSize="20.0dip" 
             
             />
-    </RelativeLayout>
+    </RelativeLayout -->
 
     <ListView
         android:id="@+id/lv_appmanage"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/rl_app_list"
         android:cacheColorHint="#00000000"
         android:divider="#00ffffff"
         android:dividerHeight="3.0dip"

@@ -1,13 +1,13 @@
 .metrosingle {
-	width: 108px;
+	width: 112px;
 	height: 100px;
-	margin-left: 12px;
+	margin-left: 10px;
 }
 
 .metrodouble {
-	width: 228px;
+	width: 232px;
 	height: 130px;
-	margin-left: 12px;
+	margin-left: 10px;
 }
 
 /* Grid */
@@ -32,4 +32,35 @@
 	padding: 0;
 	margin-top: 15px;
 	float: right;
+}
+
+
+/* Image */
+
+.metro .imgsingle {
+	height: 64px;
+	width: 64px;
+	padding: 8px 25px;
+	border: 0px;
+	position: absolute;
+	display: block;
+}
+
+/* text */
+
+.imagespan {
+	margin-top: 75px;	
+	width: 100px;
+}
+
+.textspan {
+	margin-top: 65px;	
+	width: 100px;
+}
+
+.metrotext {
+	text-transform: none;
+	font: 12px "Lucida Grande", Lucida, Verdana, sans-serif;
+	display: inline;
+	text-align: center;		
 }

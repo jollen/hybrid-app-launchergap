@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,7 +40,7 @@ public class MetroActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, 
 				WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
@@ -68,9 +69,16 @@ public class MetroActivity extends Activity {
 		};
 		registerReceiver(mMenuUpdateReceiver, filter);
 
-		this.init();
+		// Initializing WebView
+		mWebView = new MetroWebView(this);
+
+		this.init(savedInstanceState);
 	}
 
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
 
 	protected void loadUrl(String url) {
 		mWebView.loadUrl(url);
@@ -97,11 +105,12 @@ public class MetroActivity extends Activity {
 				data = msg.getData();
 
 				moduleName = data.getString("moduleName");
+				Log.i(TAG, "Launching module: " + moduleName);
 
 				packageName = mDatabase.getPackageByModule(moduleName);
 				activityName = mDatabase.getActivityByModule(moduleName);
 
-				Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
+				Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "], " + "module: " + moduleName);
 
 				if (activityName != null) {
 					Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -119,7 +128,8 @@ public class MetroActivity extends Activity {
 					// None found...
 					// TODO: let user pick up app through PackageManager
 					Toast.makeText(ctx, "Please pick up " + moduleName, Toast.LENGTH_SHORT).show();
-
+					
+					startApplicationManagerWithModuleName(moduleName);
 				}
 				break;
 			case MSG_START_ACTIVITY:
@@ -155,15 +165,28 @@ public class MetroActivity extends Activity {
 		}
 	}
 
-	private void init() {
-		// Initializing WebView
-		mWebView = new MetroWebView(this);
-
+	private void init(Bundle savedInstanceState) {
 		mWebView.setVisibility(View.INVISIBLE);
 		root.addView(mWebView);
 		setContentView(root);
+		
+		mWebView.restoreState(savedInstanceState); // handling rotation
 	}
 
+	/**
+	 * Handling rotation.
+	 */
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		mWebView.saveState(outState);
+	}
+
+	@Override
+	public void onConfigurationChanged(Configuration newConfig) {
+		// use 'android:configChanges' in manifest to handle rotation
+		super.onConfigurationChanged(newConfig);
+	}	
+	
 	public MetroMenuHandler getHandler() {
 		return mHandler;
 	}
@@ -182,5 +205,16 @@ public class MetroActivity extends Activity {
 		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
 		Log.i(TAG , "url: " + url);
+	}
+	
+	private void startApplicationManagerWithModuleName(String module) {
+		Bundle bundle = new Bundle();
+		bundle.putString("module", module);
+		
+		Intent intent = new Intent();
+		intent.setAction("metromenu.intent.action.SETTINGS");
+		intent.putExtras(bundle);
+		
+		startActivity(intent);			
 	}
 }

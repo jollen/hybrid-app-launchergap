@@ -33,7 +33,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	private static final String TAG = "MetroMenuDatabase";
 
 	private static final String DATABASE_NAME = "metromenu_preview.db";
-	private static final int DATABASE_VERSION = 31; 
+	private static final int DATABASE_VERSION = 53; 
     private static final String TABLE_CREATE =
         "CREATE TABLE items ("
     	     + "_ID INTEGER PRIMARY KEY,"
@@ -79,6 +79,11 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		put(package_name, app_name, activity_name);
 	}
 	
+	public void saveItem(String package_name, 
+			String app_name, String activity_name, String module_name, String image) {
+		put(package_name, app_name, activity_name, module_name, image);
+	}
+	
 	private Cursor get(String package_name) throws SQLException {
 		Cursor cursor = db.query(true,
 			"items",
@@ -119,7 +124,22 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 
 		return id;
     }
+
+	private long put(String package_name, 
+			String app_name, String activity_name, String module_name, String image) {
+		ContentValues args = new ContentValues();
+		args.put("package_name", package_name);
+		args.put("app_name", app_name);		
+		args.put("activity_name", activity_name);
+		args.put("image", image);
+		args.put("module", module_name);
 		
+		long id = db.insert("items", null, args);
+		Log.i(TAG, "Insert to: " + id + ", " + activity_name + " (Module: " + module_name + ")");
+
+		return id;
+    }
+	
 	/**
 	 * checkItemExist
 	 * @param url
@@ -131,6 +151,10 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		return get(package_name) == null ? true : false;
 	}
 	
+	/**
+	 * Get all tiles except modules
+	 * @return
+	 */
 	private Cursor getAll() {
 		Cursor cursor = db.query(true,
 				"items",
@@ -140,7 +164,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"activity_name",
 								"module",
 								"image"},
-				null,						// WHERE
+								"module=\"" + "" + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
 				null, 						// HAVING
@@ -158,7 +182,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	public String getJSON() {
 		Cursor items = getAll();
 		String json_code;
-		String packageName, appName, activityName, moduleName;
+		String packageName, appName, activityName, moduleName, image;
 		
 		if (items.getCount() == 0) {
 			return null;
@@ -171,13 +195,15 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			appName = items.getString(2);
 			activityName = items.getString(3);
 			moduleName = items.getString(4);
+			image = items.getString(5);
 			
 			json_code += "{";
-			json_code += "bgcolor: \"#0000ff\",";
-			json_code += "package: \"" + packageName + "\","; 	// package_name
-			json_code += "app: \"" + appName + "\",";		// activity_name
-			json_code += "activity: \"" + activityName + "\",";
-			json_code += "image: \"\"";
+			json_code += "bgcolor: \"#97c02c\",";
+			json_code += "package: \"" + packageName + "\","; 		// package name
+			json_code += "app: \"" + appName + "\",";				// application name
+			json_code += "activity: \"" + activityName + "\",";		// activity name
+			json_code += "module: \"" + moduleName + "\",";			// module name
+			json_code += "image: \"" + image + "\"";				// image URL
 			
 			json_code += "}";
 			if (i < (items.getCount() - 1))
@@ -199,7 +225,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"activity_name",
 								"module",
 								"image"},
-								"module=\"" + moduleName + "\"",	// WHERE
+				"module=\"" + moduleName + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
 				null, 						// HAVING
@@ -209,6 +235,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	 
 			// Must check
 			if (0 != cursor.getCount()) {
+				cursor.moveToFirst(); 		// Move to first row
 				return cursor.getString(1); // package name
 			}
 			return null;
@@ -233,6 +260,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	 
 			// Must check
 			if (0 != cursor.getCount()) {
+				cursor.moveToFirst(); 		// Move to first row
 				return cursor.getString(3); // activity name
 			}
 			return null;

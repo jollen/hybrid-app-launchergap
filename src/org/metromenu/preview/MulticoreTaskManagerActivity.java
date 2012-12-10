@@ -197,7 +197,6 @@ public class MulticoreTaskManagerActivity extends Activity implements OnItemLong
 			return "";
 	}
 
-	@Override
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int position,
 			long id) {
 					

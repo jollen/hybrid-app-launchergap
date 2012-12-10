@@ -15,6 +15,7 @@
         android:process="android.process.acore" >
         <activity
             android:name=".MainActivity"
+            android:configChanges="keyboardHidden|orientation"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -36,7 +37,6 @@
             </intent-filter>
         </activity> 
         <activity
-            android:process=":ApplicationManger"
             android:name=".ApplicationManagerActivity" >
             <intent-filter>
                 <action android:name="metromenu.intent.action.SETTINGS" />
@@ -56,9 +56,5 @@
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-permission android:name="android.permission.BROADCAST_STICKY" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-
     
 </manifest>

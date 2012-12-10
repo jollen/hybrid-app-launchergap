@@ -69,6 +69,7 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 	private static final String TAG = "ApplicationManagerActivity";
 	
 	private MetroMenuDatabase mDatabase;	
+	private String mModuleName;
 	
 	Handler handler = new Handler() {
 
@@ -116,6 +117,49 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		lv.setOnScrollListener(new AppListScrollLinstener());
 		
 		mDatabase = new MetroMenuDatabase(this);		
+		
+		mModuleName = null;
+		
+		// Get Bundle from SpecialTileActivity
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			this.setModuleName(bundle.getString("module"));
+		}
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+		// Get Bundle from SpecialTileActivity
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			this.setModuleName(bundle.getString("module"));
+		}		
+	}
+
+	@Override
+	protected void onRestart() {
+		super.onRestart();
+		// Get Bundle from SpecialTileActivity
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			this.setModuleName(bundle.getString("module"));
+		}			
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		// Get Bundle from SpecialTileActivity
+		Bundle bundle = getIntent().getExtras();
+		if (bundle != null) {
+			this.setModuleName(bundle.getString("module"));
+		}	
+	}
+	
+	private void setModuleName(String string) {
+		mModuleName = string;
+		Log.i(TAG, "Set Module: " + mModuleName);
 	}
 
 	private void dismissPopupWindow() {
@@ -143,7 +187,21 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			dismissPopupWindow();
-
+			
+			// Check if we are in special tile mode.
+			if (mModuleName != null) {
+				if (flag) {
+					metroMenuAddApplication(userappinfos.get(position).getPackname(),
+							userappinfos.get(position).getAppname(),
+							userappinfos.get(position).getLuncheractivity());
+				} else {
+					metroMenuAddApplication(appinfos.get(position).getPackname(),
+							appinfos.get(position).getAppname(),
+							appinfos.get(position).getLuncheractivity());
+				}		
+				return;
+			} 
+			
 			View popupView = inflater.inflate(R.layout.popup_item, null);
 			LinearLayout ll = (LinearLayout) popupView
 					.findViewById(R.id.ll_popup_item);
@@ -153,14 +211,14 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 					.findViewById(R.id.iv_delete);
 			ImageView iv_start = (ImageView) popupView
 					.findViewById(R.id.iv_start);
-			ImageView iv_share = (ImageView) popupView
-					.findViewById(R.id.iv_share);
+			//ImageView iv_share = (ImageView) popupView
+			//		.findViewById(R.id.iv_share);
 			iv_delete.setOnClickListener(ApplicationManagerActivity.this);
 			iv_delete.setTag(position);
 			iv_start.setOnClickListener(ApplicationManagerActivity.this);
 			iv_start.setTag(position);
-			iv_share.setOnClickListener(ApplicationManagerActivity.this);
-			iv_share.setTag(position);
+			//iv_share.setOnClickListener(ApplicationManagerActivity.this);
+			//iv_share.setTag(position);
 			ll.setAnimation(animation);
 			ll.startAnimation(animation);
 
@@ -193,7 +251,12 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 	}
 
 	public void onClick(View v) {
+		appPopupWindow(v);
+	}
+	
+	private void appPopupWindow(View v) {
 		int position = (Integer) v.getTag();
+		
 		switch (v.getId()) {
 		case R.id.iv_delete:
 			Logger.i(TAG, "Deleted " + position + "name = "
@@ -204,20 +267,20 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 				deleteApp(appinfos.get(position).getPackname());
 			}
 			break;
-		case R.id.iv_share:
-			if(flag){
-				shareApp(userappinfos.get(position).getAppname());
-			}else{
-				shareApp(appinfos.get(position).getAppname());
-			}
-			break;
+		//case R.id.iv_share:
+		//	if(flag){
+		//		shareApp(userappinfos.get(position).getAppname());
+		//	}else{
+		//		shareApp(appinfos.get(position).getAppname());
+		//	}
+		//	break;
 		case R.id.iv_start:
 			if (flag) {
-				startApp(userappinfos.get(position).getPackname(),
+				metroMenuAddApplication(userappinfos.get(position).getPackname(),
 						userappinfos.get(position).getAppname(),
 						userappinfos.get(position).getLuncheractivity());
 			} else {
-				startApp(appinfos.get(position).getPackname(),
+				metroMenuAddApplication(appinfos.get(position).getPackname(),
 						appinfos.get(position).getAppname(),
 						appinfos.get(position).getLuncheractivity());
 			}
@@ -238,18 +301,38 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		dismissPopupWindow();
 	}
 
-	private void startApp(String packname, String appname, String activityname) {
+	private void metroMenuAddApplication(String packname, String appname, String activityname) {
 		if (mDatabase.checkItemNoExist(packname)) {
-			mDatabase.saveItem(packname, appname, activityname);
-			Log.i(TAG, "Saved: this item is now at Metro Menu.");
-			Toast.makeText(this, "Added to Menu", Toast.LENGTH_SHORT).show();
 			
-			// Update Metro Menu
+			// Add a special tile ?
+			if (mModuleName == null) {
+				mDatabase.saveItem(packname, appname, activityname);
+				Toast.makeText(this, "Added to Menu", Toast.LENGTH_SHORT).show();
+			} else {
+				String image = "";
+				
+				// Special tile has a built-in image
+				if (mModuleName.equals("Camera")) {
+					image = "tiles/Digital_Camera.png";
+				} else if (mModuleName.equals("Browser")) {
+					image = "images/Android-Browser-64.png";
+				} else if (mModuleName.equals("Phone")) {
+					image = "images/Android.png";
+				}
+				mDatabase.saveItem(packname, appname, activityname, mModuleName, image);
+				Toast.makeText(this, mModuleName + " is set", Toast.LENGTH_SHORT).show();				
+			}
+			
+			Log.i(TAG, "Saved: this item is now at Metro Menu.");
+
+			// Update MainActivity
 	        sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
 		} else {
 			// Nothing to do
 			Log.i(TAG, "Not saved: this item exists.");
 		}
+		
+		finish();
 	}
 
 	private void deleteApp(String packname) {

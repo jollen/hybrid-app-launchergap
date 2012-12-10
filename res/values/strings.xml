@@ -13,11 +13,14 @@
     
     <!--  Options menu -->
     <string name="menu_add_special_tile">Add Special Tile</string>
-    <string name="menu_all_applications">All Applications</string>
+    <string name="menu_all_applications">Add a App</string>
    
     <!--  Radio Group Buttons -->
     <string name="module_camera">Camera</string>
     <string name="module_browser">Browser</string>
     <string name="module_phone">Phone</string>
     
+    <!--  Popup Items -->
+    <string name="popup_item_uninstall">Uninstall</string>
+    <string name="popup_item_add">Add</string>
 </resources>
