@@ -23,4 +23,6 @@
     <!--  Popup Items -->
     <string name="popup_item_uninstall">Uninstall</string>
     <string name="popup_item_add">Add</string>
+    
+    <string name="new_tile_added">New tile added.</string>
 </resources>

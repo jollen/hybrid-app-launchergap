@@ -317,7 +317,7 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 			// Add a special tile ?
 			if (mModuleName == null) {
 				mDatabase.saveItem(packname, appname, activityname);
-				Toast.makeText(this, "Added to Menu", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.new_tile_added, Toast.LENGTH_SHORT).show();
 			} else {
 				String image = "";
 				
