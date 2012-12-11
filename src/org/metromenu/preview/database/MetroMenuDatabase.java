@@ -81,9 +81,9 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	
 	public void saveItem(String package_name, 
 			String app_name, String activity_name, String module_name, String image) {
-		put(package_name, app_name, activity_name, module_name, image);
+		put(package_name, app_name, activity_name, module_name, image);		
 	}
-	
+
 	private Cursor get(String package_name) throws SQLException {
 		Cursor cursor = db.query(true,
 			"items",
@@ -265,4 +265,5 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			}
 			return null;
 	}
+
 }

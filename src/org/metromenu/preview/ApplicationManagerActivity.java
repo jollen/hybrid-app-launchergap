@@ -95,6 +95,8 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		}
 
 	};
+	
+	private Thread mGetAppThread;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) { 
@@ -110,10 +112,8 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		progressDialog.setTitle("Searching");
 		progressDialog.show();
 		
-		new Thread(new GetAppsTask()).start();
-
+		mGetAppThread = new Thread(new GetAppsTask());
 		lv.setOnItemClickListener(new OnAppItemClickListener());
-
 		lv.setOnScrollListener(new AppListScrollLinstener());
 		
 		mDatabase = new MetroMenuDatabase(this);		
@@ -125,6 +125,8 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		if (bundle != null) {
 			this.setModuleName(bundle.getString("module"));
 		}
+		
+		mGetAppThread.start();
 	}
 
 	@Override
@@ -192,11 +194,11 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 			if (mModuleName != null) {
 				if (flag) {
 					metroMenuAddApplication(userappinfos.get(position).getPackname(),
-							userappinfos.get(position).getAppname(),
+							userappinfos.get(position).getAppName(),
 							userappinfos.get(position).getLuncheractivity());
 				} else {
 					metroMenuAddApplication(appinfos.get(position).getPackname(),
-							appinfos.get(position).getAppname(),
+							appinfos.get(position).getAppName(),
 							appinfos.get(position).getLuncheractivity());
 				}		
 				return;
@@ -222,16 +224,24 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 			ll.setAnimation(animation);
 			ll.startAnimation(animation);
 
+			// Compute location of PopupWindow
 			popupWindow = new PopupWindow(popupView,
 					LinearLayout.LayoutParams.WRAP_CONTENT,
-					view.getLayoutParams().height - 20);			
+					view.getLayoutParams().height);			
 			Drawable background = getResources().getDrawable(
 					R.drawable.local_popup_bg);
 			popupWindow.setBackgroundDrawable(background);
 			int[] location = new int[2];
 			view.getLocationInWindow(location);
+			
+			ImageView app_icon = (ImageView) view.findViewById(R.id.app_icon);
+			int marginLeft = app_icon.getWidth() + 5;
+			int marginTop = app_icon.getHeight();
 
-			popupWindow.showAtLocation(view, 51, location[0] + 60, location[1]);
+			//Log.i(TAG, "getLocationInWindow: " + location[0] + ", " + location[1] + ". marginLeft = " + marginLeft + ". marginTop = " + marginTop);
+			popupWindow.showAtLocation(view, 51, 
+								location[0] + marginLeft, 
+								location[1] - 20);
 		}
 
 	}
@@ -260,7 +270,7 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		switch (v.getId()) {
 		case R.id.iv_delete:
 			Logger.i(TAG, "Deleted " + position + "name = "
-					+ appinfos.get(position).getAppname());
+					+ appinfos.get(position).getAppName());
 			if(flag){
 				deleteApp(userappinfos.get(position).getPackname());
 			}else{
@@ -277,11 +287,11 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		case R.id.iv_start:
 			if (flag) {
 				metroMenuAddApplication(userappinfos.get(position).getPackname(),
-						userappinfos.get(position).getAppname(),
+						userappinfos.get(position).getAppName(),
 						userappinfos.get(position).getLuncheractivity());
 			} else {
 				metroMenuAddApplication(appinfos.get(position).getPackname(),
-						appinfos.get(position).getAppname(),
+						appinfos.get(position).getAppName(),
 						appinfos.get(position).getLuncheractivity());
 			}
 			break;

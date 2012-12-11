@@ -68,12 +68,12 @@ public class AppDetailAdapter extends BaseAdapter {
 		View view;
 		
 		if (convertView == null){
-			view = inflater.inflate(R.layout.applationinstall_item, null);
+			view = inflater.inflate(R.layout.manage_applications_item, null);
 		} else {
 			view = convertView;
 		}
 		
-		ImageView iv = (ImageView) view.findViewById(R.id.appicon);
+		ImageView iv = (ImageView) view.findViewById(R.id.app_icon);
 		Drawable icon = appInfos.get(position).getIcon();
 		
 		if (icon != null) {
@@ -82,8 +82,8 @@ public class AppDetailAdapter extends BaseAdapter {
 			iv.setImageResource(R.drawable.ic_launcher);
 		}
 		
-		TextView tv = (TextView) view.findViewById(R.id.appname);
-		String text = appInfos.get(position).getAppname();
+		TextView tv = (TextView) view.findViewById(R.id.app_name);
+		String text = appInfos.get(position).getAppName();
 		
 		if (text != null){
 			tv.setText(text);

@@ -53,7 +53,7 @@ public class MetroApplicationInfo {
 	public void setIcon(Drawable icon) {
 		this.mIcon = icon;
 	}
-	public String getAppname() {
+	public String getAppName() {
 		return mApplicationName;
 	}
 	public void setApplicationName(String appname) {

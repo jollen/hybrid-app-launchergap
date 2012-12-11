@@ -2,32 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffffff"
+    android:background="#000000"
     android:orientation="vertical" >
-
-    <!-- RelativeLayout
-        android:id="@+id/rl_app_list"
-        android:layout_width="fill_parent"
-        android:layout_height="52.0dip"
-        android:background="@drawable/list_header_bar2"
-        android:gravity="center" >
-
-        <TextView
-            android:id="@+id/tv_app_list_title"
-            android:layout_width="fill_parent"
-            android:layout_height="45.0dip"
-            android:layout_alignTop="@id/rl_app_list"
-            android:layout_centerHorizontal="true"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="所有程序"
-            android:clickable="true"
-            android:onClick="change"
-            android:textAppearance="?android:textAppearanceMedium"
-            android:textSize="20.0dip" 
-            
-            />
-    </RelativeLayout -->
 
     <ListView
         android:id="@+id/lv_appmanage"
