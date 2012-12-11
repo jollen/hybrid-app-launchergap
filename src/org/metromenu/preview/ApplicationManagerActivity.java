@@ -238,7 +238,7 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 			int marginLeft = app_icon.getWidth() + 5;
 			int marginTop = app_icon.getHeight();
 
-			//Log.i(TAG, "getLocationInWindow: " + location[0] + ", " + location[1] + ". marginLeft = " + marginLeft + ". marginTop = " + marginTop);
+			Log.i(TAG, "getLocationInWindow: " + location[0] + ", " + location[1] + ". marginLeft = " + marginLeft + ". marginTop = " + marginTop);
 			popupWindow.showAtLocation(view, 51, 
 								location[0] + marginLeft, 
 								location[1] - 20);
@@ -367,6 +367,7 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 	@Override
 	protected void onStop() {
 		mDatabase.close();
+		dismissPopupWindow();
 		super.onStop();
 	}
 }

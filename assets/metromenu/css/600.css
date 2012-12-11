@@ -1,12 +1,12 @@
 .metrosingle {
-	width: 108px;
-	height: 100px;
+	width: 198px;
+	height: 128px;
 	margin-left: 12px;
 }
 
 .metrodouble {
-	width: 228px;
-	height: 130px;
+	width: 408px;
+	height: 138px;
 	margin-left: 12px;
 }
 
@@ -19,11 +19,11 @@
 	color: #000;
 	border: 0px;
 	z-index: -300;
-	width: 320px;
+	width: 550px;
 }
 
 .grid_1 {
-	width: 260px;
+	width: 500px;
 	float: left;
 }
 
@@ -39,7 +39,7 @@
 .metro .imgsingle {
 	height: 64px;
 	width: 64px;
-	padding: 8px 35px;
+	padding: 18px 65px;
 	border: 0px;
 	position: absolute;
 	display: block;
@@ -48,7 +48,7 @@
 /* text */
 
 .imagespan {
-	margin-top: 75px;	
+	margin-top: 90px;	
 }
 
 .textspan {

@@ -1,8 +1,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_add_special_tile"
-        android:title="@string/menu_add_special_tile"
-        android:orderInCategory="100" />
     <item android:id="@+id/menu_all_applications"
         android:title="@string/menu_all_applications"
         android:orderInCategory="100" />    
+    <item android:id="@+id/menu_about"
+        android:title="@string/menu_about"
+        android:orderInCategory="100" />           
 </menu>

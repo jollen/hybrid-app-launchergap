@@ -71,6 +71,10 @@ public class MainActivity extends MetroActivity {
 				startApplicationManagerActivity();
 			} break;
 			
+			case R.id.menu_about: {
+				
+			} break;
+			
 			//case R.id.menu_add_special_tile: {	
 	    	//	startSpecialTileActivity();
 			//} break;

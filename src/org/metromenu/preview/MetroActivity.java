@@ -3,8 +3,10 @@ package org.metromenu.preview;
 import org.metromenu.preview.database.MetroMenuDatabase;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -127,9 +129,9 @@ public class MetroActivity extends Activity {
 				} else {
 					// None found...
 					// TODO: let user pick up app through PackageManager
-					Toast.makeText(ctx, "Please pick up " + moduleName, Toast.LENGTH_SHORT).show();
-					
-					startApplicationManagerWithModuleName(moduleName);
+					//Toast.makeText(ctx, "Please pick up " + moduleName, Toast.LENGTH_SHORT).show();
+					showHitSetModule(moduleName);
+					//startApplicationManagerWithModuleName(moduleName);
 				}
 				break;
 			case MSG_START_ACTIVITY:
@@ -171,6 +173,25 @@ public class MetroActivity extends Activity {
 		setContentView(root);
 		
 		mWebView.restoreState(savedInstanceState); // handling rotation
+	}
+
+	public void showHitSetModule(String module) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		final String moduleName = module;
+		
+		String message = this.getString(R.string.set_tile_module_dialog_message) + moduleName;
+		String title = this.getString(R.string.set_tile_module_dialog_title);
+		
+		builder.setMessage(message).setTitle(title);
+		builder.setPositiveButton(R.string.set_title_module_dialog_ok, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				startApplicationManagerWithModuleName(moduleName);				
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
 	}
 
 	/**
