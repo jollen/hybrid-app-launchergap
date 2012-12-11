@@ -33,9 +33,10 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	private static final String TAG = "MetroMenuDatabase";
 
 	private static final String DATABASE_NAME = "metromenu_preview.db";
-	private static final int DATABASE_VERSION = 53; 
+	private static final String TABLE_NAME = "items";
+	private static final int DATABASE_VERSION = 54; 
     private static final String TABLE_CREATE =
-        "CREATE TABLE items ("
+        "CREATE TABLE " + TABLE_NAME + "("
     	     + "_ID INTEGER PRIMARY KEY,"
     	     + "package_name TEXT,"
     	     + "app_name TEXT,"
@@ -51,7 +52,12 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	// Not Singleton at this project
 	public MetroMenuDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		open();
+	}
+	
+	public synchronized void open() {
 		db = this.getWritableDatabase();
+		Log.i(TAG, "on open");
 	}
 	
 	@Override
@@ -264,6 +270,15 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 				return cursor.getString(3); // activity name
 			}
 			return null;
+	}
+
+	public void reset() {
+		this.removeAll();
+	}
+
+	private void removeAll() {
+		int rows = db.delete(TABLE_NAME, null, null);
+		Log.i(TAG, "Delete " + rows + " rows.");
 	}
 
 }

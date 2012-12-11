@@ -20,9 +20,11 @@ import android.os.Handler;
 import android.os.Message;
 import android.provider.CallLog;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
@@ -72,6 +74,10 @@ public class MainActivity extends MetroActivity {
 			} break;
 			
 			case R.id.menu_about: {
+				showHitResetDatabase();
+			} break;
+
+			case R.id.menu_reset: {
 				
 			} break;
 			
@@ -103,6 +109,32 @@ public class MainActivity extends MetroActivity {
 	}	
 	
 	/***** End of Life cycle control *****/
+
+	public void showHitResetDatabase() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		String message = this.getString(R.string.reset_database_dialog_message);
+		String title = this.getString(R.string.reset_database_dialog_title);
+		
+		builder.setMessage(message).setTitle(title);
+		builder.setPositiveButton(R.string.set_title_module_dialog_ok, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				getDatabase().reset();
+		        sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
+			}
+		});
+		
+		builder.setNegativeButton(R.string.set_title_module_dialog_cancel, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
 	
 	private void startSpecialTileActivity() {
 		Intent i = new Intent();

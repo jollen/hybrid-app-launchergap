@@ -15,6 +15,7 @@
     <string name="menu_add_special_tile">Add Special Tile</string>
     <string name="menu_all_applications">Add a tile</string>
     <string name="menu_about">About</string>
+    <string name="menu_reset">Reset</string>
     
     <!--  Radio Group Buttons -->
     <string name="module_camera">Camera</string>
@@ -29,4 +30,9 @@
     <string name="set_tile_module_dialog_message">This special tile was not yet setup. You are bringing to application manager. Please pick up one app for this tile there. Once done, this message will no longer appear again. Please setup this tile: </string>
 	<string name="set_tile_module_dialog_title">NOTICE</string>
 	<string name="set_title_module_dialog_ok">OK</string>	
+	<string name="set_title_module_dialog_cancel">Cancel</string>	
+	
+	<string name="reset_database_dialog_message">Reset Application? All of your tiles will be removed.</string>
+	<string name="reset_database_dialog_title">WARNING</string>
+		
 </resources>

@@ -27,6 +27,14 @@ import android.widget.Toast;
 
 public class MetroActivity extends Activity {
 
+	@Override
+	protected void onResume() {
+		registerReceiver(mMenuUpdateReceiver, mFilter);
+		mDatabase.open();
+		updateMenu();
+		super.onResume();
+	}
+
 	private String TAG = "MetroActivity";		
 
 	protected LinearLayout root;
@@ -34,6 +42,8 @@ public class MetroActivity extends Activity {
 	private MetroMenuDatabase mDatabase;
 	private MetroWebView mWebView;
 	private BroadcastReceiver mMenuUpdateReceiver;
+
+	private IntentFilter mFilter;
 	private static String sJsonCode;	
 
 	public static final int MSG_START_ACTIVITY = 0;
@@ -62,14 +72,14 @@ public class MetroActivity extends Activity {
 		mDatabase = new MetroMenuDatabase(this);
 
 		// Broadcast receiver
-		IntentFilter filter = new IntentFilter("metromenu.intent.action.MENU_UPDATE");
+		mFilter = new IntentFilter("metromenu.intent.action.MENU_UPDATE");
 		mMenuUpdateReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
 				updateMenu();
 			}
 		};
-		registerReceiver(mMenuUpdateReceiver, filter);
+		registerReceiver(mMenuUpdateReceiver, mFilter);
 
 		// Initializing WebView
 		mWebView = new MetroWebView(this);
@@ -80,6 +90,7 @@ public class MetroActivity extends Activity {
 	@Override
 	protected void onStop() {
 		unregisterReceiver(mMenuUpdateReceiver);
+		mDatabase.close();
 		super.onStop();
 	}
 
@@ -238,5 +249,9 @@ public class MetroActivity extends Activity {
 		intent.putExtras(bundle);
 		
 		startActivity(intent);			
+	}
+	
+	public MetroMenuDatabase getDatabase() {
+		return mDatabase;
 	}
 }

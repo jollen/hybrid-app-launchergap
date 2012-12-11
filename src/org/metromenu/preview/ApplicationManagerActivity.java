@@ -130,26 +130,6 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 	}
 
 	@Override
-	protected void onStart() {
-		super.onStart();
-		// Get Bundle from SpecialTileActivity
-		Bundle bundle = getIntent().getExtras();
-		if (bundle != null) {
-			this.setModuleName(bundle.getString("module"));
-		}		
-	}
-
-	@Override
-	protected void onRestart() {
-		super.onRestart();
-		// Get Bundle from SpecialTileActivity
-		Bundle bundle = getIntent().getExtras();
-		if (bundle != null) {
-			this.setModuleName(bundle.getString("module"));
-		}			
-	}
-
-	@Override
 	protected void onResume() {
 		super.onResume();
 		// Get Bundle from SpecialTileActivity
@@ -157,6 +137,7 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 		if (bundle != null) {
 			this.setModuleName(bundle.getString("module"));
 		}	
+		mDatabase.open();
 	}
 	
 	private void setModuleName(String string) {
