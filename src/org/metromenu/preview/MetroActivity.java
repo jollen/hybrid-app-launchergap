@@ -79,6 +79,7 @@ public class MetroActivity extends Activity {
 
 	@Override
 	protected void onStop() {
+		unregisterReceiver(mMenuUpdateReceiver);
 		super.onStop();
 	}
 
