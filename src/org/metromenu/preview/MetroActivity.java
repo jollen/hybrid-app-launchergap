@@ -172,7 +172,7 @@ public class MetroActivity extends Activity {
 		mWebView.setVisibility(View.INVISIBLE);
 		root.addView(mWebView);
 		setContentView(root);
-		
+				
 		mWebView.restoreState(savedInstanceState); // handling rotation
 	}
 
