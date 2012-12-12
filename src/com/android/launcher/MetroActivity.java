@@ -213,7 +213,7 @@ public class MetroActivity extends Activity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		final String moduleName = module;
 		
-		String message = this.getString(R.string.set_tile_module_dialog_message) + moduleName;
+		String message = this.getString(R.string.set_tile_module_dialog_message) + " " + moduleName;
 		String title = this.getString(R.string.set_tile_module_dialog_title);
 		
 		builder.setMessage(message).setTitle(title);

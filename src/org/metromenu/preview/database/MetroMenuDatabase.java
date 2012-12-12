@@ -69,7 +69,9 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
+		synchronized (db) {
+			db.execSQL(TABLE_CREATE);
+		}
 	}
 
 	@Override
@@ -90,7 +92,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		put(package_name, app_name, activity_name, module_name, image);		
 	}
 
-	private Cursor get(String package_name) throws SQLException {
+	private synchronized Cursor get(String package_name) throws SQLException {
 		Cursor cursor = db.query(true,
 			"items",
 			new String[] {"_ID", 
@@ -116,7 +118,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		return cursor;
 	}
 	
-	private long put(String package_name, 
+	private synchronized long put(String package_name, 
 			String app_name, String activity_name) {
 		ContentValues args = new ContentValues();
 		args.put("package_name", package_name);
@@ -131,7 +133,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		return id;
     }
 
-	private long put(String package_name, 
+	private synchronized long put(String package_name, 
 			String app_name, String activity_name, String module_name, String image) {
 		ContentValues args = new ContentValues();
 		args.put("package_name", package_name);
@@ -161,7 +163,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	 * Get all tiles except modules
 	 * @return
 	 */
-	private Cursor getAll() {
+	private synchronized Cursor getAll() {
 		Cursor cursor = db.query(true,
 				"items",
 				new String[] {"_ID", 
@@ -222,7 +224,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		return json_code;
 	}
 
-	public String getPackageByModule(String moduleName) {
+	public synchronized String getPackageByModule(String moduleName) {
 		Cursor cursor = db.query(true,
 				"items",
 				new String[] {"_ID", 
@@ -247,7 +249,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			return null;
 	}
 
-	public String getActivityByModule(String moduleName) {
+	public synchronized String getActivityByModule(String moduleName) {
 		Cursor cursor = db.query(true,
 				"items",
 				new String[] {"_ID", 

@@ -27,7 +27,7 @@
     <string name="popup_item_add">Add</string>
     
     <string name="new_tile_added">New tile added.</string>
-    <string name="set_tile_module_dialog_message">This special tile was not yet setup. You are bringing to application manager. Please pick up one app for this tile there. Once done, this message will no longer appear again. Please setup this tile: </string>
+    <string name="set_tile_module_dialog_message">This built-in tile was not setup. You will be bringed to package manager. Please pick up one package for this tile there. Once done, this message will no longer appear again. Please setup this tile:</string>
 	<string name="set_tile_module_dialog_title">NOTICE</string>
 	<string name="set_title_module_dialog_ok">OK</string>	
 	<string name="set_title_module_dialog_cancel">Cancel</string>	
