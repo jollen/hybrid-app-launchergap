@@ -58,3 +58,5 @@ bin/classes.dex
 bin/classes/org/metromenu/preview/AppDetailDialog.class
 
 bin/classes/org/metromenu/preview/R$drawable.class
+
+.settings/org.eclipse.core.resources.prefs
