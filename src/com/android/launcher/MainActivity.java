@@ -72,11 +72,10 @@ public class MainActivity extends MetroActivity {
 			} break;
 			
 			case R.id.menu_about: {
-				showHitResetDatabase();
 			} break;
 
 			case R.id.menu_reset: {
-				
+				showHitResetDatabase();
 			} break;
 			
 			//case R.id.menu_add_special_tile: {	
