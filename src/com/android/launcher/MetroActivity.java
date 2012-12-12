@@ -135,7 +135,8 @@ public class MetroActivity extends Activity {
 
 				Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "], " + "module: " + moduleName);
 
-				if (packageName.matches("com.android.contacts")) {
+				if (packageName != null &&
+						packageName.matches("com.android.contacts")) {
 					Intent intent = new Intent(Intent.ACTION_VIEW, CallLog.Calls.CONTENT_URI);
 					ctx.startActivity(intent);
 					break;
@@ -164,7 +165,7 @@ public class MetroActivity extends Activity {
 						ComponentName componentName = intent.getComponent();
 						String className = componentName.getClassName();
 						
-						// Fix issue: Issue #6.
+						// Fix issue: Issue #6. 
 						// Check if activityName (the class name) equals the class name in that package.
 						//if (className.equals(activityName) == false) {
 						//	Log.i(TAG, "setClassName:" + activityName);
