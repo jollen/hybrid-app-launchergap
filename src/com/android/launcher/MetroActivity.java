@@ -177,11 +177,11 @@ public class MetroActivity extends Activity {
 
 				Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
 
-				if (packageName.matches("com.android.contacts")) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, CallLog.Calls.CONTENT_URI);
-					ctx.startActivity(intent);
-					break;
-				}
+				//if (packageName.matches("com.android.contacts")) {
+				//	Intent intent = new Intent(Intent.ACTION_VIEW, CallLog.Calls.CONTENT_URI);
+				//	ctx.startActivity(intent);
+				//	break;
+				//}
 				
 				if (activityName != null) {
 					Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
