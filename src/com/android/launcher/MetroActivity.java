@@ -135,14 +135,26 @@ public class MetroActivity extends Activity {
 				Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "], " + "module: " + moduleName);
 
 				if (activityName != null) {
-					Intent intent = new Intent(Intent.ACTION_MAIN);
-					intent.addCategory(Intent.CATEGORY_LAUNCHER);
-					intent.setClassName(packageName, activityName);
-					intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+					Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
 					
-					Log.i(TAG, "by activityName");
-
-					ctx.startActivity(intent);
+					// LaunchIntent is null. It's because that we don't have that permissions.
+					// New intent by ourselves instead.
+					// Fix issues: Issue #4
+					if (intent == null) {
+						Intent intent2 = new Intent(Intent.ACTION_MAIN);
+						intent2.addCategory(Intent.CATEGORY_LAUNCHER);
+						intent2.setClassName(packageName, activityName);
+						intent2.setPackage(packageName);
+						intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);	
+						
+						Log.i(TAG, "by ClassName");
+						
+						ctx.startActivity(intent2);
+					} else {
+						Log.i(TAG, "by LaunchIntent: " + intent.getAction());
+	
+						ctx.startActivity(intent);
+					}
 				} else if (packageName != null) {
 					//Toast.makeText(ctx, "by Package", Toast.LENGTH_SHORT).show();
 					Log.i(TAG, "by packageName");
