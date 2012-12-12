@@ -263,7 +263,7 @@ public class MetroActivity extends Activity {
 
 		String url = "javascript: createMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
-		Log.i(TAG , "url: " + url);
+		//Log.i(TAG , "url: " + url);
 	} 
 
 	public void updateMenu() {
@@ -271,7 +271,7 @@ public class MetroActivity extends Activity {
 
 		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
-		Log.i(TAG , "url: " + url);
+		//Log.i(TAG , "url: " + url);
 	}
 	
 	private void startApplicationManagerWithModuleName(String module) {

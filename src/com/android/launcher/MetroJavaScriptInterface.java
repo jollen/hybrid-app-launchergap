@@ -23,7 +23,7 @@ public class MetroJavaScriptInterface {
 	 * @param activityName
 	 */
 	public void startActivity(String packageName, String activityName) {
-		Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
+		//Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
 
 		Handler handler = mContext.getHandler();
 		Message msg = Message.obtain();
