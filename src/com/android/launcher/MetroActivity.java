@@ -7,6 +7,7 @@ import org.metromenu.preview.database.MetroMenuDatabase;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -152,7 +153,18 @@ public class MetroActivity extends Activity {
 						ctx.startActivity(intent2);
 					} else {
 						Log.i(TAG, "by LaunchIntent: " + intent.getAction());
-	
+
+						// Fix issue: Issue #6
+						ComponentName componentName = intent.getComponent();
+						String className = componentName.getClassName();
+						
+						// Fix issue: Issue #6.
+						// Check if activityName (the class name) equals the class name in that package.
+						//if (className.equals(activityName) == false) {
+						//	Log.i(TAG, "setClassName:" + activityName);
+						//	intent.setClassName(packageName, activityName);
+						//}
+						
 						ctx.startActivity(intent);
 					}
 				} else if (packageName != null) {
