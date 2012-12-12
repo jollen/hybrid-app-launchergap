@@ -37,9 +37,9 @@ public final class R {
         public static final int ll_popup_item=0x7f090009;
         public static final int lv_appmanage=0x7f090001;
         public static final int lv_task_manger=0x7f090004;
-        public static final int menu_about=0x7f090019;
+        public static final int menu_about=0x7f09001a;
         public static final int menu_all_applications=0x7f090018;
-        public static final int menu_reset=0x7f09001a;
+        public static final int menu_reset=0x7f090019;
         public static final int metrowebview=0x7f090000;
         public static final int module_browser=0x7f090016;
         public static final int module_camera=0x7f090015;
@@ -70,6 +70,7 @@ public final class R {
         public static final int activity_main=0x7f080000;
     }
     public static final class string {
+        public static final int about_dialog_message=0x7f060017;
         public static final int app_name=0x7f060000;
         public static final int available_mems=0x7f060006;
         public static final int hello_world=0x7f060001;
@@ -92,8 +93,8 @@ public final class R {
         /**   Popup Items 
          */
         public static final int popup_item_uninstall=0x7f060010;
-        public static final int reset_database_dialog_message=0x7f060017;
-        public static final int reset_database_dialog_title=0x7f060018;
+        public static final int reset_database_dialog_message=0x7f060018;
+        public static final int reset_database_dialog_title=0x7f060019;
         public static final int running_tasks=0x7f060007;
         public static final int set_tile_module_dialog_message=0x7f060013;
         public static final int set_tile_module_dialog_title=0x7f060014;

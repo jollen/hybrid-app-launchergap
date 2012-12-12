@@ -72,6 +72,7 @@ public class MainActivity extends MetroActivity {
 			} break;
 			
 			case R.id.menu_about: {
+				showAbout();
 			} break;
 
 			case R.id.menu_reset: {
@@ -146,4 +147,20 @@ public class MainActivity extends MetroActivity {
 		i.setAction("metromenu.intent.action.SETTINGS");
 		startActivity(i);
 	}
+	
+	public void showAbout() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		String message = this.getString(R.string.about_dialog_message);
+		
+		builder.setMessage(message);
+		builder.setPositiveButton(R.string.set_title_module_dialog_ok, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}	
 }

@@ -66,9 +66,11 @@
     
 	// The special tiles. (built-in tiles)
     function createDefault() {
-    	   	$("#metroui_menu").AddMetroImageTile('metro-green', 'images/Android-Browser-64.png', 'Browser', "item-browser", true);
+    	   	$("#metroui_menu").AddMetroImageTile('metro-green', 'tiles/IE_64.png', 'Browser', "item-browser", true);
 			$("#metroui_menu").AddMetroImageTile('metro-green', 'images/Android.png', 'Phone', 'item-phone', true);
-    	   	$("#metroui_menu").AddMetroImageTile('metro-black', 'tiles/Digital_Camera.png', 'Camera', "item-camera", false);			
+    	   	$("#metroui_menu").AddMetroImageTile('metro-black', 'tiles/Digital_Camera.png', 'Camera', "item-camera", false);	
+			$("#metroui_menu").AddMetroImageTile('metro-green', 'tiles/YouTube_64.png', 'Youtube', 'item-youtube', true);    	
+			$("#metroui_menu").AddMetroImageTile('metro-green', 'tiles/ConversionMassanger_64.png', 'Massanger', 'item-massanger', true);    	   						   			
 	}
 
 	function startActivity(packageName, activityName) {
@@ -78,19 +80,24 @@
     /* Image tile modules. Callback back from jQuery Metro */
     function cameraModule(id) {
     	//$("#"+id).fadeOut('fast');
-		//MetroMenu.startActivity("com.android.camera", "com.android.camera.Camera");
 		MetroMenu.startActivity("Camera");
     }
     
     function browserModule(id) {
-		//MetroMenu.startActivity("com.android.browser", "com.android.browser.BrowserActivity");
 		MetroMenu.startActivity("Browser");
     }
 
     function phoneModule(id) {
-		//MetroMenu.startActivity("com.android.contacts", "com.android.contacts.ContactsApplication");
 		MetroMenu.startActivity("Phone");
     }
+    
+    function youtubeModule(id) {
+		MetroMenu.startActivity("Youtube");
+    }
+    
+    function massangerModule(id) {
+		MetroMenu.startActivity("Massanger");
+    }        
     </script>
 </head>
 <body>

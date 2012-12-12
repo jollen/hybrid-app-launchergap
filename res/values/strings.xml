@@ -32,6 +32,8 @@
 	<string name="set_title_module_dialog_ok">OK</string>	
 	<string name="set_title_module_dialog_cancel">Cancel</string>	
 	
+	<string name="about_dialog_message">Copyright &#169; 2012 Moko365 Inc &#038; Shih Chieh Huang. Tile 8. Version: Preview 4</string>
+	
 	<string name="reset_database_dialog_message">Reset Application? All of your tiles will be removed.</string>
 	<string name="reset_database_dialog_title">WARNING</string>
 		
