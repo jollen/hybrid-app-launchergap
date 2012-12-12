@@ -1,8 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.metromenu.preview"
-    android:versionCode="2"
-    android:versionName="Pre.2" 
-    android:label="Menu Menu" >
+    package="com.android.launcher"
+    android:versionCode="4"
+    android:versionName="Pre.4" 
+    android:label="Tile8" >
+    
+    <original-package android:name="com.metromenu.preview" />
  
     <uses-sdk
         android:minSdkVersion="10"
@@ -20,6 +22,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

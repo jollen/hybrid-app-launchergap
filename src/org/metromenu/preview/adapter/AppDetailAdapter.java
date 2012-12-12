@@ -27,8 +27,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.metromenu.preview.R;
 import org.metromenu.preview.domain.MetroApplicationInfo;
+
+import com.android.launcher.R;
 
 public class AppDetailAdapter extends BaseAdapter {
 	Context context;

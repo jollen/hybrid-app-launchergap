@@ -1,5 +1,5 @@
 /** Automatically generated file. DO NOT MODIFY */
-package org.metromenu.preview;
+package com.android.launcher;
 
 public final class BuildConfig {
     public final static boolean DEBUG = true;

@@ -22,7 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.metromenu.preview.R;
+import com.android.launcher.R;
 
 public class MyToast {
 

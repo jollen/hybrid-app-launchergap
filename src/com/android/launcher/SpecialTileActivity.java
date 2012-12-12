@@ -1,4 +1,4 @@
-package org.metromenu.preview;
+package com.android.launcher;
 
 import android.app.Activity;
 import android.content.Intent;
