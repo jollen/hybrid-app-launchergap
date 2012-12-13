@@ -27,7 +27,7 @@ $.fn.addMetroSimpleText = function (items) {
 		
 	     html_code += " onclick='" + func + "'";
 
-		 html_code += " class='metro metrosingle' style='background:" + bgcolor + ";'>";
+		 html_code += " class='ui-widget-content metro metrosingle' style='background:" + bgcolor + ";'>";
 		 if (image != ''){
 			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
 			html_code += "<div class='imagespan'><span class='metrotext'>" + appName + "</span></div>";
@@ -61,10 +61,10 @@ $.fn.AddMetroImageTile = function (theme, image, module, id, single) {
 		}
 		
 		if (single == false) {
-			html_code += " class='metro metrodouble " + theme + "'>";
+			html_code += " class='ui-widget-content metro metrodouble " + theme + "'>";
 			html_code += "<div class='imgdouble'><img src='" + image + "' /></div>";
 		} else {
-			html_code += " class='metro metrosingle " + theme + "'>";
+			html_code += " class='ui-widget-content metro metrosingle " + theme + "'>";
 			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
 			html_code += "<div class='imagespan'><span class='metrotext'>" + module + "</span></div>";
 		}
