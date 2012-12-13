@@ -1,5 +1,6 @@
-package com.android.launcher;
+package com.metromenu.preview;
 
+import java.util.List;
 import java.util.Set;
 
 import org.metromenu.preview.database.MetroMenuDatabase;
@@ -12,6 +13,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -93,7 +96,7 @@ public class MetroActivity extends Activity {
 		setContentView(root);
 
 		this.init(savedInstanceState);
-		loadUrl("file:///android_asset/metromenu/index.html");		
+		loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");		
 	}
 
 	@Override
@@ -127,6 +130,8 @@ public class MetroActivity extends Activity {
 			case MSG_START_MODULE:
 				data = msg.getData();
 
+				/* TODO: need to check if the package was uninstalled */
+				
 				moduleName = data.getString("moduleName");
 				Log.i(TAG, "Launching module: " + moduleName);
 
@@ -153,7 +158,7 @@ public class MetroActivity extends Activity {
 						intent2.addCategory(Intent.CATEGORY_LAUNCHER);
 						intent2.setClassName(packageName, activityName);
 						intent2.setPackage(packageName);
-						intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);	
+						intent2.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						
 						Log.i(TAG, "by ClassName");
 						
@@ -164,6 +169,7 @@ public class MetroActivity extends Activity {
 						// Fix issue: Issue #6
 						ComponentName componentName = intent.getComponent();
 						String className = componentName.getClassName();
+						
 						
 						// Fix issue: Issue #6. 
 						// Check if activityName (the class name) equals the class name in that package.

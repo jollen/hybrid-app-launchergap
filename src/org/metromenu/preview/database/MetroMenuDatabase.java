@@ -63,8 +63,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	@Override
 	public void close() {
 		synchronized (db) {
-			super.close();
-			mMokoWebDatabase = null;
+			db.close();
+			mMokoWebDatabase = null;			
 		}
 		Log.i(TAG, "on close");
 	}	

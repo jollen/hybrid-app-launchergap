@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.android.launcher;
+package com.metromenu.preview;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -156,7 +156,8 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 
 		public void run() {
 			appinfos = provider.getApplicationInfos();
-
+			//appinfos = provider.getPackageInfos();
+			
 			Message msg = new Message();
 			msg.what = GET_APPINFO_FINISH;
 			handler.sendMessage(msg);

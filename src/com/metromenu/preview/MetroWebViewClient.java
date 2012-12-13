@@ -1,4 +1,4 @@
-package com.android.launcher;
+package com.metromenu.preview;
 
 import android.util.Log;
 import android.view.View;

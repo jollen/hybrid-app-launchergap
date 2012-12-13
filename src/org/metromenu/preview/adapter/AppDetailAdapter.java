@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import org.metromenu.preview.domain.MetroApplicationInfo;
 
-import com.android.launcher.R;
+import com.metromenu.preview.R;
 
 public class AppDetailAdapter extends BaseAdapter {
 	Context context;
