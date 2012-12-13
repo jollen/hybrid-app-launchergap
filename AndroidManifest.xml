@@ -18,12 +18,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation"
-<<<<<<< HEAD
             android:screenOrientation="nosensor" >
-=======
-            android:label="@string/title_activity_main" 
-            android:screenOrientation="nosensor">
->>>>>>> Add: MetroPhoneStateListener to capture the phone status of the device.
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
