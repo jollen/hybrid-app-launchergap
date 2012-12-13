@@ -1,4 +1,5 @@
-package com.android.launcher1;
+package com.metromenu.preview;
+
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
