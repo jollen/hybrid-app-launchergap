@@ -18,7 +18,12 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation"
+<<<<<<< HEAD
             android:screenOrientation="nosensor" >
+=======
+            android:label="@string/title_activity_main" 
+            android:screenOrientation="nosensor">
+>>>>>>> Add: MetroPhoneStateListener to capture the phone status of the device.
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
@@ -53,13 +58,18 @@
             android:theme="@style/SpecialTileActivity" >
             <intent-filter>
                 <action android:name="metromenu.intent.action.SPECIAL_TILE" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>            
-        </activity>                             
+        </activity>
+        <receiver android:name=".PhoneStateBroadcastReceiver">
+            <intent-filter>
+            		<action android:name="android.intent.action.PHONE_STATE"/>
+            </intent-filter>
+        </receiver>>
     </application>
 
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
     
 </manifest>
