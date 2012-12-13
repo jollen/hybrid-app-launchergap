@@ -19,11 +19,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.util.Log;
 
 import org.metromenu.preview.domain.MetroApplicationInfo;
@@ -39,6 +41,17 @@ public class ApplicationListProvider {
 		this.context = context;
 		packageManager = context.getPackageManager();
 	}
+	
+	/**
+	 *  Get the list of activities/applications installed on Android
+	 *  
+	 * @return
+	 */
+	public List<ResolveInfo> getInstalledAppDetails() {
+		final Intent mainIntent = new Intent(Intent.ACTION_MAIN, null);
+		mainIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		return context.getPackageManager().queryIntentActivities(mainIntent, 0);
+	}
 
 	/*
 	 * TODO
@@ -48,29 +61,70 @@ public class ApplicationListProvider {
 	 */
 	public List<MetroApplicationInfo> getApplicationInfos() {
 		List<MetroApplicationInfo> applicationInfos = new ArrayList<MetroApplicationInfo>();
-		applicationInfoList = packageManager.getInstalledApplications(0);
-				
-		for (ApplicationInfo appInfo : applicationInfoList) {			
+		applicationInfoList = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
+						
+		for (ApplicationInfo appInfo : applicationInfoList) {	
+			
 			MetroApplicationInfo applicationInfoItem = new MetroApplicationInfo();
-	
+				
 			applicationInfoItem.setApplicationName(appInfo.loadLabel(packageManager).toString());
 			applicationInfoItem.setIcon(appInfo.loadIcon(packageManager));
 			applicationInfoItem.setPackageName(appInfo.packageName);
 			applicationInfoItem.setPermission(appInfo.permission);
 						
-			try {
-				PackageInfo packinfo = packageManager.getPackageInfo(appInfo.packageName,
-						PackageManager.GET_ACTIVITIES);
-				ActivityInfo[] activityinfos = packinfo.activities;
+				//PackageInfo packinfo = packageManager.getPackageInfo(appInfo.packageName,
+				//		PackageManager.GET_ACTIVITIES);
+				
+				//ActivityInfo[] activityinfos = packinfo.activities;
+				
+				Intent intent = packageManager.getLaunchIntentForPackage(appInfo.packageName);
+				
+				if (intent != null) {
+					String name = intent.getComponent().getClassName();
+				
+					applicationInfoItem.setLuncherActivity(name);
+				
+
+					if(filterApp(appInfo)){
+						applicationInfoItem.setThirdParty(true);
+					}else {
+						applicationInfoItem.setThirdParty(false);
+					}
+		
+					applicationInfos.add(applicationInfoItem);
+				}
+			
+			applicationInfoItem = null;
+		}
+		return applicationInfos;
+	}
+
+	public List<MetroApplicationInfo> getPackageInfos() {
+		List<MetroApplicationInfo> applicationInfos = new ArrayList<MetroApplicationInfo>();
+				
+		List<PackageInfo> packageList = packageManager.getInstalledPackages(PackageManager.GET_ACTIVITIES);
+		
+		for (PackageInfo pkgInfo : packageList) {	
+			
+			MetroApplicationInfo applicationInfoItem = new MetroApplicationInfo();
+				
+			ApplicationInfo appInfo = pkgInfo.applicationInfo;
+			
+			applicationInfoItem.setApplicationName(appInfo.loadLabel(packageManager).toString());
+			applicationInfoItem.setIcon(appInfo.loadIcon(packageManager));
+			applicationInfoItem.setPackageName(appInfo.packageName);
+			applicationInfoItem.setPermission(appInfo.permission);
+						
+
+				
+				ActivityInfo[] activityinfos = pkgInfo.activities;
+				
 				if (activityinfos!=null && activityinfos.length > 0) {
 					ActivityInfo activtiyInfo = activityinfos[0];
 					String name = activtiyInfo.name;
 					applicationInfoItem.setLuncherActivity(name);
 				}
-			} catch (NameNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 			if(filterApp(appInfo)){
 				applicationInfoItem.setThirdParty(true);
 			}else {
@@ -83,7 +137,7 @@ public class ApplicationListProvider {
 		}
 		return applicationInfos;
 	}
-
+	
 	public boolean filterApp(ApplicationInfo info) {
         if ((info.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
             return true;
