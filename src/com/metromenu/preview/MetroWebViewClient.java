@@ -31,7 +31,7 @@ public class MetroWebViewClient extends WebViewClient {
 		
 		// Try to load Metro Menu
 		if (mWebView.getVisibility() == View.INVISIBLE) {
-	        mContext.menuLoader();
+	        mContext.updateMenu();
 			mWebView.setVisibility(View.VISIBLE);
 		}
 	}

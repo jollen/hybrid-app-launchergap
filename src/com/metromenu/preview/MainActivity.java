@@ -123,6 +123,7 @@ public class MainActivity extends MetroActivity {
 			
 			public void onClick(DialogInterface dialog, int which) {
 				getDatabase().reset();
+				createDefaultTile();
 		        sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
 			}
 		});

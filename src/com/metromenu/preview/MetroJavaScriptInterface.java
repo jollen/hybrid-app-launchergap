@@ -22,12 +22,7 @@ public class MetroJavaScriptInterface {
 		
 		// If we are in edit mode, rewrite the message
 		if (mContext.getConfiguration().getEditMode() == true) {
-			if (msg.what == MainActivity.MSG_START_MODULE) {
-				mContext.showHitCannotResize();
-				msg.what = MainActivity.MSG_END_EDIT_DIALOG;
-			} else {
-				msg.what = MainActivity.MSG_START_EDIT_DIALOG;
-			}
+			msg.what = MainActivity.MSG_START_EDIT_DIALOG;
 		}
 		handler.sendMessage(msg);	
 	}
@@ -39,7 +34,7 @@ public class MetroJavaScriptInterface {
 	 * @param activityName
 	 */
 	public void startActivity(String packageName, String activityName) {
-		//Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
+		Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
 
 		Message msg = Message.obtain();
 		Bundle data = new Bundle();

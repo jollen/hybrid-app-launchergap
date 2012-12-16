@@ -34,7 +34,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "metromenu_preview.db";
 	private static final String TABLE_NAME = "items";
-	private static final int DATABASE_VERSION = 56; 
+	private static final int DATABASE_VERSION = 64; 
     private static final String TABLE_CREATE =
         "CREATE TABLE " + TABLE_NAME + "("
     	     + "_ID INTEGER PRIMARY KEY,"
@@ -43,7 +43,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
     	     + "activity_name TEXT,"
     	     + "module TEXT,"
     	     + "image TEXT,"
-    	     + "size TEXT"
+    	     + "size TEXT,"
+    	     + "theme TEXT"
         + ");";
     
 	private SQLiteDatabase db;
@@ -91,8 +92,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	}
 	
 	public void saveItem(String package_name, 
-			String app_name, String activity_name, String module_name, String image) {
-		put(package_name, app_name, activity_name, module_name, image);		
+			String app_name, String activity_name, String module_name, String image, String module) {
+		put(package_name, app_name, activity_name, module_name, image, module, "1x1");		
 	}
 
 	private synchronized Cursor get(String package_name) throws SQLException {
@@ -104,7 +105,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 							"activity_name",
 				    	     "module",	
 							"image",
-							"size"},
+							"size",
+							"theme"},
 			"package_name=\"" + package_name + "\"",	// WHERE
 			null, 						// Parameters to WHERE
 			null, 						// GROUP BY
@@ -130,7 +132,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		args.put("activity_name", activity_name);
 		args.put("image", "");
 		args.put("module", "");
-		args.put("size", "");
+		args.put("size", "1x1");				// The default tile size
+		args.put("theme", "metro-green");		// No image, and the default theme is metro-green
 		
 		long id = db.insert("items", null, args);
 		Log.i(TAG, "Insert to: " + id + ", " + activity_name);
@@ -139,19 +142,24 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
     }
 
 	private synchronized long put(String package_name, 
-			String app_name, String activity_name, String module_name, String image) {
+			String app_name, String activity_name, String module_name, String image, String theme, String size) {
 		ContentValues args = new ContentValues();
 		args.put("package_name", package_name);
 		args.put("app_name", app_name);		
 		args.put("activity_name", activity_name);
 		args.put("image", image);
 		args.put("module", module_name);
-		args.put("size", "");
+		args.put("size", size);		
+		args.put("theme", theme);		
 		
 		long id = db.insert("items", null, args);
 		Log.i(TAG, "Insert to: " + id + ", " + activity_name + " (Module: " + module_name + ")");
 
 		return id;
+    }
+
+	public long putDefaultTile(String module_name, String image, String theme, String size) {
+		return put("", module_name, "", module_name, image, theme, size);
     }
 	
 	/**
@@ -178,8 +186,9 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"activity_name",
 								"module",
 								"image",
-								"size"},
-								"module=\"" + "" + "\"",	// WHERE
+								"size",
+								"theme"},
+								null,	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
 				null, 						// HAVING
@@ -197,7 +206,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	public String getJSON() {
 		Cursor items = getAll();
 		String json_code;
-		String packageName, appName, activityName, moduleName, image, size;
+		String packageName, appName, activityName, moduleName, image, size, theme;
 		
 		if (items.getCount() == 0) {
 			return null;
@@ -212,15 +221,16 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			moduleName = items.getString(4);
 			image = items.getString(5);
 			size = items.getString(6);
+			theme = items.getString(7);
 			
 			json_code += "{";
-			json_code += "bgcolor: \"#97c02c\",";
 			json_code += "package: \"" + packageName + "\","; 		// package name
 			json_code += "app: \"" + appName + "\",";				// application name
 			json_code += "activity: \"" + activityName + "\",";		// activity name
 			json_code += "module: \"" + moduleName + "\",";			// module name
 			json_code += "image: \"" + image + "\",";				// image URL
-			json_code += "size: \"" + size + "\"";					// tile size
+			json_code += "size: \"" + size + "\",";					// tile size
+			json_code += "theme: \"" + theme + "\"";					// tile size			
 			
 			json_code += "}";
 			if (i < (items.getCount() - 1))
@@ -242,7 +252,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"activity_name",
 								"module",
 								"image",
-								"size"},
+								"size",
+								"theme"},
 				"module=\"" + moduleName + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
@@ -268,7 +279,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"activity_name",
 								"module",
 								"image",
-								"size"},
+								"size",
+								"theme"},
 								"module=\"" + moduleName + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
@@ -305,6 +317,31 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			);		
 		
 		Log.i(TAG, packageName + ": setTileSize = " + size + ", result: " + result);
+	}
+
+	public boolean isEmpty() {
+		Cursor items = getAll();
+		
+		if (items.getCount() == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	public void updateItemByModuleName(String module_name, String package_name,
+			String app_name, String activity_name) {
+		
+		ContentValues args = new ContentValues();
+		args.put("package_name", package_name);
+		args.put("app_name", app_name);		
+		args.put("activity_name", activity_name);
+		
+		int result = db.update(TABLE_NAME,
+				args,
+				"module=\"" + module_name + "\"",
+				null
+			);	
+		Log.i(TAG, "updateItemByModuleName: " + module_name);
 	}
 
 }

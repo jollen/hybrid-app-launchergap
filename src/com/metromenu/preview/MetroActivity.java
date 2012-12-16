@@ -82,6 +82,9 @@ public class MetroActivity extends Activity {
 		mHandler = new MetroMenuHandler(this);
 		mDatabase = new MetroMenuDatabase(this);
 
+		if (mDatabase.isEmpty() == true)
+			createDefaultTile();
+
 		// Broadcast receiver
 		mFilter = new IntentFilter("metromenu.intent.action.MENU_UPDATE");
 		mMenuUpdateReceiver = new BroadcastReceiver() {
@@ -100,10 +103,18 @@ public class MetroActivity extends Activity {
 		setContentView(root);
 
 		this.init(savedInstanceState);
-		loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
-		//loadUrl("file:///android_asset/metromenu/index.html");				
+		//loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
+		loadUrl("file:///android_asset/metromenu/index.html");				
 	}
 
+	public synchronized void createDefaultTile() {
+		mDatabase.putDefaultTile("Browser", "tiles/IE_64.png", "metro-green", "1x1");
+		mDatabase.putDefaultTile("Phone", "tiles/Cell_64.png", "metro-green", "1x1");
+		mDatabase.putDefaultTile("Camera", "tiles/Digital_Camera.png", "metro-black", "1x2");
+		mDatabase.putDefaultTile("Youtube", "tiles/YouTube_64.png", "metro-green", "1x1");
+		mDatabase.putDefaultTile("Massanger", "tiles/ConversionMassanger_64.png", "metro-green", "1x1"); 
+	}
+	
 	@Override
 	protected void onResume() {
 		registerReceiver(mMenuUpdateReceiver, mFilter);
@@ -160,7 +171,7 @@ public class MetroActivity extends Activity {
 					break;
 				}
 				
-				if (activityName != null) {
+				if (activityName.equals("") == false) {
 					Intent intent = getPackageManager().getLaunchIntentForPackage(packageName);
 					
 					// LaunchIntent is null. It's because that we don't have that permissions.
@@ -193,7 +204,7 @@ public class MetroActivity extends Activity {
 						
 						ctx.startActivity(intent);
 					}
-				} else if (packageName != null) {
+				} else if (packageName.equals("") == false) {
 					//Toast.makeText(ctx, "by Package", Toast.LENGTH_SHORT).show();
 					Log.i(TAG, "by packageName");
 
@@ -361,20 +372,12 @@ public class MetroActivity extends Activity {
 		return mHandler;
 	}
 
-	public void menuLoader() {
-		sJsonCode = mDatabase.getJSON(); 
-
-		String url = "javascript: createMetroMenu(" + sJsonCode + ")";		
-		mWebView.loadUrl(url);	
-		Log.i(TAG , "url: " + url);
-	} 
-
 	public void updateMenu() {
 		sJsonCode = mDatabase.getJSON(); 
 
 		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
-		Log.i(TAG , "url: " + url);
+		//Log.i(TAG , "updateMenu: " + url);
 	}
 	
 	private void startApplicationManagerWithModuleName(String module) {

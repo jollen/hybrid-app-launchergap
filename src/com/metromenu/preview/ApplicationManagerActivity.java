@@ -296,26 +296,14 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 	private void metroMenuAddApplication(String packname, String appname, String activityname) {
 		if (mDatabase.checkItemNoExist(packname)) {
 			
-			// Add a special tile ?
-			if (mModuleName == null) {
+			if(mModuleName == null) {
 				mDatabase.saveItem(packname, appname, activityname);
-				Toast.makeText(this, R.string.new_tile_added, Toast.LENGTH_SHORT).show();
 			} else {
-				String image = "";
-				
-				// Special tile has a built-in image
-				if (mModuleName.equals("Camera")) {
-					image = "tiles/Digital_Camera.png";
-				} else if (mModuleName.equals("Browser")) {
-					image = "images/Android-Browser-64.png";
-				} else if (mModuleName.equals("Phone")) {
-					image = "images/Android.png";
-				}
-				mDatabase.saveItem(packname, appname, activityname, mModuleName, image);
-				Toast.makeText(this, mModuleName + " is set", Toast.LENGTH_SHORT).show();				
+				// Add a custom tile
+				mDatabase.updateItemByModuleName(mModuleName, packname, appname, activityname);
 			}
-			
-			Log.i(TAG, "Saved: this item is now at Metro Menu.");
+		
+			Toast.makeText(this, R.string.new_tile_added, Toast.LENGTH_SHORT).show(); 
 
 			// Update MainActivity
 	        sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));

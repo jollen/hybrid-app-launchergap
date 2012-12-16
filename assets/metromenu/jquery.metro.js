@@ -17,14 +17,25 @@ $.fn.addMetroSimpleText = function (items) {
 	}
 		
 	for (var i = 0; i < items.length; i++) {
-		var bgcolor = items[i].bgcolor,
+		var theme = items[i].theme,
 			packageName = items[i].package,     	// Package Name
 			appName = items[i].app,				// Application Name
 			activityName = items[i].activity,	// Activity Name
 			image = items[i].image,
 			size = items[i].size,
+			moduleName = items[i].module,
+			func;
+		
+		if (moduleName == "") {
 			func = "startActivity(\"" + packageName + "\",\"" + activityName + "\");";
-						
+		} else {
+			if (packageName != "") {
+				func = "startActivity(\"" + packageName + "\",\"" + activityName + "\");";
+			} else {
+				func = "startActivityByModule(\"" + moduleName + "\");";		
+			}
+		}		
+		
 		 html_code += "<div";
 		 
 		 // Tile Size
@@ -40,7 +51,7 @@ $.fn.addMetroSimpleText = function (items) {
 		
 	     html_code += " onclick='" + func + "'";
 
-		 html_code += " class='ui-widget-content metro " + tile_size + "' style='background:" + bgcolor + ";'>";
+		 html_code += " class='ui-widget-content metro " + tile_size + " " + theme + "'>";
 		 if (image != ''){
 			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
 			html_code += "<div class='imagespan'><span class='metrotext'>" + appName + "</span></div>";
@@ -49,40 +60,9 @@ $.fn.addMetroSimpleText = function (items) {
 		 }
 		 html_code += "</div>\n";
 	}
-	//MetroMenu.debug(html_code);	
+	//console.log(html_code);	
 
 	ctx.append(html_code);
-}
-	
-$.fn.AddMetroImageTile = function (theme, image, module, id, single) {
-	var html_code = "<div";
-	var ctx = $(this);
-		
-	html_code += " id='" + id + "'";
-	 
-		/* Special tiles. */
-		if (module == 'Camera') {
-	    		html_code += " onclick='cameraModule(\"" + id + "\");'";
-		} else if (module =="Browser") {
-    			html_code += " onclick='browserModule(\"" + id + "\");'";
-		} else if (module =="Phone") {
-				html_code += " onclick='phoneModule(\""+ id + "\");'";
-		} else if (module == "Youtube") {
-				html_code += " onclick='youtubeModule(\""+ id + "\");'";		
-		} else if (module == "Massanger") {
-				html_code += " onclick='massangerModule(\""+ id + "\");'";		
-		}
-		 
-		if (single == false) {
-			html_code += " class='ui-widget-content metro metrodouble " + theme + "'>";
-			html_code += "<div class='imgdouble'><img src='" + image + "' /></div>";
-		} else {
-			html_code += " class='ui-widget-content metro metrosingle " + theme + "'>";
-			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
-			html_code += "<div class='imagespan'><span class='metrotext'>" + module + "</span></div>";
-		}
-		html_code += "</div>\n";
-		
-		ctx.append(html_code);
 };
+
 })(jQuery);
