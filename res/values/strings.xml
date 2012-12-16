@@ -16,6 +16,7 @@
     <string name="menu_all_applications">Add a tile</string>
     <string name="menu_about">About</string>
     <string name="menu_reset">Reset</string>
+    <string name="menu_resize">Resize Tile</string>
     
     <!--  Radio Group Buttons -->
     <string name="module_camera">Camera</string>
@@ -32,9 +33,14 @@
 	<string name="set_title_module_dialog_ok">OK</string>	
 	<string name="set_title_module_dialog_cancel">Cancel</string>	
 	
-	<string name="about_dialog_message">Copyright &#169; 2012 Moko365 Inc &#038; Shih Chieh Huang. Tile 8. Version: Preview 4</string>
+	<string name="about_dialog_message">Tile8. Copyright &#169; 2012 Shih Chieh Huang. Powered by Moko365 Inc.</string>
 	
 	<string name="reset_database_dialog_message">Reset Application? All of your tiles will be removed.</string>
 	<string name="reset_database_dialog_title">WARNING</string>
-		
+
+	<array name="tile_size_array_name">
+        <item>1x1</item>
+        <item>1x2</item>
+        <item>2x2</item>
+    </array>		
 </resources>

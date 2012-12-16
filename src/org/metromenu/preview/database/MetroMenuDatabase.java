@@ -34,7 +34,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "metromenu_preview.db";
 	private static final String TABLE_NAME = "items";
-	private static final int DATABASE_VERSION = 54; 
+	private static final int DATABASE_VERSION = 56; 
     private static final String TABLE_CREATE =
         "CREATE TABLE " + TABLE_NAME + "("
     	     + "_ID INTEGER PRIMARY KEY,"
@@ -42,7 +42,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
     	     + "app_name TEXT,"
     	     + "activity_name TEXT,"
     	     + "module TEXT,"
-    	     + "image"
+    	     + "image TEXT,"
+    	     + "size TEXT"
         + ");";
     
 	private SQLiteDatabase db;
@@ -102,7 +103,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 							"app_name",
 							"activity_name",
 				    	     "module",	
-							"image"},
+							"image",
+							"size"},
 			"package_name=\"" + package_name + "\"",	// WHERE
 			null, 						// Parameters to WHERE
 			null, 						// GROUP BY
@@ -128,6 +130,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		args.put("activity_name", activity_name);
 		args.put("image", "");
 		args.put("module", "");
+		args.put("size", "");
 		
 		long id = db.insert("items", null, args);
 		Log.i(TAG, "Insert to: " + id + ", " + activity_name);
@@ -143,6 +146,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		args.put("activity_name", activity_name);
 		args.put("image", image);
 		args.put("module", module_name);
+		args.put("size", "");
 		
 		long id = db.insert("items", null, args);
 		Log.i(TAG, "Insert to: " + id + ", " + activity_name + " (Module: " + module_name + ")");
@@ -173,7 +177,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"app_name",
 								"activity_name",
 								"module",
-								"image"},
+								"image",
+								"size"},
 								"module=\"" + "" + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
@@ -192,7 +197,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	public String getJSON() {
 		Cursor items = getAll();
 		String json_code;
-		String packageName, appName, activityName, moduleName, image;
+		String packageName, appName, activityName, moduleName, image, size;
 		
 		if (items.getCount() == 0) {
 			return null;
@@ -206,6 +211,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			activityName = items.getString(3);
 			moduleName = items.getString(4);
 			image = items.getString(5);
+			size = items.getString(6);
 			
 			json_code += "{";
 			json_code += "bgcolor: \"#97c02c\",";
@@ -213,7 +219,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			json_code += "app: \"" + appName + "\",";				// application name
 			json_code += "activity: \"" + activityName + "\",";		// activity name
 			json_code += "module: \"" + moduleName + "\",";			// module name
-			json_code += "image: \"" + image + "\"";				// image URL
+			json_code += "image: \"" + image + "\",";				// image URL
+			json_code += "size: \"" + size + "\"";					// tile size
 			
 			json_code += "}";
 			if (i < (items.getCount() - 1))
@@ -234,7 +241,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"app_name",
 								"activity_name",
 								"module",
-								"image"},
+								"image",
+								"size"},
 				"module=\"" + moduleName + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
@@ -259,7 +267,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"app_name",
 								"activity_name",
 								"module",
-								"image"},
+								"image",
+								"size"},
 								"module=\"" + moduleName + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
@@ -283,6 +292,19 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	private void removeAll() {
 		int rows = db.delete(TABLE_NAME, null, null);
 		Log.i(TAG, "Delete " + rows + " rows.");
+	}
+
+	public void setTileSize(String packageName, String activityName, String size) {
+        ContentValues cv = new ContentValues();
+        cv.put("size", size);
+
+		int result = db.update(TABLE_NAME,
+				cv,
+				"package_name=\"" + packageName + "\"",
+				null
+			);		
+		
+		Log.i(TAG, packageName + ": setTileSize = " + size + ", result: " + result);
 	}
 
 }

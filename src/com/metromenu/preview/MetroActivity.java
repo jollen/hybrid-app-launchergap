@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.metromenu.preview.database.MetroMenuDatabase;
+import org.metromenu.preview.helper.ConfigurationHelperImpl;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -34,14 +35,6 @@ import android.widget.Toast;
 
 public class MetroActivity extends Activity {
 
-	@Override
-	protected void onResume() {
-		registerReceiver(mMenuUpdateReceiver, mFilter);
-		mDatabase.open();
-		updateMenu();
-		super.onResume();
-	}
-
 	private String TAG = "MetroActivity";		
 
 	protected LinearLayout root;
@@ -51,14 +44,25 @@ public class MetroActivity extends Activity {
 	private BroadcastReceiver mMenuUpdateReceiver;
 
 	private IntentFilter mFilter;
+
+	private MetroActivity mContext;
+
+	private ConfigurationHelperImpl mConfiguration;
 	private static String sJsonCode;	
 
 	public static final int MSG_START_ACTIVITY = 0;
 	public static final int MSG_START_MODULE = 1;
+	public static final int MSG_START_EDIT_DIALOG = 2;
+	public static final int MSG_END_EDIT_DIALOG = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		mContext = this;
+        
+        mConfiguration = new ConfigurationHelperImpl();        
+        mConfiguration.setEditMode(false);
 		
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, 
@@ -96,9 +100,18 @@ public class MetroActivity extends Activity {
 		setContentView(root);
 
 		this.init(savedInstanceState);
-		loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");		
+		loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
+		//loadUrl("file:///android_asset/metromenu/index.html");				
 	}
 
+	@Override
+	protected void onResume() {
+		registerReceiver(mMenuUpdateReceiver, mFilter);
+		mDatabase.open();
+		updateMenu();
+		super.onResume();
+	}
+	
 	@Override
 	protected void onStop() {
 		unregisterReceiver(mMenuUpdateReceiver);
@@ -237,8 +250,23 @@ public class MetroActivity extends Activity {
 					ctx.startActivity(intent);
 				}
 				break;
+			
+			case MSG_START_EDIT_DIALOG:
+				data = msg.getData();
+
+				packageName = data.getString("packageName");
+				activityName = data.getString("activityName");
+				
+				showEditDialog(packageName, activityName);
+				break;
+				
+			case MSG_END_EDIT_DIALOG:
+				mConfiguration.setEditMode(false);
+				break;			
+				
+			default:
+				super.handleMessage(msg);
 			}
-			super.handleMessage(msg);
 		}
 	}
 
@@ -246,6 +274,22 @@ public class MetroActivity extends Activity {
 		mWebView.restoreState(savedInstanceState); // handling rotation
 	}
 
+	public void showHitCannotResize() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		String message = "You can't resize a built-in tile.";
+		
+		builder.setMessage(message);
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+	
 	public void showHitSetModule(String module) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		final String moduleName = module;
@@ -258,6 +302,34 @@ public class MetroActivity extends Activity {
 			
 			public void onClick(DialogInterface dialog, int which) {
 				startApplicationManagerWithModuleName(moduleName);				
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+
+	public void showEditDialog(final String packageName, final String activityName) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		builder.setTitle("Tile Size").setSingleChoiceItems(R.array.tile_size_array_name, 0, new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {	
+				/* which: start from 0 */
+				String[] size = {"1x1", "1x2", "2x2"};
+				mDatabase.setTileSize(packageName, activityName, size[which]);
+				
+				Message msg = Message.obtain();
+				msg.what = MSG_END_EDIT_DIALOG;
+				mHandler.sendMessage(msg);
+			}
+		});
+		
+		builder.setPositiveButton(R.string.set_title_module_dialog_ok, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				updateMenu();
 			}
 		});
 		
@@ -284,12 +356,6 @@ public class MetroActivity extends Activity {
 	protected void onSaveInstanceState(Bundle outState) {
 		mWebView.saveState(outState);
 	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		// use 'android:configChanges' in manifest to handle rotation
-		super.onConfigurationChanged(newConfig);
-	}	
 	
 	public MetroMenuHandler getHandler() {
 		return mHandler;
@@ -300,7 +366,7 @@ public class MetroActivity extends Activity {
 
 		String url = "javascript: createMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
-		//Log.i(TAG , "url: " + url);
+		Log.i(TAG , "url: " + url);
 	} 
 
 	public void updateMenu() {
@@ -308,7 +374,7 @@ public class MetroActivity extends Activity {
 
 		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
-		//Log.i(TAG , "url: " + url);
+		Log.i(TAG , "url: " + url);
 	}
 	
 	private void startApplicationManagerWithModuleName(String module) {
@@ -324,5 +390,9 @@ public class MetroActivity extends Activity {
 	
 	public MetroMenuDatabase getDatabase() {
 		return mDatabase;
+	}
+	
+	public ConfigurationHelperImpl getConfiguration() {
+		return mConfiguration;
 	}
 }

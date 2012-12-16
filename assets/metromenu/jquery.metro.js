@@ -10,6 +10,7 @@
 $.fn.addMetroSimpleText = function (items) {
 	var html_code = "";
 	var ctx = $(this);
+	var tile_size;
 	
 	if (items == null) {
 		return;
@@ -21,13 +22,25 @@ $.fn.addMetroSimpleText = function (items) {
 			appName = items[i].app,				// Application Name
 			activityName = items[i].activity,	// Activity Name
 			image = items[i].image,
+			size = items[i].size,
 			func = "startActivity(\"" + packageName + "\",\"" + activityName + "\");";
 						
 		 html_code += "<div";
+		 
+		 // Tile Size
+		 if (size == "1x1") {
+			 tile_size = "metrosize_1x1";
+		 } else if (size == "1x2")  {
+			 tile_size = "metrosize_1x2";
+		 } else if (size == "2x2") {
+			 tile_size = "metrosize_2x2";
+		 } else {
+			 tile_size = "metrosize_1x1";
+		 }
 		
 	     html_code += " onclick='" + func + "'";
 
-		 html_code += " class='ui-widget-content metro metrosingle' style='background:" + bgcolor + ";'>";
+		 html_code += " class='ui-widget-content metro " + tile_size + "' style='background:" + bgcolor + ";'>";
 		 if (image != ''){
 			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
 			html_code += "<div class='imagespan'><span class='metrotext'>" + appName + "</span></div>";
@@ -36,7 +49,7 @@ $.fn.addMetroSimpleText = function (items) {
 		 }
 		 html_code += "</div>\n";
 	}
-	//MetroMenu.debug(html_code);
+	//MetroMenu.debug(html_code);	
 
 	ctx.append(html_code);
 }
@@ -59,7 +72,7 @@ $.fn.AddMetroImageTile = function (theme, image, module, id, single) {
 		} else if (module == "Massanger") {
 				html_code += " onclick='massangerModule(\""+ id + "\");'";		
 		}
-		
+		 
 		if (single == false) {
 			html_code += " class='ui-widget-content metro metrodouble " + theme + "'>";
 			html_code += "<div class='imgdouble'><img src='" + image + "' /></div>";

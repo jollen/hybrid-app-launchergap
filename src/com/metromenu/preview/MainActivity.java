@@ -42,11 +42,10 @@ import android.widget.Toast;
 
 import org.apache.cordova.*;
 import org.metromenu.preview.database.MetroMenuDatabase;
+import org.metromenu.preview.helper.ConfigurationHelperImpl;
   
 public class MainActivity extends MetroActivity {
 	
-	private static final String LED_SERVICE  = "led";
-
 	private String TAG = "MetroMenu";		
 
 	@Override
@@ -77,6 +76,11 @@ public class MainActivity extends MetroActivity {
 
 			case R.id.menu_reset: {
 				showHitResetDatabase();
+			} break;
+			
+			case R.id.menu_resize: {
+				Toast.makeText(this, "Please choose one tile to resize.", Toast.LENGTH_LONG).show();
+				getConfiguration().setEditMode(true);
 			} break;
 			
 			//case R.id.menu_add_special_tile: {	

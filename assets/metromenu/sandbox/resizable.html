@@ -55,7 +55,7 @@
 
     $(document).ready(function () {
 		//$("#metroui_itemMenu").addMetroSimpleText(contactItem);
-		//createDefault();		
+		createDefault();		
     });
     
     // Callback from WebView when load first page finished.
@@ -71,11 +71,11 @@
     
 	// The special tiles. (built-in tiles)
     function createDefault() {
-    	   	$("#metroui_menu").AddMetroImageTile('metro-green', '../tiles/IE_64.png', 'Browser', "item-browser", true);
-			$("#metroui_menu").AddMetroImageTile('metro-green', '../tiles/Cell_64.png', 'Phone', 'item-phone', true);
-    	   	$("#metroui_menu").AddMetroImageTile('metro-black', '../tiles/Digital_Camera.png', 'Camera', "item-camera", false);	
-			$("#metroui_menu").AddMetroImageTile('metro-green', '../tiles/YouTube_64.png', 'Youtube', 'item-youtube', true);    	
-			$("#metroui_menu").AddMetroImageTile('metro-green', '../tiles/ConversionMassanger_64.png', 'Massanger', 'item-massanger', true);    	   						   			
+    	   	$("#metroui_itemMenu").AddMetroImageTile('metro-green', '../tiles/IE_64.png', 'Browser', "item-browser", true);
+			$("#metroui_itemMenu").AddMetroImageTile('metro-green', '../tiles/Cell_64.png', 'Phone', 'item-phone', true);
+    	   	$("#metroui_itemMenu").AddMetroImageTile('metro-black', '../tiles/Digital_Camera.png', 'Camera', "item-camera", false);	
+			$("#metroui_itemMenu").AddMetroImageTile('metro-green', '../tiles/YouTube_64.png', 'Youtube', 'item-youtube', true);    	
+			$("#metroui_itemMenu").AddMetroImageTile('metro-green', '../tiles/ConversionMassanger_64.png', 'Massanger', 'item-massanger', true);    	   						   			
 	}
 
 	function startActivity(packageName, activityName) {
@@ -124,8 +124,14 @@
 <script>
     $(function() {
         //$( "#item-browser" ).resizable();
-        $( "#metroui_menu" ).sortable();
-        $( "#metroui_itemMenu" ).sortable();        
-    });
+        //$( "#metroui_menu" ).sortable();
+        $("#metroui_itemMenu").sortable({
+        	stop: 
+		        function reorder(event, ui) {
+				  var index = $("#item-browser").index();
+				  alert(index);
+				}     
+		});
+	});
 </script>
 </html>
