@@ -334,11 +334,13 @@ public class MetroActivity extends Activity {
 
 	public void showEditDialog(final String packageName, final String activityName) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		
+				
 		builder.setTitle("Tile Size").setSingleChoiceItems(R.array.tile_size_array_name, 1, new DialogInterface.OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {	
+				Log.i(TAG, "which: " + which);
+				
 				/* which: start from 0 */
 				String[] size = {"1x1", "1x2", "2x2"};
 				mDatabase.setTileSize(packageName, activityName, size[which]);
@@ -352,6 +354,14 @@ public class MetroActivity extends Activity {
 		builder.setPositiveButton(R.string.set_title_module_dialog_ok, new DialogInterface.OnClickListener() {
 			
 			public void onClick(DialogInterface dialog, int which) {
+				if (which == -1) {
+					// Default checked. which = 1
+					mDatabase.setTileSize(packageName, activityName, "1x2");
+					
+					Message msg = Message.obtain();
+					msg.what = MSG_END_EDIT_DIALOG;
+					mHandler.sendMessage(msg);
+				}
 				updateMenu();
 			}
 		});
