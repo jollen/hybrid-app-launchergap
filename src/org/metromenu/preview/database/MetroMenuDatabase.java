@@ -34,7 +34,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "metromenu_preview.db";
 	private static final String TABLE_NAME = "items";
-	private static final int DATABASE_VERSION = 64; 
+	private static final int DATABASE_VERSION = 68; 
     private static final String TABLE_CREATE =
         "CREATE TABLE " + TABLE_NAME + "("
     	     + "_ID INTEGER PRIMARY KEY,"
@@ -44,7 +44,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
     	     + "module TEXT,"
     	     + "image TEXT,"
     	     + "size TEXT,"
-    	     + "theme TEXT"
+    	     + "theme TEXT,"
+    	     + "ordering INTEGER"
         + ");";
     
 	private SQLiteDatabase db;
@@ -106,7 +107,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 				    	     "module",	
 							"image",
 							"size",
-							"theme"},
+							"theme",
+							"ordering"},
 			"package_name=\"" + package_name + "\"",	// WHERE
 			null, 						// Parameters to WHERE
 			null, 						// GROUP BY
@@ -134,6 +136,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		args.put("module", "");
 		args.put("size", "1x1");				// The default tile size
 		args.put("theme", "metro-green");		// No image, and the default theme is metro-green
+		args.put("ordering", 999);
 		
 		long id = db.insert("items", null, args);
 		Log.i(TAG, "Insert to: " + id + ", " + activity_name);
@@ -151,6 +154,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		args.put("module", module_name);
 		args.put("size", size);		
 		args.put("theme", theme);		
+		args.put("ordering", 999);
 		
 		long id = db.insert("items", null, args);
 		Log.i(TAG, "Insert to: " + id + ", " + activity_name + " (Module: " + module_name + ")");
@@ -174,7 +178,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	}
 	
 	/**
-	 * Get all tiles except modules
+	 * Get all tiles and order by 'order'.
+	 * 
 	 * @return
 	 */
 	private synchronized Cursor getAll() {
@@ -187,12 +192,13 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"module",
 								"image",
 								"size",
-								"theme"},
+								"theme",
+								"ordering"},
 								null,	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
 				null, 						// HAVING
-				null, 						// ORDOR BY
+				"ordering", 						// ORDER BY
 				null  						// Max num of return rows
 			);
 	 
@@ -206,6 +212,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	public String getJSON() {
 		Cursor items = getAll();
 		String json_code;
+		int id, order;
 		String packageName, appName, activityName, moduleName, image, size, theme;
 		
 		if (items.getCount() == 0) {
@@ -215,6 +222,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		json_code = "[";
 		
 		for (int i = 0; i < items.getCount(); i++) {
+			id = items.getInt(0);
 			packageName = items.getString(1);
 			appName = items.getString(2);
 			activityName = items.getString(3);
@@ -222,15 +230,18 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			image = items.getString(5);
 			size = items.getString(6);
 			theme = items.getString(7);
+			order = items.getInt(8);
 			
 			json_code += "{";
+			
+			json_code += "id: \"" + id + "\","; 					// _ID (primary key)
 			json_code += "package: \"" + packageName + "\","; 		// package name
 			json_code += "app: \"" + appName + "\",";				// application name
 			json_code += "activity: \"" + activityName + "\",";		// activity name
 			json_code += "module: \"" + moduleName + "\",";			// module name
 			json_code += "image: \"" + image + "\",";				// image URL
 			json_code += "size: \"" + size + "\",";					// tile size
-			json_code += "theme: \"" + theme + "\"";					// tile size			
+			json_code += "theme: \"" + theme + "\"";				// tile size			
 			
 			json_code += "}";
 			if (i < (items.getCount() - 1))
@@ -253,7 +264,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"module",
 								"image",
 								"size",
-								"theme"},
+								"theme",
+								"ordering"},
 				"module=\"" + moduleName + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
@@ -280,7 +292,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"module",
 								"image",
 								"size",
-								"theme"},
+								"theme",
+								"ordering"},
 								"module=\"" + moduleName + "\"",	// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
@@ -344,4 +357,16 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		Log.i(TAG, "updateItemByModuleName: " + module_name);
 	}
 
+	public void updateOrderByID(int id, int order) {
+		
+		ContentValues args = new ContentValues();
+		args.put("ordering", order);
+		
+		int result = db.update(TABLE_NAME,
+				args,
+				"_ID=\"" + id + "\"",
+				null
+			);	
+		Log.i(TAG, "updateOrderByID. ID = " + id + ", Order = " + order);
+	}
 }

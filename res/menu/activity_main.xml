@@ -7,7 +7,10 @@
         android:orderInCategory="100" />  
     <item android:id="@+id/menu_resize"
         android:title="@string/menu_resize"
-        android:orderInCategory="100" />          
+        android:orderInCategory="100" />  
+    <item android:id="@+id/menu_resort"
+        android:title="@string/menu_resort"
+        android:orderInCategory="100" />                 
     <item android:id="@+id/menu_about"
         android:title="@string/menu_about"
         android:orderInCategory="100" />                          

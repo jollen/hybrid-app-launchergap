@@ -32,9 +32,10 @@
 	  // Define with screen width.
 	  range: [
 	    '0px    to 480px = 480.css',
-	    '480px  to 600px = 600.css',
-	    '600px  to 720px = 600.css',
-	    '720px  to 800px = 600.css'
+	    '480px  to 600px = 480.css',
+	    '600px  to 720px = 480.css',
+	    '720px  to 800px = 480.css',
+	    '800px to 1920px = 480.css'
 	  ]
 	};
 	</script>
@@ -57,6 +58,23 @@
 	function startActivityByModule(moduleName) {
 		MetroMenu.startActivity(moduleName);
 	} 	  
+	
+	function startResort() {
+	        $("#metroui_itemMenu").sortable({
+	        	stop: function(event, ui) {
+				        $("[name='tile']").each(function(i, el) {
+				            var index = $(el).index();
+				            var id = $(el).attr('id');
+							MetroMenu.updateOrder(id, index);				            
+				        }); 
+				        MetroMenu.updateOrderDone(); 	
+	        	}
+	        });
+	}
+	
+	function endResort() {
+			$("#metroui_itemMenu").sortable( "disable" );
+	}
     </script>
 </head>
 <body>
@@ -75,10 +93,16 @@
 </body>
 <script src="./adapt.js"></script>
 <script>
+
     $(function() {
-        //$( "#item-browser" ).resizable();
-        //$( "#metroui_menu" ).sortable();
-        $("#metroui_itemMenu").sortable();
+    	//createDefault();
 	});
+		
+	// TEST CASE 1
+    function createDefault() {
+    	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
+			updateMetroMenu(json);
+			startResort();
+	}	
 </script>
 </html>

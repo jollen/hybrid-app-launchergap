@@ -54,6 +54,8 @@ public class MetroActivity extends Activity {
 	public static final int MSG_START_MODULE = 1;
 	public static final int MSG_START_EDIT_DIALOG = 2;
 	public static final int MSG_END_EDIT_DIALOG = 3;
+	public static final int MSG_START_RESORT_DIALOG = 4;
+	public static final int MSG_END_RESORT_DIALOG = 5;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +64,8 @@ public class MetroActivity extends Activity {
 		mContext = this;
         
         mConfiguration = new ConfigurationHelperImpl();        
-        mConfiguration.setEditMode(false);
+        mConfiguration.setResizableMode(false);
+        mConfiguration.setResortableMode(false);
 		
 		getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN, 
@@ -110,7 +113,7 @@ public class MetroActivity extends Activity {
 	public synchronized void createDefaultTile() {
 		mDatabase.putDefaultTile("Browser", "tiles/IE_64.png", "metro-green", "1x1");
 		mDatabase.putDefaultTile("Phone", "tiles/Cell_64.png", "metro-green", "1x1");
-		mDatabase.putDefaultTile("Camera", "tiles/Digital_Camera.png", "metro-black", "1x2");
+		//mDatabase.putDefaultTile("Camera", "tiles/Digital_Camera.png", "metro-black", "1x2");
 		mDatabase.putDefaultTile("Youtube", "tiles/YouTube_64.png", "metro-green", "1x1");
 		mDatabase.putDefaultTile("Massanger", "tiles/ConversionMassanger_64.png", "metro-green", "1x1"); 
 	}
@@ -272,8 +275,17 @@ public class MetroActivity extends Activity {
 				break;
 				
 			case MSG_END_EDIT_DIALOG:
-				mConfiguration.setEditMode(false);
+				mConfiguration.setResizableMode(false);
 				break;			
+
+			case MSG_START_RESORT_DIALOG:
+				mWebView.loadUrl("javascript: startResort()");	
+				break;
+				
+			case MSG_END_RESORT_DIALOG:
+				mConfiguration.setResortableMode(false);
+				mWebView.loadUrl("javascript: endResort()");					
+				break;	
 				
 			default:
 				super.handleMessage(msg);
@@ -323,7 +335,7 @@ public class MetroActivity extends Activity {
 	public void showEditDialog(final String packageName, final String activityName) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		
-		builder.setTitle("Tile Size").setSingleChoiceItems(R.array.tile_size_array_name, 0, new DialogInterface.OnClickListener(){
+		builder.setTitle("Tile Size").setSingleChoiceItems(R.array.tile_size_array_name, 1, new DialogInterface.OnClickListener(){
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {	
@@ -377,7 +389,7 @@ public class MetroActivity extends Activity {
 
 		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
-		//Log.i(TAG , "updateMenu: " + url);
+		Log.i(TAG , "updateMenu: " + url);
 	}
 	
 	private void startApplicationManagerWithModuleName(String module) {

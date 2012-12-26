@@ -17,7 +17,8 @@ $.fn.addMetroSimpleText = function (items) {
 	}
 		
 	for (var i = 0; i < items.length; i++) {
-		var theme = items[i].theme,
+		var id = items[i].id,
+			theme = items[i].theme,
 			packageName = items[i].package,     	// Package Name
 			appName = items[i].app,				// Application Name
 			activityName = items[i].activity,	// Activity Name
@@ -36,7 +37,7 @@ $.fn.addMetroSimpleText = function (items) {
 			}
 		}		
 		
-		 html_code += "<div";
+		 html_code += "<div name='tile' id='" + id + "'";
 		 
 		 // Tile Size
 		 if (size == "1x1") {
@@ -53,8 +54,12 @@ $.fn.addMetroSimpleText = function (items) {
 
 		 html_code += " class='ui-widget-content metro " + tile_size + " " + theme + "'>";
 		 if (image != ''){
-			html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
-			html_code += "<div class='imagespan'><span class='metrotext'>" + appName + "</span></div>";
+			 if (size == "1x1") {
+				 html_code += "<div class='imgsingle'><img src='" + image + "' /></div>";
+			 } else {   // "1x2" and "2x2"
+				 html_code += "<div class='imgdouble'><img src='" + image + "' /></div>";
+			 }
+			 html_code += "<div class='imagespan'><span class='metrotext'>" + appName + "</span></div>";			 
 		 } else {
 			html_code += "<div class='textspan'><span class='metrotext'>" + appName + "</span></div>";
 		 }

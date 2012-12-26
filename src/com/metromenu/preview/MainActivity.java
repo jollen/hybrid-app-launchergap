@@ -80,7 +80,18 @@ public class MainActivity extends MetroActivity {
 			
 			case R.id.menu_resize: {
 				Toast.makeText(this, "Please choose one tile to resize.", Toast.LENGTH_LONG).show();
-				getConfiguration().setEditMode(true);
+				getConfiguration().setResizableMode(true);
+			} break;
+
+			case R.id.menu_resort: {
+				Toast.makeText(this, "Please drag and drop your tiles.", Toast.LENGTH_LONG).show();
+				getConfiguration().setResortableMode(true);
+				
+				Handler handler = this.getHandler();
+				Message msg = Message.obtain();
+				
+				msg.what = MainActivity.MSG_START_RESORT_DIALOG;
+				handler.sendMessage(msg);
 			} break;
 			
 			//case R.id.menu_add_special_tile: {	
@@ -167,5 +178,38 @@ public class MainActivity extends MetroActivity {
 		
 		AlertDialog dialog = builder.create();
 		dialog.show();
+	}
+
+	public void updateOrderByID(int id, int order) {
+		getDatabase().updateOrderByID(id, order);
+	}
+
+	public void showHitResort() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		String message = this.getString(R.string.resort_dialog_message);
+		
+		builder.setMessage(message);
+		
+		builder.setPositiveButton(R.string.set_resort_dialog_ok, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				// Nothing to do.
+			}
+		});
+		
+		builder.setNegativeButton(R.string.set_resort_dialog_cancel, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				Handler handler = getHandler();
+				Message msg = Message.obtain();
+				
+				msg.what = MainActivity.MSG_END_RESORT_DIALOG;
+				handler.sendMessage(msg);	
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();		
 	}	
 }

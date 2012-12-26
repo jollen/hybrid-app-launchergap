@@ -24,6 +24,9 @@ public class MetroJavaScriptInterface {
 		if (mContext.getConfiguration().getEditMode() == true) {
 			msg.what = MainActivity.MSG_START_EDIT_DIALOG;
 		}
+		if (mContext.getConfiguration().getResortMode() == true) {
+			msg.what = MainActivity.MSG_START_RESORT_DIALOG;
+		}
 		handler.sendMessage(msg);	
 	}
 	
@@ -68,6 +71,18 @@ public class MetroJavaScriptInterface {
 		
 		i.setAction("metromenu.intent.action.SETTINGS");
     		mContext.startActivity(i);
+	}
+	
+	public void updateOrder(String idStr, String orderStr) {
+		int id = Integer.valueOf(idStr);
+		int order = Integer.valueOf(orderStr);
+		
+		//Log.i(TAG, "ID: " + id + ", order: " + order);
+		mContext.updateOrderByID(id, order);
+	}
+	
+	public void updateOrderDone() {
+		mContext.showHitResort();		
 	}
 	
 	public void debug(String message) {

@@ -40,10 +40,11 @@ public final class R {
         public static final int ll_popup_item=0x7f0a0009;
         public static final int lv_appmanage=0x7f0a0001;
         public static final int lv_task_manger=0x7f0a0004;
-        public static final int menu_about=0x7f0a001b;
+        public static final int menu_about=0x7f0a001c;
         public static final int menu_all_applications=0x7f0a0018;
         public static final int menu_reset=0x7f0a0019;
         public static final int menu_resize=0x7f0a001a;
+        public static final int menu_resort=0x7f0a001b;
         public static final int metrowebview=0x7f0a0000;
         public static final int module_browser=0x7f0a0016;
         public static final int module_camera=0x7f0a0015;
@@ -74,7 +75,7 @@ public final class R {
         public static final int activity_main=0x7f090000;
     }
     public static final class string {
-        public static final int about_dialog_message=0x7f060018;
+        public static final int about_dialog_message=0x7f060019;
         public static final int app_name=0x7f060000;
         public static final int available_mems=0x7f060006;
         public static final int hello_world=0x7f060001;
@@ -86,25 +87,29 @@ public final class R {
         public static final int menu_all_applications=0x7f06000a;
         public static final int menu_reset=0x7f06000c;
         public static final int menu_resize=0x7f06000d;
+        public static final int menu_resort=0x7f06000e;
         public static final int menu_settings=0x7f060002;
-        public static final int module_browser=0x7f06000f;
+        public static final int module_browser=0x7f060010;
         /**   Radio Group Buttons 
          */
-        public static final int module_camera=0x7f06000e;
-        public static final int module_phone=0x7f060010;
-        public static final int new_tile_added=0x7f060013;
+        public static final int module_camera=0x7f06000f;
+        public static final int module_phone=0x7f060011;
+        public static final int new_tile_added=0x7f060014;
         public static final int please_wait=0x7f060004;
-        public static final int popup_item_add=0x7f060012;
+        public static final int popup_item_add=0x7f060013;
         /**   Popup Items 
          */
-        public static final int popup_item_uninstall=0x7f060011;
-        public static final int reset_database_dialog_message=0x7f060019;
-        public static final int reset_database_dialog_title=0x7f06001a;
+        public static final int popup_item_uninstall=0x7f060012;
+        public static final int reset_database_dialog_message=0x7f06001a;
+        public static final int reset_database_dialog_title=0x7f06001b;
+        public static final int resort_dialog_message=0x7f06001c;
         public static final int running_tasks=0x7f060007;
-        public static final int set_tile_module_dialog_message=0x7f060014;
-        public static final int set_tile_module_dialog_title=0x7f060015;
-        public static final int set_title_module_dialog_cancel=0x7f060017;
-        public static final int set_title_module_dialog_ok=0x7f060016;
+        public static final int set_resort_dialog_cancel=0x7f06001e;
+        public static final int set_resort_dialog_ok=0x7f06001d;
+        public static final int set_tile_module_dialog_message=0x7f060015;
+        public static final int set_tile_module_dialog_title=0x7f060016;
+        public static final int set_title_module_dialog_cancel=0x7f060018;
+        public static final int set_title_module_dialog_ok=0x7f060017;
         public static final int title_activity_main=0x7f060003;
         public static final int unknow_process=0x7f060008;
     }
