@@ -49,35 +49,7 @@
     function updateMetroMenu(json) {
     		$("#metroui_itemMenu").empty();
 			$("#metroui_itemMenu").addMetroSimpleText(json);
-    }
-    
-    // JavaScript 不支援多態
-    
-	function startActivityWithID(id, packageName, activityName) {
-		MetroMenu.startActivity(id, packageName, activityName);		// Java 多態
-	}  
-	
-	function startActivityByModule(moduleName) {
-		MetroMenu.startActivity(moduleName);
-	} 	  
-	
-	function startResort() {
-	        $("#metroui_itemMenu").sortable({
-	        	disable: false,
-	        	stop: function(event, ui) {
-				        $("[name='tile']").each(function(i, el) {
-				            var index = $(el).index();
-				            var id = $(el).attr('id');
-							MetroMenu.updateOrder(id, index);				            
-				        }); 
-				        MetroMenu.updateOrderDone(); 	
-	        	}
-	        });
-	}
-	
-	function endResort() {
-			$("#metroui_itemMenu").sortable({disable:true});
-	}
+    }	  
     </script>
 </head>
 <body>
@@ -90,22 +62,24 @@
     <div id="metroui_item" class="metro-ui fleft" style="display:block;"></div>
   </div>
   <div class="grid_2">
-  	<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
+  	<div class="options_done" onClick="parent.localtion='index.html'"></div>
   </div>
   <div class="debug"></div>
 </body>
 <script src="./adapt.js"></script>
 <script>
-
     $(function() {
-    	//createDefault();
+	        $("#metroui_itemMenu").sortable({
+	        	disable: false,
+	        	stop: function(event, ui) {
+				        $("[name='tile']").each(function(i, el) {
+				            var index = $(el).index();
+				            var id = $(el).attr('id');
+							MetroMenu.updateOrder(id, index);				            
+				        }); 
+				        MetroMenu.updateOrderDone(); 	
+	        	}
+	        });
 	});
-		
-	// TEST CASE 1
-    function createDefault() {
-    	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
-			updateMetroMenu(json);
-			startResort();
-	}	
 </script>
 </html>

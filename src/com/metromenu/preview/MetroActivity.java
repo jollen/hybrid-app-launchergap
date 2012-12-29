@@ -47,7 +47,7 @@ public class MetroActivity extends Activity {
 
 	private MetroActivity mContext;
 
-	private ConfigurationHelperImpl mConfiguration;
+	private static ConfigurationHelperImpl mConfiguration;
 	private static String sJsonCode;	
 
 	public static final int MSG_START_ACTIVITY = 0;
@@ -146,6 +146,7 @@ public class MetroActivity extends Activity {
 		String packageName;
 		String activityName;
 		String moduleName;
+		int	tileID;
 
 		MetroMenuHandler(Context context) {
 			ctx = context;
@@ -224,6 +225,7 @@ public class MetroActivity extends Activity {
 			case MSG_START_ACTIVITY:
 				data = msg.getData();
 
+				tileID = data.getInt("_ID");
 				packageName = data.getString("packageName");
 				activityName = data.getString("activityName");
 
@@ -270,21 +272,26 @@ public class MetroActivity extends Activity {
 
 				packageName = data.getString("packageName");
 				activityName = data.getString("activityName");
+				tileID = data.getInt("_ID");
 				
-				showEditDialog(packageName, activityName);
+				//showEditDialog(packageName, activityName);
+				showEditDialog(tileID);
 				break;
 				
 			case MSG_END_EDIT_DIALOG:
 				mConfiguration.setResizableMode(false);
+				updateMenu();
 				break;			
 
 			case MSG_START_RESORT_DIALOG:
+				updateMenu();			
 				mWebView.loadUrl("javascript: startResort()");	
 				break;
 				
 			case MSG_END_RESORT_DIALOG:
 				mConfiguration.setResortableMode(false);
-				mWebView.loadUrl("javascript: endResort()");					
+				mWebView.loadUrl("javascript: endResort()");	
+				updateMenu();				
 				break;	
 				
 			default:
@@ -332,6 +339,39 @@ public class MetroActivity extends Activity {
 		dialog.show();
 	}
 
+	public void showEditDialog(final int tileID) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+				
+		builder.setTitle("Tile Size").setSingleChoiceItems(R.array.tile_size_array_name, 1, new DialogInterface.OnClickListener(){
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {	
+				Log.i(TAG, "which: " + which);
+				
+				/* which: start from 0 */
+				String[] size = {"1x1", "1x2", "2x2"};
+				//mDatabase.setTileSize(packageName, activityName, size[which]);
+				mDatabase.setTileSize(tileID, size[which]);
+				
+				Message msg = Message.obtain();
+				msg.what = MSG_END_EDIT_DIALOG;
+				mHandler.sendMessage(msg);
+			}
+		});
+		
+		builder.setPositiveButton(R.string.set_title_module_dialog_ok, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				// Nothing to do.
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();
+	}
+	
+	/** @deprecated
+	 */
 	public void showEditDialog(final String packageName, final String activityName) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 				
@@ -396,10 +436,13 @@ public class MetroActivity extends Activity {
 
 	public void updateMenu() {
 		sJsonCode = mDatabase.getJSON(); 
+		
+		// Try to fix bug: resort and resize don't work after a while
+		//loadUrl("file:///android_asset/metromenu/index.html");
 
 		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
 		mWebView.loadUrl(url);	
-		Log.i(TAG , "updateMenu: " + url);
+		Log.i(TAG , "updateMenu: ");
 	}
 	
 	private void startApplicationManagerWithModuleName(String module) {
@@ -419,5 +462,9 @@ public class MetroActivity extends Activity {
 	
 	public ConfigurationHelperImpl getConfiguration() {
 		return mConfiguration;
+	}
+	
+	public MetroWebView getWebView() {
+		return mWebView;
 	}
 }

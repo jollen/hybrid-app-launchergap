@@ -24,26 +24,29 @@ public class MetroJavaScriptInterface {
 		if (mContext.getConfiguration().getEditMode() == true) {
 			msg.what = MainActivity.MSG_START_EDIT_DIALOG;
 		}
-		if (mContext.getConfiguration().getResortMode() == true) {
+		else if (mContext.getConfiguration().getResortMode() == true) {
 			msg.what = MainActivity.MSG_START_RESORT_DIALOG;
 		}
 		handler.sendMessage(msg);	
 	}
-	
+
 	/**
-	 * Start an Activity
+	 * JavaScript to Java method call ¤ä´©¦hºA
 	 * 
+	 * @param tileIDStr
 	 * @param packageName
 	 * @param activityName
 	 */
-	public void startActivity(String packageName, String activityName) {
-		Log.i(TAG, "startActivity: [" + packageName + "], [" + activityName + "]");
-
+	public void startActivity(String tileIDStr, String packageName, String activityName) {
+		//Log.i(TAG, "startActivityWithID: [" + tileIDStr + ", " + packageName + "], [" + activityName + "]");
+		int tileID = Integer.valueOf(tileIDStr);
+		
 		Message msg = Message.obtain();
 		Bundle data = new Bundle();
 		
 		data.putString("packageName", packageName);
 		data.putString("activityName", activityName);
+		data.putInt("_ID", tileID);
 		msg.setData(data);
 		
 		msg.what = MainActivity.MSG_START_ACTIVITY;
@@ -51,9 +54,12 @@ public class MetroJavaScriptInterface {
 		startActivityByMessage(msg);
 	}
 	
+	/**
+	 * @param moduleName
+	 */
 	public void startActivity(String moduleName) 
 	{
-		Log.i(TAG, "Start module: " + moduleName);
+		//Log.i(TAG, "Start module: " + moduleName);
 		
 		Message msg = Message.obtain();
 		Bundle data = new Bundle();
@@ -82,7 +88,8 @@ public class MetroJavaScriptInterface {
 	}
 	
 	public void updateOrderDone() {
-		mContext.showHitResort();		
+		mContext.showHitResort();	
+		mContext.getWebView().loadUrl("javascript: startResort()");
 	}
 	
 	public void debug(String message) {

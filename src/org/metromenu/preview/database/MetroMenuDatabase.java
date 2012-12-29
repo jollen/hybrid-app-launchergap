@@ -34,7 +34,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 
 	private static final String DATABASE_NAME = "metromenu_preview.db";
 	private static final String TABLE_NAME = "items";
-	private static final int DATABASE_VERSION = 68; 
+	private static final int DATABASE_VERSION = 70; 
     private static final String TABLE_CREATE =
         "CREATE TABLE " + TABLE_NAME + "("
     	     + "_ID INTEGER PRIMARY KEY,"
@@ -319,6 +319,9 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		Log.i(TAG, "Delete " + rows + " rows.");
 	}
 
+	/**
+	 * @deprecated
+	 */
 	public void setTileSize(String packageName, String activityName, String size) {
         ContentValues cv = new ContentValues();
         cv.put("size", size);
@@ -332,6 +335,19 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		Log.i(TAG, packageName + ": setTileSize = " + size + ", result: " + result);
 	}
 
+	public synchronized void setTileSize(int tileID, String size) {
+        ContentValues cv = new ContentValues();
+        cv.put("size", size);
+
+		int result = db.update(TABLE_NAME,
+				cv,
+				"_ID=" + tileID,
+				null
+			);	
+		
+		//Log.i(TAG, "Update " + tileID + ", result: " + result + ", size: " + size);
+	}
+	
 	public boolean isEmpty() {
 		Cursor items = getAll();
 		
@@ -367,6 +383,6 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 				"_ID=\"" + id + "\"",
 				null
 			);	
-		Log.i(TAG, "updateOrderByID. ID = " + id + ", Order = " + order);
+		//Log.i(TAG, "updateOrderByID. ID = " + id + ", Order = " + order);
 	}
 }

@@ -93,6 +93,15 @@ html {
 	background-image: url(../images/application_manager.png);
 }
 
+.options_done {
+ 	width: 32px;
+ 	height: 32px;
+ 	background-color: #000000;
+	z-index: 1000;
+	overflow: visible;
+	background-image: url(../images/done_32.png);
+}
+
 .debug h2 {
 	color: #feffff;
 }

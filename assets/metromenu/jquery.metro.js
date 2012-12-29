@@ -27,11 +27,11 @@ $.fn.addMetroSimpleText = function (items) {
 			moduleName = items[i].module,
 			func;
 		
-		if (moduleName == "") {
-			func = "startActivity(\"" + packageName + "\",\"" + activityName + "\");";
+		if (moduleName == "") {  
+			func = "startActivityWithID(\"" + id + "\",\"" + packageName + "\",\"" + activityName + "\");";
 		} else {
 			if (packageName != "") {
-				func = "startActivity(\"" + packageName + "\",\"" + activityName + "\");";
+				func = "startActivityWithID(\"" + id + "\",\"" + packageName + "\",\"" + activityName + "\");";
 			} else {
 				func = "startActivityByModule(\"" + moduleName + "\");";		
 			}

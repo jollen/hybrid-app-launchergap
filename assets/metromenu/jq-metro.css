@@ -125,6 +125,20 @@ html {
 	visibility: visible;
 }
 
+.done {
+ 	width: 48px;
+ 	height: 48px;
+ 	background-color: #000000;
+	position: fixed;
+	float: right;
+	z-index: 10;
+	overflow: visible;
+	background-image: url(images/done_48.png);
+	margin-top: 15px;
+	display: block;
+	visibility: visible;
+}
+
 .debug h2 {
 	color: #feffff;
 }
