@@ -24,9 +24,6 @@ public class MetroJavaScriptInterface {
 		if (mContext.getConfiguration().getEditMode() == true) {
 			msg.what = MainActivity.MSG_START_EDIT_DIALOG;
 		}
-		else if (mContext.getConfiguration().getResortMode() == true) {
-			msg.what = MainActivity.MSG_START_RESORT_DIALOG;
-		}
 		handler.sendMessage(msg);	
 	}
 
@@ -57,14 +54,16 @@ public class MetroJavaScriptInterface {
 	/**
 	 * @param moduleName
 	 */
-	public void startActivity(String moduleName) 
+	public void startActivity(String tileIDStr, String moduleName) 
 	{
 		//Log.i(TAG, "Start module: " + moduleName);
-		
+		int tileID = Integer.valueOf(tileIDStr);
+	
 		Message msg = Message.obtain();
 		Bundle data = new Bundle();
 		
 		data.putString("moduleName", moduleName);
+		data.putInt("_ID", tileID);		
 		msg.setData(data);
 		
 		msg.what = MainActivity.MSG_START_MODULE;
@@ -86,10 +85,11 @@ public class MetroJavaScriptInterface {
 		//Log.i(TAG, "ID: " + id + ", order: " + order);
 		mContext.updateOrderByID(id, order);
 	}
-	
+
+	/**
+	 * @deprecated
+	 */
 	public void updateOrderDone() {
-		mContext.showHitResort();	
-		mContext.getWebView().loadUrl("javascript: startResort()");
 	}
 	
 	public void debug(String message) {

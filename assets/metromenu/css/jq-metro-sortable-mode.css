@@ -1,0 +1,108 @@
+html {
+	background: #424242;
+}
+
+#message p {
+	color: #ffffff;
+}
+
+.metro-seminar {
+	background: #03aeda;
+}
+
+.metro-green {
+	background: #97c02c;
+}
+
+.metro-black {
+	background: #000000;
+}
+
+.metro-gray {
+	background: #303030;
+}
+
+.metro-red {
+	background: #ff1d15;
+}
+
+.metro-html5 {
+	background: #f16529;
+}
+
+.metro-default {
+	background-color: #0096ff;
+}
+
+/* Special Tiles */
+.metro-camera {
+	background: #feffff;
+}
+
+.metro {
+	position: relative;
+	margin-right: 0px;
+	margin-top: 10px;
+	cursor: pointer;
+	float: left;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+}
+
+.metro:hover {
+	filter: alpha(opacity=85);
+	opacity: 0.85;
+}
+
+.metro-ui {
+	display: inline;
+	clear: both;
+	height: auto;
+	margin: 0;
+}
+
+.metro .imgdouble {
+	float: left;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	text-align: center;
+}
+
+.metro span {
+	position: relative;
+	text-decoration: none;
+	color: rgba(255,255,255,1.0);
+	float: left;
+	text-align: center;
+	clear: both;
+	width: 100%;
+	bottom: 0px;
+}
+
+.metro span:hover {
+	
+}
+
+/* Sidebar */
+
+.options {
+ 	width: 32px;
+ 	height: 32px;
+ 	background-color: #000000;
+	z-index: 1000;
+	overflow: visible;
+	background-image: url(../images/application_manager.png);
+}
+
+.options_done {
+ 	width: 32px;
+ 	height: 32px;
+	z-index: 1000;
+	overflow: visible;
+	background: #424242 url(../images/done_32.png) no-repeat;
+}
+
+.debug h2 {
+	color: #feffff;
+}

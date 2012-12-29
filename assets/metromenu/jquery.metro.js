@@ -33,7 +33,7 @@ $.fn.addMetroSimpleText = function (items) {
 			if (packageName != "") {
 				func = "startActivityWithID(\"" + id + "\",\"" + packageName + "\",\"" + activityName + "\");";
 			} else {
-				func = "startActivityByModule(\"" + moduleName + "\");";		
+				func = "startActivityByModule(\"" + id + "\",\"" + moduleName + "\");";		
 			}
 		}		
 		

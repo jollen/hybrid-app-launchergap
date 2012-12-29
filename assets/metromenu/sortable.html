@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>jQuery Metro Menu - Metro UI Style Menus - jQuery Plugin</title>
     
-    <link href="./css/jq-metro.css" rel="stylesheet" type="text/css" />    
+    <link href="./css/jq-metro-sortable-mode.css" rel="stylesheet" type="text/css" />    
 	<script>
 	// Edit to suit your needs.
 	var ADAPT_CONFIG = {
@@ -62,13 +62,15 @@
     <div id="metroui_item" class="metro-ui fleft" style="display:block;"></div>
   </div>
   <div class="grid_2">
-  	<div class="options_done" onClick="parent.localtion='index.html'"></div>
+  	<div class="options_done" onClick="parent.location='index.html'"></div>
   </div>
   <div class="debug"></div>
 </body>
 <script src="./adapt.js"></script>
 <script>
     $(function() {
+    		createDefault();
+    	
 	        $("#metroui_itemMenu").sortable({
 	        	disable: false,
 	        	stop: function(event, ui) {
@@ -81,5 +83,11 @@
 	        	}
 	        });
 	});
+		
+	// TEST CASE 1
+    function createDefault() {
+    	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
+			updateMetroMenu(json);
+	}
 </script>
 </html>

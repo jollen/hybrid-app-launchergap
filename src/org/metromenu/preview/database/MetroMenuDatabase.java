@@ -345,7 +345,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 				null
 			);	
 		
-		//Log.i(TAG, "Update " + tileID + ", result: " + result + ", size: " + size);
+		Log.i(TAG, "Update " + tileID + ", result: " + result + ", size: " + size);
 	}
 	
 	public boolean isEmpty() {

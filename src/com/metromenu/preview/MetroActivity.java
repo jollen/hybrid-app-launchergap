@@ -54,8 +54,6 @@ public class MetroActivity extends Activity {
 	public static final int MSG_START_MODULE = 1;
 	public static final int MSG_START_EDIT_DIALOG = 2;
 	public static final int MSG_END_EDIT_DIALOG = 3;
-	public static final int MSG_START_RESORT_DIALOG = 4;
-	public static final int MSG_END_RESORT_DIALOG = 5;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -282,17 +280,6 @@ public class MetroActivity extends Activity {
 				mConfiguration.setResizableMode(false);
 				updateMenu();
 				break;			
-
-			case MSG_START_RESORT_DIALOG:
-				updateMenu();			
-				mWebView.loadUrl("javascript: startResort()");	
-				break;
-				
-			case MSG_END_RESORT_DIALOG:
-				mConfiguration.setResortableMode(false);
-				mWebView.loadUrl("javascript: endResort()");	
-				updateMenu();				
-				break;	
 				
 			default:
 				super.handleMessage(msg);
@@ -347,6 +334,10 @@ public class MetroActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {	
 				Log.i(TAG, "which: " + which);
+				
+				if (which < 0) {
+					which = 1;
+				}
 				
 				/* which: start from 0 */
 				String[] size = {"1x1", "1x2", "2x2"};
