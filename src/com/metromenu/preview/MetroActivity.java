@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.metromenu.preview.database.MetroMenuDatabase;
 import org.metromenu.preview.helper.ConfigurationHelperImpl;
+import org.metromenu.preview.tiles.TilePhone;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -46,6 +47,9 @@ public class MetroActivity extends Activity {
 	private IntentFilter mFilter;
 
 	private MetroActivity mContext;
+
+	// Special tiles
+	private TilePhone mTilePhone;
 
 	private static ConfigurationHelperImpl mConfiguration;
 	private static String sJsonCode;	
@@ -92,6 +96,7 @@ public class MetroActivity extends Activity {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
 				updateMenu();
+				updateMissedCalls();
 			}
 		};
 		registerReceiver(mMenuUpdateReceiver, mFilter);
@@ -102,6 +107,9 @@ public class MetroActivity extends Activity {
 		mWebView.setVisibility(View.INVISIBLE);
 		root.addView(mWebView);
 		setContentView(root);
+		
+		// Initializing special tiles
+		mTilePhone = new TilePhone(this);
 
 		this.init(savedInstanceState);
 		//loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
@@ -121,6 +129,7 @@ public class MetroActivity extends Activity {
 		registerReceiver(mMenuUpdateReceiver, mFilter);
 		mDatabase.open();
 		updateMenu();
+		updateMissedCalls();
 		super.onResume();
 	}
 	
@@ -279,6 +288,7 @@ public class MetroActivity extends Activity {
 			case MSG_END_EDIT_DIALOG:
 				mConfiguration.setResizableMode(false);
 				updateMenu();
+				updateMissedCalls();
 				break;			
 				
 			default:
@@ -394,6 +404,7 @@ public class MetroActivity extends Activity {
 					mHandler.sendMessage(msg);
 				}
 				updateMenu();
+				updateMissedCalls();
 			}
 		});
 		
@@ -424,17 +435,6 @@ public class MetroActivity extends Activity {
 	public MetroMenuHandler getHandler() {
 		return mHandler;
 	}
-
-	public void updateMenu() {
-		sJsonCode = mDatabase.getJSON(); 
-		
-		// Try to fix bug: resort and resize don't work after a while
-		//loadUrl("file:///android_asset/metromenu/index.html");
-
-		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
-		mWebView.loadUrl(url);	
-		Log.i(TAG , "updateMenu: ");
-	}
 	
 	private void startApplicationManagerWithModuleName(String module) {
 		Bundle bundle = new Bundle();
@@ -457,5 +457,30 @@ public class MetroActivity extends Activity {
 	
 	public MetroWebView getWebView() {
 		return mWebView;
+	}
+	
+	public TilePhone getTilePhone() {
+		return mTilePhone;
+	}
+	
+	/***** UI updater *****/
+	
+	public void updateMenu() {
+		sJsonCode = mDatabase.getJSON(); 
+		
+		// Try to fix bug: resort and resize don't work after a while
+		//loadUrl("file:///android_asset/metromenu/index.html");
+
+		String url = "javascript: updateMetroMenu(" + sJsonCode + ")";		
+		mWebView.loadUrl(url);	
+		Log.i(TAG , "updateMenu");
+	}	
+	
+	public void updateMissedCalls() {
+		int missedCalls = getTilePhone().getMissedCalls();
+		String url = "javascript: updateMissedCalls(" + missedCalls + ")";	
+		
+		mWebView.loadUrl(url);	
+		Log.i(TAG , "missed calls: " + missedCalls);		
 	}
 }

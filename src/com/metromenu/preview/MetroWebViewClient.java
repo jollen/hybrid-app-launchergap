@@ -33,6 +33,7 @@ public class MetroWebViewClient extends WebViewClient {
 		if (mWebView.getVisibility() == View.INVISIBLE) {
 			mWebView.setVisibility(View.VISIBLE);
 		}
-        mContext.updateMenu();		
+        mContext.updateMenu();	
+        mContext.updateMissedCalls();
 	}
 }

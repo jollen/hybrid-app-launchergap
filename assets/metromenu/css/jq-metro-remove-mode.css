@@ -44,9 +44,7 @@ html {
 	margin-right: 0px;
 	margin-top: 10px;
 	cursor: pointer;
-	float: left;
-	filter: alpha(opacity=75);
-	opacity: 0.75;
+	float: left;	
 }
 
 .metro:hover {
@@ -58,7 +56,8 @@ html {
 	display: inline;
 	clear: both;
 	height: auto;
-	margin: 0;
+	margin: 0;		
+
 }
 
 .metro .imgdouble {
@@ -81,7 +80,10 @@ html {
 }
 
 .metro span:hover {
-	
+}
+
+.marker_delete {
+	background: #ff0000;
 }
 
 /* Sidebar */

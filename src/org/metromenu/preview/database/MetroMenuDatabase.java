@@ -357,7 +357,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		return false;
 	}
 
-	public void updateItemByModuleName(String module_name, String package_name,
+	public synchronized void updateItemByModuleName(String module_name, String package_name,
 			String app_name, String activity_name) {
 		
 		ContentValues args = new ContentValues();
@@ -373,7 +373,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		Log.i(TAG, "updateItemByModuleName: " + module_name);
 	}
 
-	public void updateOrderByID(int id, int order) {
+	public synchronized void updateOrderByID(int id, int order) {
 		
 		ContentValues args = new ContentValues();
 		args.put("ordering", order);
@@ -384,5 +384,13 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 				null
 			);	
 		//Log.i(TAG, "updateOrderByID. ID = " + id + ", Order = " + order);
+	}
+
+	public synchronized void deleteTileByID(int id) {
+		int result = db.delete(TABLE_NAME,
+				"_ID=\"" + id + "\"",
+				null
+			);		
+		Log.i(TAG, "delete " + result + " row(s).");
 	}
 }

@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.metromenu.preview"
-    android:versionCode="10"
-    android:versionName="1.2.0" 
+    android:versionCode="11"
+    android:versionName="1.2.1" 
     android:label="Tile8" >
     
     <original-package android:name="com.android.launcher" />
@@ -66,5 +66,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
+	<uses-permission android:name="android.permission.READ_CONTACTS" />
     
 </manifest>

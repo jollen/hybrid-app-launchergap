@@ -86,6 +86,13 @@ public class MetroJavaScriptInterface {
 		mContext.updateOrderByID(id, order);
 	}
 
+	public void deleteTileByID(String idStr) {
+		int id = Integer.valueOf(idStr);
+		
+		//Log.i(TAG, "Delete tile with ID: " + id);
+		mContext.deleteTileDialog(id);
+	}
+	
 	/**
 	 * @deprecated
 	 */

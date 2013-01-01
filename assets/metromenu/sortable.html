@@ -54,6 +54,7 @@
 </head>
 <body>
 
+  <div class="debug"><h2>Please drag and drop.</h2></div>  
   <div class="clear"></div>
   
   <div class="grid_1">
@@ -64,13 +65,10 @@
   <div class="grid_2">
   	<div class="options_done" onClick="parent.location='index.html'"></div>
   </div>
-  <div class="debug"></div>
 </body>
 <script src="./adapt.js"></script>
 <script>
-    $(function() {
-    		createDefault();
-    	
+    $(function() {    	
 	        $("#metroui_itemMenu").sortable({
 	        	disable: false,
 	        	stop: function(event, ui) {

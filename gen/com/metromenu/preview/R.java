@@ -78,6 +78,8 @@ public final class R {
         public static final int about_dialog_message=0x7f060019;
         public static final int app_name=0x7f060000;
         public static final int available_mems=0x7f060006;
+        public static final int delete_tile_dialog_message=0x7f06001c;
+        public static final int delete_tile_dialog_title=0x7f06001d;
         public static final int hello_world=0x7f060001;
         public static final int in_mega_bytes=0x7f060005;
         public static final int menu_about=0x7f06000b;
@@ -102,10 +104,10 @@ public final class R {
         public static final int popup_item_uninstall=0x7f060012;
         public static final int reset_database_dialog_message=0x7f06001a;
         public static final int reset_database_dialog_title=0x7f06001b;
-        public static final int resort_dialog_message=0x7f06001c;
+        public static final int resort_dialog_message=0x7f06001e;
         public static final int running_tasks=0x7f060007;
-        public static final int set_resort_dialog_cancel=0x7f06001e;
-        public static final int set_resort_dialog_ok=0x7f06001d;
+        public static final int set_resort_dialog_cancel=0x7f060020;
+        public static final int set_resort_dialog_ok=0x7f06001f;
         public static final int set_tile_module_dialog_message=0x7f060015;
         public static final int set_tile_module_dialog_title=0x7f060016;
         public static final int set_title_module_dialog_cancel=0x7f060018;

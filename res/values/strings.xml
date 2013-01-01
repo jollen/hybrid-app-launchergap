@@ -38,7 +38,10 @@
 	
 	<string name="reset_database_dialog_message">Reset Application? All of your tiles will be removed.</string>
 	<string name="reset_database_dialog_title">WARNING</string>
-	
+
+	<string name="delete_tile_dialog_message">Continue to delete this tile?</string>
+	<string name="delete_tile_dialog_title">Delete Tile</string>
+		
 	<string name="resort_dialog_message">Resorting done.</string>
 	<string name="set_resort_dialog_ok">Continue</string>	
 	<string name="set_resort_dialog_cancel">Done</string>	

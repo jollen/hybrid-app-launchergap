@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>jQuery Metro Menu - Metro UI Style Menus - jQuery Plugin</title>
     
-    <link href="./css/jq-metro.css" rel="stylesheet" type="text/css" />    
+    <link href="./css/jq-metro-remove-mode.css" rel="stylesheet" type="text/css" />    
 	<script>
 	// Edit to suit your needs.
 	var ADAPT_CONFIG = {
@@ -48,27 +48,17 @@
     <script type="text/javascript">
     function updateMetroMenu(json) {
     		$("#metroui_itemMenu").empty();
-			$("#metroui_itemMenu").addMetroSimpleText(json);
+			$("#metroui_itemMenu").addMetroSimpleTextInDeleteMode(json);
     }
     
-    // JavaScript 不支援多態
-    
-	function startActivityWithID(id, packageName, activityName) {
-		MetroMenu.startActivity(id, packageName, activityName);		// Java 多態
-	}  
-	
-	function startActivityByModule(id, moduleName) {
-		MetroMenu.startActivity(id, moduleName);
-	} 	  
-
-	// Callback function
-	function updateMissedCalls(calls) {
-			$("#Phone").html("<h2>" + calls + "</h2>");
-	}
+    function deleteTileByID(id) {
+    	MetroMenu.deleteTileByID(id);
+    }
     </script>
 </head>
 <body>
 
+  <div class="debug"><h2>Choose one to remove.</h2></div>  
   <div class="clear"></div>
   
   <div class="grid_1">
@@ -77,11 +67,8 @@
     <div id="metroui_item" class="metro-ui fleft" style="display:block;"></div>
   </div>
   <div class="grid_2">
-  	<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
-  	<div class="options_sorting" onClick="parent.location='sortable.html'"></div> 
-  	<div class="options_remove" onClick="parent.location='remove.html'"></div>  	  	 	
-  </div>
-  <div class="debug"></div>
+  	<div class="options_done" onClick="parent.location='index.html'"></div>
+  </div> 
 </body>
 <script src="./adapt.js"></script>
 <script>
@@ -94,7 +81,6 @@
     function createDefault() {
     	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
 			updateMetroMenu(json);
-			startResort();
 	}	
 </script>
 </html>

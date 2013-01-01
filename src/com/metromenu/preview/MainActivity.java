@@ -179,4 +179,30 @@ public class MainActivity extends MetroActivity {
 		getDatabase().updateOrderByID(id, order);
 	}
 
+	public void deleteTileDialog(final int id) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		
+		String message = this.getString(R.string.delete_tile_dialog_message);
+		String title = this.getString(R.string.delete_tile_dialog_title);
+		
+		builder.setMessage(message).setTitle(title);
+		builder.setPositiveButton(R.string.set_title_module_dialog_ok, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				getDatabase().deleteTileByID(id);
+		        sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
+			}
+		});
+		
+		builder.setNegativeButton(R.string.set_title_module_dialog_cancel, new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		
+		AlertDialog dialog = builder.create();
+		dialog.show();		
+	}
+
 }

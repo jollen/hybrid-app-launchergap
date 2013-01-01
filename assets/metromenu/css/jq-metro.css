@@ -90,7 +90,8 @@ html {
  	background-color: #000000;
 	z-index: 1000;
 	overflow: visible;
-	background-image: url(../images/application_manager.png);
+	background: url(../images/application_manager.png) no-repeat;
+	margin-bottom: 8px;
 }
 
 .options_done {
@@ -100,6 +101,33 @@ html {
 	z-index: 1000;
 	overflow: visible;
 	background-image: url(../images/done_32.png);
+}
+
+.options_sorting {
+ 	width: 32px;
+ 	height: 32px;
+	z-index: 1000;
+	overflow: visible;
+	background: #000000 url(../images/sort_neutral.png) no-repeat;
+	margin-top:16px;
+}
+
+.options_remove {
+ 	width: 32px;
+ 	height: 32px;
+	z-index: 1000;
+	overflow: visible;
+	background: #000000 url(../images/list_remove.png) no-repeat;
+	margin-top:48px;
+}
+
+.options_resize {
+ 	width: 32px;
+ 	height: 32px;
+	z-index: 1000;
+	overflow: visible;
+	background: #000000 url(../images/resize.png) no-repeat;
+	margin-top:16px;
 }
 
 .debug h2 {
