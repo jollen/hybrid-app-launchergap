@@ -118,7 +118,7 @@ html {
 	z-index: 1000;
 	overflow: visible;
 	background: #000000 url(../images/list_remove.png) no-repeat;
-	margin-top:48px;
+	margin-top:16px;
 }
 
 .options_resize {

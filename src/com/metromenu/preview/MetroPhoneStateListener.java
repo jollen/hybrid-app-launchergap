@@ -1,6 +1,7 @@
 package com.metromenu.preview;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.CallLog;
@@ -30,7 +31,8 @@ public class MetroPhoneStateListener extends PhoneStateListener{
 		//super.onCallStateChanged(state, incomingNumber);
 		switch (state) {
 		case TelephonyManager.CALL_STATE_IDLE:
-			//Toast.makeText(context, "Phone State Idle. Miss", Toast.LENGTH_LONG).show();
+			// Send a UPDATE broadcast to update missing calls.
+	        context.sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
 			break;
 		case TelephonyManager.CALL_STATE_OFFHOOK:
 			//Toast.makeText(context, "Phone State Off hook", Toast.LENGTH_LONG).show();
