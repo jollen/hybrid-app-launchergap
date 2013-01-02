@@ -34,6 +34,5 @@ public class MetroWebViewClient extends WebViewClient {
 			mWebView.setVisibility(View.VISIBLE);
 		}
         mContext.updateMenu();	
-        mContext.updateMissedCalls();
 	}
 }
