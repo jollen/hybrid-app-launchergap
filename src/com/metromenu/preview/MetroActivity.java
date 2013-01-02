@@ -95,8 +95,8 @@ public class MetroActivity extends Activity {
 		mMenuUpdateReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
-				updateMenu();
 				updateMissedCalls();
+				updateMenu();				
 			}
 		};
 		registerReceiver(mMenuUpdateReceiver, mFilter);
@@ -128,8 +128,8 @@ public class MetroActivity extends Activity {
 	protected void onResume() {
 		registerReceiver(mMenuUpdateReceiver, mFilter);
 		mDatabase.open();
-		updateMenu();
 		updateMissedCalls();
+		updateMenu();		
 		super.onResume();
 	}
 	
@@ -287,8 +287,8 @@ public class MetroActivity extends Activity {
 				
 			case MSG_END_EDIT_DIALOG:
 				mConfiguration.setResizableMode(false);
-				updateMenu();
 				updateMissedCalls();
+				updateMenu();
 				break;			
 				
 			default:
@@ -403,8 +403,8 @@ public class MetroActivity extends Activity {
 					msg.what = MSG_END_EDIT_DIALOG;
 					mHandler.sendMessage(msg);
 				}
-				updateMenu();
 				updateMissedCalls();
+				updateMenu();
 			}
 		});
 		

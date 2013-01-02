@@ -26,6 +26,10 @@ html {
 	background: #ff1d15;
 }
 
+.metro-blue {
+	background: #0432ff;
+}
+
 .metro-html5 {
 	background: #f16529;
 }
@@ -127,6 +131,15 @@ html {
 	z-index: 1000;
 	overflow: visible;
 	background: #000000 url(../images/resize.png) no-repeat;
+	margin-top:16px;
+}
+
+.options_paint {
+ 	width: 32px;
+ 	height: 32px;
+	z-index: 1000;
+	overflow: visible;
+	background: #000000 url(../images/pencil-color-icon_32.png) no-repeat;
 	margin-top:16px;
 }
 

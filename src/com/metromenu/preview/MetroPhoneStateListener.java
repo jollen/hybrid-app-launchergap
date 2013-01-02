@@ -35,10 +35,10 @@ public class MetroPhoneStateListener extends PhoneStateListener{
 	        context.sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
 			break;
 		case TelephonyManager.CALL_STATE_OFFHOOK:
-			//Toast.makeText(context, "Phone State Off hook", Toast.LENGTH_LONG).show();
+	        context.sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
 			break;
 		case TelephonyManager.CALL_STATE_RINGING:
-			//Toast.makeText(context, "Phone State Ringing", Toast.LENGTH_LONG).show();
+	        context.sendBroadcast(new Intent("metromenu.intent.action.MENU_UPDATE"));
 			break;
 		default:
 			break;

@@ -63,7 +63,21 @@
 
 	// Callback function
 	function updateMissedCalls(calls) {
-			//$("#Phone").html("<h2>" + calls + "</h2>");
+			$("#Phone").html("<h2>" + calls + "</h2>");
+	}
+	
+	// LAB: Paint !
+	var preColor = 0;
+	var color = [ 'metro-green', 'metro-black', 'metro-red', 'metro-blue'];
+	
+	function paintTile() {
+			$(".metro").removeClass(color[preColor]);
+			
+			preColor = preColor + 1;
+			if (preColor >= color.length) {
+				preColor = 0;
+			}
+			$(".metro").addClass(color[preColor]);
 	}
     </script>
 </head>
@@ -79,7 +93,8 @@
   <div class="grid_2">
   	<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
   	<div class="options_sorting" onClick="parent.location='sortable.html'"></div> 
-  	<div class="options_remove" onClick="parent.location='remove.html'"></div>  	  	 	
+  	<div class="options_remove" onClick="parent.location='remove.html'"></div>  
+  	<div class="options_paint" onClick="paintTile();"></div>  	  	 	  		  	 	
   </div>
   <div class="debug"></div>
 </body>
@@ -94,7 +109,6 @@
     function createDefault() {
     	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
 			updateMetroMenu(json);
-			startResort();
 	}	
 </script>
 </html>
