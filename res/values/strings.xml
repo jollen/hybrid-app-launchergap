@@ -17,7 +17,7 @@
     <string name="menu_about">About</string>
     <string name="menu_reset">Reset</string>
     <string name="menu_resize">Resize Tile</string>
-     <string name="menu_resort">Resort Tile</string>
+     <string name="menu_voice_launch">Voice to Launch</string>
     
     <!--  Radio Group Buttons -->
     <string name="module_camera">Camera</string>

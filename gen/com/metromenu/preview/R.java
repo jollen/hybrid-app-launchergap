@@ -44,7 +44,7 @@ public final class R {
         public static final int menu_all_applications=0x7f0a0018;
         public static final int menu_reset=0x7f0a0019;
         public static final int menu_resize=0x7f0a001a;
-        public static final int menu_resort=0x7f0a001b;
+        public static final int menu_voice_launch=0x7f0a001b;
         public static final int metrowebview=0x7f0a0000;
         public static final int module_browser=0x7f0a0016;
         public static final int module_camera=0x7f0a0015;
@@ -67,9 +67,10 @@ public final class R {
         public static final int manage_applications_item=0x7f030003;
         public static final int mytoast=0x7f030004;
         public static final int popup_item=0x7f030005;
-        public static final int show_app_detail=0x7f030006;
-        public static final int task_item=0x7f030007;
-        public static final int tile_module_radio_group=0x7f030008;
+        public static final int share_to_web=0x7f030006;
+        public static final int show_app_detail=0x7f030007;
+        public static final int task_item=0x7f030008;
+        public static final int tile_module_radio_group=0x7f030009;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
@@ -89,8 +90,8 @@ public final class R {
         public static final int menu_all_applications=0x7f06000a;
         public static final int menu_reset=0x7f06000c;
         public static final int menu_resize=0x7f06000d;
-        public static final int menu_resort=0x7f06000e;
         public static final int menu_settings=0x7f060002;
+        public static final int menu_voice_launch=0x7f06000e;
         public static final int module_browser=0x7f060010;
         /**   Radio Group Buttons 
          */

@@ -15,12 +15,16 @@
  */
 package com.metromenu.preview;
 
+import java.util.ArrayList;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.CallLog;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,6 +33,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
+import android.speech.RecognizerIntent;
 import android.util.Log;
 import android.view.Display;
 import android.view.Menu;
@@ -45,19 +50,24 @@ import org.metromenu.preview.database.MetroMenuDatabase;
 import org.metromenu.preview.helper.ConfigurationHelperImpl;
   
 public class MainActivity extends MetroActivity {
-	
+
 	private String TAG = "MetroMenu";		
+	
+	// Speech to Text
+	protected static final int RESULT_SPEECH = 1;
+	private String mSTT;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        
+        super.onCreate(savedInstanceState);       
 	}
-    
+
+	
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
-    }    
+    }  
     
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -83,10 +93,16 @@ public class MainActivity extends MetroActivity {
 				getConfiguration().setResizableMode(true);
 			} break;
 
-			case R.id.menu_resort: {
-				Toast.makeText(this, "Please drag and drop your tiles.", Toast.LENGTH_LONG).show();
-				
-				loadUrl("file:///android_asset/metromenu/sortable.html");	
+			case R.id.menu_voice_launch: {
+				 Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+				 intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+				 try {
+					 startActivityForResult(intent, RESULT_SPEECH);
+				} catch (ActivityNotFoundException a) {
+					Toast.makeText(getApplicationContext(),
+							"Your device doesn't support Speech to Text",
+								Toast.LENGTH_SHORT).show();
+				}
 			} break;
 			
 			//case R.id.menu_add_special_tile: {	
@@ -156,7 +172,7 @@ public class MainActivity extends MetroActivity {
 		Intent i = new Intent();
 
 		i.setAction("metromenu.intent.action.SETTINGS");
-		startActivity(i);
+		startActivityForResult(i, 0);
 	}
 	
 	public void showAbout() {
@@ -205,4 +221,22 @@ public class MainActivity extends MetroActivity {
 		dialog.show();		
 	}
 
+	/**
+	 * Speech to Text
+	 */
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {		
+		switch (requestCode) {
+			case RESULT_SPEECH: {
+				if (resultCode == RESULT_OK && null != data) {
+					ArrayList<String> text = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+					mSTT = text.get(0);
+					Toast.makeText(this, "You Say: " + mSTT, Toast.LENGTH_SHORT).show();
+					getDatabase().getPackageByKeyword(mSTT);
+				}
+				break;
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
 }

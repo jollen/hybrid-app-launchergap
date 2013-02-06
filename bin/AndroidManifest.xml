@@ -19,7 +19,7 @@
             android:name=".MainActivity"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="nosensor" >
-            <intent-filter>
+            <intent-filter>     
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -60,7 +60,13 @@
             <intent-filter>
             		<action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
-        </receiver>>
+        </receiver>
+        <activity android:name=".MetroShareToWeb" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <data android:mimeType="image/*"></data>
+            </intent-filter>
+        </activity>        
     </application>
 
 	<uses-permission android:name="android.permission.INTERNET" />

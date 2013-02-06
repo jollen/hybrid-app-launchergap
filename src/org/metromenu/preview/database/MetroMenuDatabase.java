@@ -19,13 +19,20 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
+import com.metromenu.preview.MainActivity;
+import com.metromenu.preview.MetroActivity;
+
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 public class MetroMenuDatabase extends SQLiteOpenHelper {
@@ -51,10 +58,13 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 	private SQLiteDatabase db;
 	private Cursor mCursor;
 	private MetroMenuDatabase mMokoWebDatabase;
+
+	private Context mContext;
 	
 	// Not Singleton at this project
 	public MetroMenuDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		mContext = context;
 		open();
 	}
 	
@@ -392,5 +402,52 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 				null
 			);		
 		Log.i(TAG, "delete " + result + " row(s).");
+	}
+	
+	/***** Speech to Text supporting APIs *****/
+	public synchronized String getPackageByKeyword(String keyword) {
+		Cursor cursor = db.query(true,
+				"items",
+				new String[] {"_ID", 
+								"package_name", 
+								"app_name",
+								"activity_name",
+								"module",
+								"image",
+								"size",
+								"theme",
+								"ordering"},
+				"app_name LIKE \"%" + keyword + "%\"",	// WHERE
+				null, 						// Parameters to WHERE
+				null, 						// GROUP BY
+				null, 						// HAVING
+				null, 						// ORDOR BY
+				null  						// Max num of return rows
+			);
+		
+			Log.i(TAG, "Get: " + cursor.getCount());
+	 
+			// Must check
+			if (0 != cursor.getCount()) {
+				cursor.moveToFirst(); 		// Move to first row
+				startActivityByVoice(cursor.getString(0), cursor.getString(1), cursor.getString(3));
+			}
+			return null;
+	}	
+	
+	private void startActivityByVoice(String tileIDStr, String packageName, String activityName) {
+		//Log.i(TAG, "startActivityWithID: [" + tileIDStr + ", " + packageName + "], [" + activityName + "]");
+		int tileID = Integer.valueOf(tileIDStr);
+	
+		Intent intent = new Intent("metromenu.intent.action.VOICE_LAUNCH");
+		Bundle data = new Bundle();
+
+		data.putString("packageName", packageName);
+		data.putString("activityName", activityName);
+		data.putInt("_ID", tileID);
+		
+		intent.putExtras(data);
+		
+        mContext.sendBroadcast(intent);
 	}
 }

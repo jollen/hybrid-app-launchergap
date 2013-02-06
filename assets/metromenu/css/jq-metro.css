@@ -143,6 +143,15 @@ html {
 	margin-top:16px;
 }
 
+.options_savenow {
+ 	width: 32px;
+ 	height: 32px;
+	z-index: 1000;
+	overflow: visible;
+	background: #000000 url(../images/cloud_add_32.png) no-repeat;
+	margin-top:16px;
+}
+
 .debug h2 {
 	color: #feffff;
 }

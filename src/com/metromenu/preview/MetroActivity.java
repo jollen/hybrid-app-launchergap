@@ -43,8 +43,10 @@ public class MetroActivity extends Activity {
 	private MetroMenuDatabase mDatabase;
 	private static MetroWebView mWebView;
 	private BroadcastReceiver mMenuUpdateReceiver;
+	private BroadcastReceiver mVoiceLaunchReceiver;
 
 	private IntentFilter mFilter;
+	private IntentFilter mVoiceLaunchFilter;
 
 	private MetroActivity mContext;
 
@@ -100,6 +102,27 @@ public class MetroActivity extends Activity {
 		};
 		registerReceiver(mMenuUpdateReceiver, mFilter);
 
+		// Broadcast receiver
+		mVoiceLaunchFilter = new IntentFilter("metromenu.intent.action.VOICE_LAUNCH");
+		mVoiceLaunchReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context arg0, Intent intent) {
+				Bundle data = intent.getExtras();
+
+				//String packageName = data.getString("packageName");
+				//String activityName = data.getString("activityName");
+				//int id = data.getInt("_ID");
+				
+				Message msg = Message.obtain();
+
+				msg.setData(data);
+				msg.what = MainActivity.MSG_START_ACTIVITY;
+				
+				getHandler().sendMessage(msg);	
+		     }
+		};
+		registerReceiver(mVoiceLaunchReceiver, mVoiceLaunchFilter);
+		
 		// Initializing WebView
 		mWebView = new MetroWebView(this);
 		
@@ -112,7 +135,8 @@ public class MetroActivity extends Activity {
 
 		this.init(savedInstanceState);
 		//loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
-		loadUrl("file:///android_asset/metromenu/index.html");				
+		loadUrl("file:///android_asset/metromenu/index.html");		
+		//loadUrl("file:///android_asset/metromenu/cloud.html");						
 	}
 
 	public synchronized void createDefaultTile() {
@@ -470,6 +494,9 @@ public class MetroActivity extends Activity {
 		
 		// Update missed calls
 		updateMissedCalls();
+		
+		// LAB: Save Now !
+		mWebView.loadUrl("javascript: saveNow()");		
 	}	
 	
 	private void updateMissedCalls() {

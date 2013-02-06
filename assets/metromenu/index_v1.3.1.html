@@ -46,14 +46,9 @@
     <link rel="stylesheet" href="./css/jquery-ui.css" />     
     <script src="./jquery.metro.js" type="text/javascript"></script>
     <script type="text/javascript">
-    
-    var menuSettings;
-    
     function updateMetroMenu(json) {
     		$("#metroui_itemMenu").empty();
 			$("#metroui_itemMenu").addMetroSimpleText(json);
-			
-			menuSettings = json;
     }
     
     // JavaScript ¤£¤ä´©¦hºA
@@ -84,19 +79,6 @@
 			}
 			$(".metro").addClass(color[preColor]);
 	}
-	
-	// LAB: Save Now !
-	function saveNow() {
-            $.ajax({
-                url: "http://metromenu.me:8080/send",
-                type: "GET",
-                dataType: "json",
-                data: {
-				    m: JSON.stringify(menuSettings),
-				    u: "jollen",
-                },
-            });			
-	}
     </script>
 </head>
 <body>
@@ -112,8 +94,7 @@
   	<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
   	<div class="options_sorting" onClick="parent.location='sortable.html'"></div> 
   	<div class="options_remove" onClick="parent.location='remove.html'"></div>  
-  	<div class="options_paint" onClick="paintTile();"></div> 
-  	<div class="options_savenow" onClick="saveNow();"></div>  	  	 	  		  	 	  	 	  	 	  		  	 	
+  	<div class="options_paint" onClick="paintTile();"></div>  	  	 	  		  	 	
   </div>
   <div class="debug"></div>
 </body>
