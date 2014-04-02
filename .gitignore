@@ -2,4 +2,5 @@
 *.dex
 *.apk
 bin
+gen
 .settings
