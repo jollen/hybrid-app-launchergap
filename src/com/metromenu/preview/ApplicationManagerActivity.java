@@ -46,7 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.metromenu.preview.adapter.AppDetailAdapter;
-import org.metromenu.preview.domain.MetroApplicationInfo;
+import org.metromenu.preview.domain.MetroApplicationInfoImpl;
 import org.metromenu.preview.engine.ApplicationListProvider;
 import org.metromenu.preview.ui.MyToast;
 import org.metromenu.preview.util.Logger;
@@ -57,8 +57,8 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 	ListView lv;
 	ApplicationListProvider provider; 
 	
-	List<MetroApplicationInfo> appinfos; 
-	List<MetroApplicationInfo> userappinfos;
+	List<MetroApplicationInfoImpl> appinfos; 
+	List<MetroApplicationInfoImpl> userappinfos;
 	
 	ProgressDialog progressDialog;
 	AppDetailAdapter adapter;  

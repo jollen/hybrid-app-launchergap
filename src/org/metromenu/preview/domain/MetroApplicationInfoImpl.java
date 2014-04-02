@@ -17,53 +17,62 @@
 package org.metromenu.preview.domain;
 
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 
-public class MetroApplicationInfo {
+public class MetroApplicationInfoImpl implements ApplicationInfoHelper{
 	private String mPackageName;
 	private Drawable mIcon;
 	private String mApplicationName;
 	private String mLuncherActivity;
-	private Intent mIntent;
 	
 	private boolean isThirdParty;
 	private String mPermission;
+	private Intent mIntent;
 	
 	public boolean isThirdParty() {
 		return isThirdParty;
 	}
+	
 	public void setThirdParty(boolean isThirdParty) {
 		this.isThirdParty = isThirdParty;
 	}
+	
 	public String getLuncheractivity() {
 		return mLuncherActivity;
 	}
+	
 	public void setLuncherActivity(String luncheractivity) {
 		this.mLuncherActivity = luncheractivity;
 	}
+	
 	public String getPackname() {
 		return mPackageName;
 	}
+	
 	public void setPackageName(String packname) {
 		this.mPackageName = packname;
 	}
+	
 	public Drawable getIcon() {
 		return mIcon;
 	}
+	
 	public void setIcon(Drawable icon) {
 		this.mIcon = icon;
 	}
+	
 	public String getAppName() {
 		return mApplicationName;
 	}
+	
 	public void setApplicationName(String appname) {
 		this.mApplicationName = appname;
 	}
 	
 	public void setIntent(Intent intent) {
-		this.mIntent = intent;
+		mIntent = intent;
 	}
+	
 	public void setPermission(String permission) {
 		this.mPermission = permission;
 	}
@@ -71,5 +80,4 @@ public class MetroApplicationInfo {
 	public String getPermission() {
 		return mPermission;
 	}
-	
 }

@@ -27,19 +27,19 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.metromenu.preview.domain.MetroApplicationInfo;
+import org.metromenu.preview.domain.MetroApplicationInfoImpl;
 
 import com.metromenu.preview.R;
 
 public class AppDetailAdapter extends BaseAdapter {
-	private List<MetroApplicationInfo> appInfos;
+	private List<MetroApplicationInfoImpl> appInfos;
 	private static LayoutInflater sInflater;
 
 	/**
 	 * 
 	 * @param appInfos
 	 */
-	public void setAppInfos(List<MetroApplicationInfo> appInfos){
+	public void setAppInfos(List<MetroApplicationInfoImpl> appInfos){
 		this.appInfos = appInfos;
 	}
 
@@ -49,7 +49,7 @@ public class AppDetailAdapter extends BaseAdapter {
 	 * @param appInfo
 	 */
 	public AppDetailAdapter(Context context,
-			List<MetroApplicationInfo> appInfo) {
+			List<MetroApplicationInfoImpl> appInfo) {
 		this.appInfos = appInfo;
 		
 		sInflater = LayoutInflater.from(context);
