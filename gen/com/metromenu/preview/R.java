@@ -78,6 +78,9 @@ public final class R {
     public static final class string {
         public static final int about_dialog_message=0x7f060019;
         public static final int app_name=0x7f060000;
+        /**  AppDetailAdapter 
+         */
+        public static final int app_name_not_available=0x7f060021;
         public static final int available_mems=0x7f060006;
         public static final int delete_tile_dialog_message=0x7f06001c;
         public static final int delete_tile_dialog_title=0x7f06001d;
