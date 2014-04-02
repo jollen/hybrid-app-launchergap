@@ -6,7 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>jQuery Metro Menu - Metro UI Style Menus - jQuery Plugin</title>
     
-    <link href="./css/jq-metro-sortable-mode.css" rel="stylesheet" type="text/css" />    
+    <link href="./css/jq-metro.css" rel="stylesheet" type="text/css" />    
 	<script>
 	// Edit to suit your needs.
 	var ADAPT_CONFIG = {
@@ -40,21 +40,54 @@
 	};
 	</script>
 	    
-    <script src="./jquery-1.8.3.min.js" type="text/javascript"></script>
-    <script src="./jquery-ui-1.9.2.custom.min.js"></script>    
-    <script src="./jquery.ui.touch-punch.min.js"></script>    
-    <link rel="stylesheet" href="./css/jquery-ui.css" />     
-    <script src="./jquery.metro.js" type="text/javascript"></script>
+    <script src="./js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="./js/jquery-ui-1.9.2.custom.min.js"></script>    
+    <script src="./js/jquery.ui.touch-punch.min.js"></script>    
+    <link rel="stylesheet" href="./js/css/jquery-ui.css" />     
+    <script src="./js/jquery.metro.js" type="text/javascript"></script>
     <script type="text/javascript">
+    
+    var menuSettings;
+    
     function updateMetroMenu(json) {
     		$("#metroui_itemMenu").empty();
 			$("#metroui_itemMenu").addMetroSimpleText(json);
-    }	  
+			
+			menuSettings = json;
+    }
+    
+    // JavaScript ¤£¤ä´©¦hºA
+    
+	function startActivityWithID(id, packageName, activityName) {
+		MetroMenu.startActivity(id, packageName, activityName);		// Java ¦hºA
+	}  
+	
+	function startActivityByModule(id, moduleName) {
+		MetroMenu.startActivity(id, moduleName);
+	} 	  
+
+	// Callback function
+	function updateMissedCalls(calls) {
+			$("#Phone").html("<h2>" + calls + "</h2>");
+	}
+	
+	// LAB: Paint !
+	var preColor = 0;
+	var color = [ 'metro-green', 'metro-black', 'metro-red', 'metro-blue'];
+	
+	function paintTile() {
+			$(".metro").removeClass(color[preColor]);
+			
+			preColor = preColor + 1;
+			if (preColor >= color.length) {
+				preColor = 0;
+			}
+			$(".metro").addClass(color[preColor]);
+	}
     </script>
 </head>
 <body>
 
-  <div class="debug"><h2>Please drag and drop.</h2></div>  
   <div class="clear"></div>
   
   <div class="grid_1">
@@ -63,29 +96,35 @@
     <div id="metroui_item" class="metro-ui fleft" style="display:block;"></div>
   </div>
   <div class="grid_2">
-  	<div class="options_done" onClick="parent.location='index.html'"></div>
+  	<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
+  	<div class="options_sorting" onClick="parent.location='sortable.html'"></div> 
+  	<div class="options_remove" onClick="parent.location='remove.html'"></div>  
+  	<div class="options_paint" onClick="paintTile();"></div> 
   </div>
+  <div class="debug"></div>
 </body>
-<script src="./adapt.js"></script>
+<script src="./js/adapt.js"></script>
 <script>
-    $(function() {    	
-	        $("#metroui_itemMenu").sortable({
-	        	disable: false,
-	        	stop: function(event, ui) {
-				        $("[name='tile']").each(function(i, el) {
-				            var index = $(el).index();
-				            var id = $(el).attr('id');
-							MetroMenu.updateOrder(id, index);				            
-				        }); 
-				        MetroMenu.updateOrderDone(); 	
-	        	}
-	        });
+
+    $(function() {
+        $("#metroui_itemMenu").sortable({
+        	disable: false,
+        	stop: function(event, ui) {
+			        $("[name='tile']").each(function(i, el) {
+			            var index = $(el).index();
+			            var id = $(el).attr('id');
+						MetroMenu.updateOrder(id, index);				            
+			        }); 
+			        MetroMenu.updateOrderDone(); 	
+        	}
+        });
+    	createDefault();
 	});
 		
 	// TEST CASE 1
     function createDefault() {
     	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
 			updateMetroMenu(json);
-	}
+	}	
 </script>
 </html>
