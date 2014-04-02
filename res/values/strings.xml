@@ -45,7 +45,10 @@
 	<string name="resort_dialog_message">Resorting done.</string>
 	<string name="set_resort_dialog_ok">Continue</string>	
 	<string name="set_resort_dialog_cancel">Done</string>	
-			
+	
+	<!-- AppDetailAdapter -->
+	<string name="app_name_not_available">Unavailable</string>	
+
 	<array name="tile_size_array_name">
         <item>1x1</item>
         <item>1x2</item>

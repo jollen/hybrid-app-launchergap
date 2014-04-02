@@ -19,7 +19,6 @@ package org.metromenu.preview.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,44 +32,58 @@ import org.metromenu.preview.domain.MetroApplicationInfo;
 import com.metromenu.preview.R;
 
 public class AppDetailAdapter extends BaseAdapter {
-	Context context;
-	List<MetroApplicationInfo> appInfos;
-	LayoutInflater inflater;
+	private List<MetroApplicationInfo> appInfos;
+	private static LayoutInflater sInflater;
 
-
+	/**
+	 * 
+	 * @param appInfos
+	 */
 	public void setAppInfos(List<MetroApplicationInfo> appInfos){
 		this.appInfos = appInfos;
 	}
 
-
+	/**
+	 * 
+	 * @param context
+	 * @param appInfo
+	 */
 	public AppDetailAdapter(Context context,
 			List<MetroApplicationInfo> appInfo) {
-		this.context = context;
 		this.appInfos = appInfo;
 		
-		inflater = LayoutInflater.from(context);
+		sInflater = LayoutInflater.from(context);
 	}
 
+	/**
+	 * 
+	 */
 	public int getCount() {
-
 		return appInfos.size();
 	}
 
+	/**
+	 * 
+	 */
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return appInfos.get(position);
 	}
 
+	/**
+	 * 
+	 */
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
+	/**
+	 * 
+	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view;
 		
-		if (convertView == null){
-			view = inflater.inflate(R.layout.manage_applications_item, null);
+		if (convertView == null) {
+			view = sInflater.inflate(R.layout.manage_applications_item, null);
 		} else {
 			view = convertView;
 		}
@@ -90,10 +103,9 @@ public class AppDetailAdapter extends BaseAdapter {
 		if (text != null){
 			tv.setText(text);
 		} else {
-			tv.setText("Unavailable");
+			tv.setText(R.string.app_name_not_available);
 		}
 
 		return view;
 	}
-
 }
