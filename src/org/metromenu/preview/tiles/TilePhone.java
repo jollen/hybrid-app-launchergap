@@ -20,7 +20,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.CallLog;
 
-public class TilePhone {
+public class TilePhone implements Tile {
 	private Context context;
 
 	public TilePhone(Context context) {
@@ -76,5 +76,9 @@ public class TilePhone {
 		}		
 		
 		return missedCalls;
+	}
+
+	public int request() {
+		return getMissedCalls();
 	}
 }
