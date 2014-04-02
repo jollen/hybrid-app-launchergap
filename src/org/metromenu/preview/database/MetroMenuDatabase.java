@@ -16,24 +16,14 @@
  */
 package org.metromenu.preview.database;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-
-import com.metromenu.preview.MainActivity;
-import com.metromenu.preview.MetroActivity;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 
 public class MetroMenuDatabase extends SQLiteOpenHelper {
@@ -57,32 +47,42 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
         + ");";
     
 	private SQLiteDatabase db;
-	private Cursor mCursor;
-	private MetroMenuDatabase mMokoWebDatabase;
-
 	private Context mContext;
 	
-	// Not Singleton at this project
+	/**
+	 * Create an instance of the database. Unlike other projects,
+	 * this instance is not singleton at this project.
+	 * 
+	 * @param context
+	 */
 	public MetroMenuDatabase(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		mContext = context;
 		open();
 	}
 	
+	/**
+	 * 
+	 */
 	public synchronized void open() {
 		db = this.getWritableDatabase();
 		Log.i(TAG, "on open");
 	}
 	
+	/**
+	 * 
+	 */
 	@Override
 	public void close() {
 		synchronized (db) {
-			db.close();
-			mMokoWebDatabase = null;			
+			db.close();			
 		}
 		Log.i(TAG, "on close");
 	}	
 
+	/**
+	 * 
+	 */
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		synchronized (db) {
@@ -90,6 +90,9 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		}
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 		// Drop old
@@ -98,11 +101,26 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 	
+	/**
+	 * 
+	 * @param package_name
+	 * @param app_name
+	 * @param activity_name
+	 */
 	public void saveItem(String package_name, 
 			String app_name, String activity_name) {
 		put(package_name, app_name, activity_name);
 	}
 	
+	/**
+	 * 
+	 * @param package_name
+	 * @param app_name
+	 * @param activity_name
+	 * @param module_name
+	 * @param image
+	 * @param module
+	 */
 	public void saveItem(String package_name, 
 			String app_name, String activity_name, String module_name, String image, String module) {
 		put(package_name, app_name, activity_name, module_name, image, module, "1x1");		
@@ -121,11 +139,11 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 							"theme",
 							"ordering"},
 			"package_name=\"" + package_name + "\"",	// WHERE
-			null, 						// Parameters to WHERE
-			null, 						// GROUP BY
-			null, 						// HAVING
-			null, 						// ORDOR BY
-			null  						// Max num of return rows
+			null, 										// Parameters to WHERE
+			null, 										// GROUP BY
+			null, 										// HAVING
+			null, 										// ORDOR BY
+			null  										// Max num of return rows
 		);
  
 		// Must check
@@ -178,7 +196,8 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
     }
 	
 	/**
-	 * checkItemExist
+	 * Check if this item has already existed.
+	 * 
 	 * @param url
 	 * @return true: exist in DB
 	 */
@@ -205,11 +224,11 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"size",
 								"theme",
 								"ordering"},
-								null,	// WHERE
+								null,		// WHERE
 				null, 						// Parameters to WHERE
 				null, 						// GROUP BY
 				null, 						// HAVING
-				"ordering", 						// ORDER BY
+				"ordering", 				// ORDER BY
 				null  						// Max num of return rows
 			);
 	 
@@ -220,6 +239,10 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 			return cursor;	
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public String getJSON() {
 		Cursor items = getAll();
 		String json_code;
@@ -265,6 +288,11 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		return json_code;
 	}
 
+	/**
+	 * 
+	 * @param moduleName
+	 * @return
+	 */
 	public synchronized String getPackageByModule(String moduleName) {
 		Cursor cursor = db.query(true,
 				"items",
@@ -278,11 +306,11 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"theme",
 								"ordering"},
 				"module=\"" + moduleName + "\"",	// WHERE
-				null, 						// Parameters to WHERE
-				null, 						// GROUP BY
-				null, 						// HAVING
-				null, 						// ORDOR BY
-				null  						// Max num of return rows
+				null, 								// Parameters to WHERE
+				null, 								// GROUP BY
+				null, 								// HAVING
+				null, 								// ORDOR BY
+				null  								// Max num of return rows
 			);
 	 
 			// Must check
@@ -306,11 +334,11 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 								"theme",
 								"ordering"},
 								"module=\"" + moduleName + "\"",	// WHERE
-				null, 						// Parameters to WHERE
-				null, 						// GROUP BY
-				null, 						// HAVING
-				null, 						// ORDOR BY
-				null  						// Max num of return rows
+				null, 												// Parameters to WHERE
+				null, 												// GROUP BY
+				null, 												// HAVING
+				null, 												// ORDOR BY
+				null  												// Max num of return rows
 			);
 	 
 			// Must check
@@ -346,6 +374,11 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		Log.i(TAG, packageName + ": setTileSize = " + size + ", result: " + result);
 	}
 
+	/**
+	 * 
+	 * @param tileID
+	 * @param size
+	 */
 	public synchronized void setTileSize(int tileID, String size) {
         ContentValues cv = new ContentValues();
         cv.put("size", size);
