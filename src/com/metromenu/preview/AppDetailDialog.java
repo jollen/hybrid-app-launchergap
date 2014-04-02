@@ -16,6 +16,9 @@
  */
 package com.metromenu.preview;
 
+import org.metromenu.preview.tasks.TaskInfo;
+import org.metromenu.preview.tasks.TaskInfoUtils;
+
 import android.app.Activity;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -25,14 +28,14 @@ import android.view.Window;
 import android.widget.TextView;
  
 public class AppDetailDialog extends Activity {
-	PackageManager pm;
+	PackageManager mPackageManager;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.show_app_detail);
-		pm = getPackageManager();
+		mPackageManager = getPackageManager();
 		
 		TextView tv_name = (TextView) this.findViewById(R.id.tv_show_app_detail_name);
 		TextView tv_pack_name = (TextView) this.findViewById(R.id.tv_show_app_detail_packname);
@@ -45,7 +48,7 @@ public class AppDetailDialog extends Activity {
 	    tv_pack_name.setText(info.getPackname());
 	    
 	    try {
-	    	PackageInfo  packinfo = pm.getPackageInfo(info.getPackname(), PackageManager.GET_PERMISSIONS );
+	    	PackageInfo  packinfo = mPackageManager.getPackageInfo(info.getPackname(), PackageManager.GET_PERMISSIONS );
 	    	tv_app_version.setText(packinfo.versionName);
 	    	String[] permissions = packinfo.requestedPermissions;
 	    	StringBuffer sb = new StringBuffer();
@@ -60,7 +63,5 @@ public class AppDetailDialog extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    
-		
 	}
 }

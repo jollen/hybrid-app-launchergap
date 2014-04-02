@@ -19,6 +19,11 @@ package com.metromenu.preview;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import org.metromenu.preview.tasks.TaskInfo;
+import org.metromenu.preview.tasks.TaskInfoUtils;
+import org.metromenu.preview.tasks.TaskListAdapter;
+import org.metromenu.preview.tasks.TaskListProvider;
+
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ProgressDialog;
