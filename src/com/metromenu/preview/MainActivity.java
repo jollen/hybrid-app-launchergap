@@ -46,7 +46,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import org.apache.cordova.*;
 import org.metromenu.preview.database.MetroMenuDatabase;
 import org.metromenu.preview.helper.ConfigurationHelperImpl;
   

@@ -32,6 +32,11 @@
 
 			return startActivityByModule(id, moduleName);
 		};
+
+		// WebView Callbacks
+		function updateMissedCalls(calls) {
+				$("#Phone").html("<h2>" + calls + "</h2>");
+		}
     </script>
 
     <script id="applicationTemplate" type="text/x-jquery-tmpl">

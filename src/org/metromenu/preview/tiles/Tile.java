@@ -14,6 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package org.metromenu.preview.tiles;
+
 public interface Tile {
 	public int request();
 }
