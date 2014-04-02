@@ -14,9 +14,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.metromenu.preview;
+package org.metromenu.preview.tasks;
 
 import java.util.List;
+
+import com.metromenu.preview.R;
+import com.metromenu.preview.R.id;
+import com.metromenu.preview.R.layout;
 
 import android.content.Context;
 import android.view.LayoutInflater;

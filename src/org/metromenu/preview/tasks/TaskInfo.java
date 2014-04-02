@@ -14,67 +14,82 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.metromenu.preview;
+package org.metromenu.preview.tasks;
 
 import android.graphics.drawable.Drawable;
 
-public class TaskInfo{
-	private Drawable icon;
-	private String appname;
-	private String packname;
-	private int pid;
-	private String memsize;
-	private int mem;
-	private boolean ischecked;
+public class TaskInfo {
+	private Drawable mIcon;
+	private String mAppName;
+	private String mPackname;
+	private String memSize;
+
+	private boolean isChecked;
 	private boolean mIsSmp;
-	
-	
+
+	private int mem;
+	private int pid;
+
 	public int getMem() {
 		return mem;
 	}
+	
 	public void setMem(int mem) {
 		this.mem = mem;
 	}
+	
 	public String getMemsize() {
-		return memsize;
+		return memSize;
 	}
+	
 	public void setMemsize(String memsize) {
-		this.memsize = memsize;
+		this.memSize = memsize;
 	}
 
 	public Drawable getIcon() {
-		return icon;
+		return mIcon;
 	}
+	
 	public void setIcon(Drawable icon) {
-		this.icon = icon;
+		this.mIcon = icon;
 	}
+	
 	public String getAppname() {
-		return appname;
+		return mAppName;
 	}
+	
 	public void setAppname(String appicon) {
-		this.appname = appicon;
+		this.mAppName = appicon;
 	}
+	
 	public String getPackname() {
-		return packname;
+		return mPackname;
 	}
+	
 	public void setPackname(String packname) {
-		this.packname = packname;
+		this.mPackname = packname;
 	}
+	
 	public int getPid() {
 		return pid;
 	}
+	
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
+	
 	public boolean isIschecked() {
-		return ischecked;
+		return isChecked;
 	}
+	
 	public void setIschecked(boolean ischecked) {
-		this.ischecked = ischecked;
+		this.isChecked = ischecked;
 	}
+	
 	public void setSmp(boolean isSmp) {
 		mIsSmp = isSmp;
 	}
+	
 	public boolean getIsSmp() {
 		return mIsSmp;
 	}

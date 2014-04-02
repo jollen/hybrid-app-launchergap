@@ -14,7 +14,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.metromenu.preview;
+package org.metromenu.preview.tasks;
 
 import java.lang.ref.WeakReference;
 import java.text.DecimalFormat;
@@ -22,6 +22,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.WeakHashMap;
+
+import com.metromenu.preview.R;
+import com.metromenu.preview.R.drawable;
 
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
