@@ -1,0 +1,89 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
+    <link href="./css/core.min.css" rel="stylesheet" type="text/css" />    	    
+    <script src="./js/core.min.js" type="text/javascript"></script>
+    <script src="./js/jquery.metro.js" type="text/javascript"></script>
+    <script type="text/javascript">
+	(function($) {
+	    function updateMetroMenu(json) {
+	    		$("#metroui_itemMenu").empty();
+
+				$("#applicationTemplate").tmpl(json).appendTo("#metroui_itemMenu");
+	    }
+
+		var startActivity = function(id, packageName, activityName, moduleName) {
+		    // Helper JavaScript APIs
+			var startActivityWithID = function(id, packageName, activityName) {
+				MetroMenu.startActivity(id, packageName, activityName);		// Java ¦hºA
+			}; 
+			
+			var startActivityByModule = function(id, moduleName) {
+				MetroMenu.startActivity(id, moduleName);
+			};  
+
+			if (moduleName === '')
+				return startActivityWithID(id, packageName, activityName);
+			
+			if (packageName !== '')
+				return startActivityWithID(id, packageName, activityName);
+
+			return startActivityByModule(id, moduleName);
+		};
+
+		// WebView Callbacks
+		function updateMissedCalls(calls) {
+				$("#Phone").html("<h2>" + calls + "</h2>");
+		}
+	}) (jQuery);
+    </script>
+
+    <script id="applicationTemplate" type="text/x-jquery-tmpl">
+		<div class='item ${app}' id='${id}' onclick='startActivity("${id}","${package}","${activity}","${module}");' class=''>
+			<div id='${module}'>
+				<img src='${image}' />
+			</div>
+
+			<div class='imagespan'>
+				<span class='metrotext'>${app}</span>
+			</div>
+		</div>
+	</script>
+<style>
+.item {
+	background-color: #eee;
+	margin: 3px;
+	padding: 3px;
+}
+.Phone {
+	background: #ff0000;
+}
+</style>
+</head>
+<body>
+
+<div class="row">  
+	<div class="col-sm-10 grid_1">
+		<div id="metroui_itemMenu" class="metro-ui fleft" style="display:block;"></div>	
+	</div>
+	<div class="col-sm-2 grid_2">
+		<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
+	</div>
+</div>
+</body>
+<script>
+
+    $(function() {
+    	createDefault();
+	});
+		
+	// TEST CASE 1
+    function createDefault() {
+    	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
+			updateMetroMenu(json);
+	}	
+</script>
+</html>
