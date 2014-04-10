@@ -40,11 +40,11 @@
 	};
 	</script>
 	    
-    <script src="./jquery-1.8.3.min.js" type="text/javascript"></script>
-    <script src="./jquery-ui-1.9.2.custom.min.js"></script>    
-    <script src="./jquery.ui.touch-punch.min.js"></script>    
-    <link rel="stylesheet" href="./css/jquery-ui.css" />     
-    <script src="./jquery.metro.js" type="text/javascript"></script>
+    <script src="./js/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="./js/jquery-ui-1.9.2.custom.min.js"></script>    
+    <script src="./js/jquery.ui.touch-punch.min.js"></script>    
+    <link rel="stylesheet" href="./js/css/jquery-ui.css" />     
+    <script src="./js/jquery.metro.js" type="text/javascript"></script>
     <script type="text/javascript">
     
     var menuSettings;
@@ -84,19 +84,6 @@
 			}
 			$(".metro").addClass(color[preColor]);
 	}
-	
-	// LAB: Save Now !
-	function saveNow() {
-            $.ajax({
-                url: "http://metromenu.me:8080/send",
-                type: "GET",
-                dataType: "json",
-                data: {
-				    m: JSON.stringify(menuSettings),
-				    u: "jollen",
-                },
-            });			
-	}
     </script>
 </head>
 <body>
@@ -113,15 +100,14 @@
   	<div class="options_sorting" onClick="parent.location='sortable.html'"></div> 
   	<div class="options_remove" onClick="parent.location='remove.html'"></div>  
   	<div class="options_paint" onClick="paintTile();"></div> 
-  	<div class="options_savenow" onClick="saveNow();"></div>  	  	 	  		  	 	  	 	  	 	  		  	 	
   </div>
   <div class="debug"></div>
 </body>
-<script src="./adapt.js"></script>
+<script src="./js/adapt.js"></script>
 <script>
 
     $(function() {
-    	//createDefault();
+    	createDefault();
 	});
 		
 	// TEST CASE 1

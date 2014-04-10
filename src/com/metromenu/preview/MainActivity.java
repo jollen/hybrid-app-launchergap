@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 Moko365 Inc.
+ * Copyright (C) 2014 Jollen Chen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +46,6 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import org.apache.cordova.*;
 import org.metromenu.preview.database.MetroMenuDatabase;
 import org.metromenu.preview.helper.ConfigurationHelperImpl;
   

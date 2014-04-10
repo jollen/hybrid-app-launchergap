@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 Moko365 Inc.
+ * Copyright (C) 2014 Jollen Chen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,7 +29,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
 
-import org.metromenu.preview.domain.MetroApplicationInfo;
+import org.metromenu.preview.domain.MetroApplicationInfoImpl;
 
 public class ApplicationListProvider {
 	private static final String TAG = "ApplicationListProvider";
@@ -59,13 +60,13 @@ public class ApplicationListProvider {
 	 * 2. set thread priority
 	 * See: LauncherModel.java::run()
 	 */
-	public List<MetroApplicationInfo> getApplicationInfos() {
-		List<MetroApplicationInfo> applicationInfos = new ArrayList<MetroApplicationInfo>();
+	public List<MetroApplicationInfoImpl> getApplicationInfos() {
+		List<MetroApplicationInfoImpl> applicationInfos = new ArrayList<MetroApplicationInfoImpl>();
 		applicationInfoList = packageManager.getInstalledApplications(PackageManager.GET_META_DATA);
 						
 		for (ApplicationInfo appInfo : applicationInfoList) {	
 			
-			MetroApplicationInfo applicationInfoItem = new MetroApplicationInfo();
+			MetroApplicationInfoImpl applicationInfoItem = new MetroApplicationInfoImpl();
 				
 			applicationInfoItem.setApplicationName(appInfo.loadLabel(packageManager).toString());
 			applicationInfoItem.setIcon(appInfo.loadIcon(packageManager));
@@ -99,14 +100,14 @@ public class ApplicationListProvider {
 		return applicationInfos;
 	}
 
-	public List<MetroApplicationInfo> getPackageInfos() {
-		List<MetroApplicationInfo> applicationInfos = new ArrayList<MetroApplicationInfo>();
+	public List<MetroApplicationInfoImpl> getPackageInfos() {
+		List<MetroApplicationInfoImpl> applicationInfos = new ArrayList<MetroApplicationInfoImpl>();
 				
 		List<PackageInfo> packageList = packageManager.getInstalledPackages(PackageManager.GET_ACTIVITIES);
 		
 		for (PackageInfo pkgInfo : packageList) {	
 			
-			MetroApplicationInfo applicationInfoItem = new MetroApplicationInfo();
+			MetroApplicationInfoImpl applicationInfoItem = new MetroApplicationInfoImpl();
 				
 			ApplicationInfo appInfo = pkgInfo.applicationInfo;
 			

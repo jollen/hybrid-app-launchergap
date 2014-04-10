@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2011 Moko365 Inc.
+ * Copyright (C) 2014 Jollen Chen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +46,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.metromenu.preview.adapter.AppDetailAdapter;
-import org.metromenu.preview.domain.MetroApplicationInfo;
+import org.metromenu.preview.domain.MetroApplicationInfoImpl;
 import org.metromenu.preview.engine.ApplicationListProvider;
 import org.metromenu.preview.ui.MyToast;
 import org.metromenu.preview.util.Logger;
@@ -56,8 +57,8 @@ public class ApplicationManagerActivity extends Activity implements OnClickListe
 	ListView lv;
 	ApplicationListProvider provider; 
 	
-	List<MetroApplicationInfo> appinfos; 
-	List<MetroApplicationInfo> userappinfos;
+	List<MetroApplicationInfoImpl> appinfos; 
+	List<MetroApplicationInfoImpl> userappinfos;
 	
 	ProgressDialog progressDialog;
 	AppDetailAdapter adapter;  

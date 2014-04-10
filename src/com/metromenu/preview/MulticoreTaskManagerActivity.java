@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 Moko365 Inc.
+ * Copyright (C) 2014 Jollen Chen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +18,11 @@ package com.metromenu.preview;
 
 import java.text.DecimalFormat;
 import java.util.List;
+
+import org.metromenu.preview.tasks.TaskInfo;
+import org.metromenu.preview.tasks.TaskInfoUtils;
+import org.metromenu.preview.tasks.TaskListAdapter;
+import org.metromenu.preview.tasks.TaskListProvider;
 
 import android.app.Activity;
 import android.app.ActivityManager;

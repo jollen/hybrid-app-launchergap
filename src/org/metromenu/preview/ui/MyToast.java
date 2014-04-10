@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 Moko365 Inc.
+ * Copyright (C) 2014 Jollen Chen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,9 +26,9 @@ import android.widget.Toast;
 import com.metromenu.preview.R;
 
 public class MyToast {
-
-	public static void show(Context context, int icon, int text){
+	public static void show(Context context, int icon, int text) {
 		Toast toast = new Toast(context);
+		
 		LayoutInflater inflater = LayoutInflater.from(context);
 	    View view = inflater.inflate(R.layout.mytoast, null);
 		TextView tv = (TextView) view.findViewById(R.id.tv_my_toast);
@@ -38,8 +39,10 @@ public class MyToast {
 		toast.setDuration(Toast.LENGTH_SHORT);
 		toast.show();	
 	}
-	public static void show(Context context, int icon, String text){
+	
+	public static void show(Context context, int icon, String text) {
 		Toast toast = new Toast(context);
+		
 		LayoutInflater inflater = LayoutInflater.from(context);
 	    View view = inflater.inflate(R.layout.mytoast, null);
 		TextView tv = (TextView) view.findViewById(R.id.tv_my_toast);

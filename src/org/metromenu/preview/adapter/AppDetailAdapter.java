@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2012 Moko365 Inc.
+ * Copyright (C) 2014 Jollen Chen
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,7 +19,6 @@ package org.metromenu.preview.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,49 +27,63 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.metromenu.preview.domain.MetroApplicationInfo;
+import org.metromenu.preview.domain.MetroApplicationInfoImpl;
 
 import com.metromenu.preview.R;
 
 public class AppDetailAdapter extends BaseAdapter {
-	Context context;
-	List<MetroApplicationInfo> appInfos;
-	LayoutInflater inflater;
+	private List<MetroApplicationInfoImpl> appInfos;
+	private static LayoutInflater sInflater;
 
-
-	public void setAppInfos(List<MetroApplicationInfo> appInfos){
+	/**
+	 * 
+	 * @param appInfos
+	 */
+	public void setAppInfos(List<MetroApplicationInfoImpl> appInfos){
 		this.appInfos = appInfos;
 	}
 
-
+	/**
+	 * 
+	 * @param context
+	 * @param appInfo
+	 */
 	public AppDetailAdapter(Context context,
-			List<MetroApplicationInfo> appInfo) {
-		this.context = context;
+			List<MetroApplicationInfoImpl> appInfo) {
 		this.appInfos = appInfo;
 		
-		inflater = LayoutInflater.from(context);
+		sInflater = LayoutInflater.from(context);
 	}
 
+	/**
+	 * 
+	 */
 	public int getCount() {
-
 		return appInfos.size();
 	}
 
+	/**
+	 * 
+	 */
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
 		return appInfos.get(position);
 	}
 
+	/**
+	 * 
+	 */
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
+	/**
+	 * 
+	 */
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View view;
 		
-		if (convertView == null){
-			view = inflater.inflate(R.layout.manage_applications_item, null);
+		if (convertView == null) {
+			view = sInflater.inflate(R.layout.manage_applications_item, null);
 		} else {
 			view = convertView;
 		}
@@ -89,10 +103,9 @@ public class AppDetailAdapter extends BaseAdapter {
 		if (text != null){
 			tv.setText(text);
 		} else {
-			tv.setText("Unavailable");
+			tv.setText(R.string.app_name_not_available);
 		}
 
 		return view;
 	}
-
 }

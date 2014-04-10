@@ -1,3 +1,19 @@
+/*
+ * Copyright (C) 2012 Moko365 Inc.
+ * Copyright (C) 2014 Jollen Chen
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.metromenu.preview;
 
 import java.util.List;
@@ -136,6 +152,7 @@ public class MetroActivity extends Activity {
 		this.init(savedInstanceState);
 		//loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
 		loadUrl("file:///android_asset/metromenu/index.html");		
+		//loadUrl("file:///android_asset/bootstrap/index.html");		
 		//loadUrl("file:///android_asset/metromenu/cloud.html");						
 	}
 
@@ -362,7 +379,6 @@ public class MetroActivity extends Activity {
 				
 		builder.setTitle("Tile Size").setSingleChoiceItems(R.array.tile_size_array_name, 1, new DialogInterface.OnClickListener(){
 
-			@Override
 			public void onClick(DialogInterface dialog, int which) {	
 				Log.i(TAG, "which: " + which);
 				
@@ -399,7 +415,6 @@ public class MetroActivity extends Activity {
 				
 		builder.setTitle("Tile Size").setSingleChoiceItems(R.array.tile_size_array_name, 1, new DialogInterface.OnClickListener(){
 
-			@Override
 			public void onClick(DialogInterface dialog, int which) {	
 				Log.i(TAG, "which: " + which);
 				
