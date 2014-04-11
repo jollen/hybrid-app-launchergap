@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.metromenu.preview"
+    package="com.launchergap.preview"
     android:versionCode="12"
-    android:versionName="1.3.0" 
-    android:label="Tile8" >
+    android:versionName="1.0.pre1" 
+    android:label="LauncherGap" >
     
     <original-package android:name="com.android.launcher" />
  
@@ -56,12 +56,12 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>            
         </activity>
-        <receiver android:name=".PhoneStateBroadcastReceiver">
+        <receiver android:name="com.launchergap.preview.PhoneStateBroadcastReceiver">
             <intent-filter>
             		<action android:name="android.intent.action.PHONE_STATE"/>
             </intent-filter>
         </receiver>
-        <activity android:name=".MetroShareToWeb" >
+        <activity android:name="com.launchergap.preview.MetroShareToWeb" >
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
                 <data android:mimeType="image/*"></data>

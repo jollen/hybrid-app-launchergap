@@ -1,9 +1,9 @@
 <resources>
 
-    <string name="app_name">Tile 8</string>
+    <string name="app_name">LauncherGap Preview</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
-    <string name="title_activity_main">Metro Menu</string>
+    <string name="title_activity_main">Launcher Gap</string>
 
     <string name="please_wait">Getting running tasks list</string>
     <string name="in_mega_bytes">MB</string>
@@ -34,7 +34,7 @@
 	<string name="set_title_module_dialog_ok">OK</string>	
 	<string name="set_title_module_dialog_cancel">Cancel</string>	
 	
-	<string name="about_dialog_message">Tile8. Copyright &#169; 2012 Shih Chieh Huang. Powered by Moko365 Inc.</string>
+	<string name="about_dialog_message">LauncherGap. Copyright &#169; 2014 LauncherGap.com</string>
 	
 	<string name="reset_database_dialog_message">Reset Application? All of your tiles will be removed.</string>
 	<string name="reset_database_dialog_title">WARNING</string>
