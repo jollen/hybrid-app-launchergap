@@ -1,26 +1,22 @@
+# LauncherGap
 
-核心架構
-=======
+Launcher Gap is a free and open source framework to help front-end developers easily creating Android Launcher apps. This project can help you to build Android Launcher with JavaScript and CSS. 
 
-MetroMenu 採用 MVC 模式，View 的部份全部採用 JavaScript & HTML5 實作。
-可在 assets/www/ 目錄下找到以下檔案：
+Have more fun with web technologies.
 
-* index.html - 主畫面
-* jquery.metro.js - jQuery Metro 插件，主要用於顯示方塊
-* jq-metro.css - 樣式部份
+## License
 
-一開始研究 MetroMenu 應由 index.html/jquery.metro.js 二個檔案切入。原則上，
-未來的實作，應該都只會在 JavaScript 部份。
-
-方塊磚
-======
-
-方塊磚 (Tile) 分為二種：
-
-* Special Tile
-* 一般的 Tile
-
-Speicla Tile 是系統內建的方塊，使用者無法更改。一般的 Tile 是使用
-者透過 Package Manager 自行創立的方塊。
+LauncherGap is dual licensed under the MIT license (below) and [Apache license](http://www.apache.org/licenses/LICENSE-2.0.html).
 
 
+<small>
+MIT License
+
+Copyright (c) 2014 Jollen Chen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+</small>
