@@ -1,0 +1,166 @@
+<!DOCTYPE html >
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">	
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
+    <link href="./css/all.min.css" rel="stylesheet" type="text/css" />   
+    <link href="./vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />    	     	    
+    <script src="./js/core.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+	    function updateMetroMenu(json) {
+	    		$("#metroui_itemMenu").empty();
+
+				$("#applicationTemplate").tmpl(json).appendTo("#metroui_itemMenu");
+	    }
+	    
+	    // Helper JavaScript APIs
+		var startActivityWithID = function(id, packageName, activityName) {
+			MetroMenu.startActivity(id, packageName, activityName);		// Java ¦hºA
+		}; 
+		
+		var startActivityByModule = function(id, moduleName) {
+			MetroMenu.startActivity(id, moduleName);
+		};  
+
+		var startActivity = function(id, packageName, activityName, moduleName) {
+			if (moduleName === '')
+				return startActivityWithID(id, packageName, activityName);
+			
+			if (packageName !== '')
+				return startActivityWithID(id, packageName, activityName);
+
+			return startActivityByModule(id, moduleName);
+		};
+
+		// WebView Callbacks
+		function updateMissedCalls(calls) {
+				$("#Phone").html("<h2>" + calls + "</h2>");
+		}
+    </script>
+
+    <script id="applicationTemplate" type="text/x-jquery-tmpl">
+        <div class="col-md-6 col-xs-6 text-center" id='${id}' onclick='startActivity("${id}","${package}","${activity}","${module}");'>
+            <div class="service-item">
+                <i class="service-icon fa ${image}"></i>
+                <h4>${app}</h4>
+            </div>
+        </div>
+	</script>
+</head>
+<body>
+
+    <a id="menu-toggle" href="#" class="btn btn-primary btn-lg toggle"><i class="fa fa-bars"></i></a>
+    <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+            <a id="menu-close" href="#" class="btn btn-default btn-lg pull-right toggle"><i class="fa fa-times"></i></a>
+            <li class="sidebar-brand"><a href="http://startbootstrap.com">Start Bootstrap</a>
+            </li>
+            <li><a href="#top">Home</a>
+            </li>
+            <li><a href="#about">About</a>
+            </li>
+            <li><a href="#services">Services</a>
+            </li>
+            <li><a href="#portfolio">Portfolio</a>
+            </li>
+            <li><a href="#contact">Contact</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Services -->
+    <div id="services" class="services">
+        <div class="container">
+            <div class="row" id="metroui_itemMenu">
+            </div>
+        </div>
+    </div>
+    <!-- /Services -->
+
+	<div class="row">  
+		<div class="col-sm-10 grid_1">
+			<div id="metroui_itemMenu" class="metro-ui fleft" style="display:block;"></div>	
+		</div>
+		<div class="col-sm-2 grid_2">
+			<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
+		</div>
+	</div>
+
+	<script>
+
+	    $(function() {
+	    	createDefault();
+		});
+			
+		// TEST CASE 1
+	    function createDefault() {
+	    	   	var json = [
+						    {
+						        id: "1",
+						        package: "",
+						        app: "Browser",
+						        activity: "",
+						        module: "Browser",
+						        image: "fa-browser",
+						        size: "1x1",
+						        theme: "metro-green"
+						    },
+						    {
+						        id: "2",
+						        package: "",
+						        app: "Phone",
+						        activity: "",
+						        module: "Phone",
+						        image: "fa-phone",
+						        size: "1x1",
+						        theme: "metro-green"
+						    },
+						    {
+						        id: "3",
+						        package: "",
+						        app: "Youtube",
+						        activity: "",
+						        module: "Youtube",
+						        image: "fa-youtube",
+						        size: "1x1",
+						        theme: "metro-green"
+						    },
+						    {
+						        id: "4",
+						        package: "",
+						        app: "Book",
+						        activity: "",
+						        module: "",
+						        image: "fa-book",
+						        size: "1x1",
+						        theme: "metro-green"
+						    },
+						    {
+						        id: "5",
+						        package: "com.android.music",
+						        app: "Music Player",
+						        activity: "com.android.music.list.activity.MpMainTabActivity",
+						        module: "",
+						        image: "fa-music",
+						        size: "1x1",
+						        theme: "metro-green"
+						    },
+						    {
+						        id: "6",
+						        package: "com.android.music",
+						        app: "Music Player",
+						        activity: "com.android.music.list.activity.MpMainTabActivity",
+						        module: "",
+						        image: "fa-camera",
+						        size: "1x1",
+						        theme: "metro-green"
+						    }
+						];
+
+				updateMetroMenu(json);
+		}	
+	</script>
+
+</body>
+</html>
