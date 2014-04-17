@@ -43,12 +43,29 @@ module.exports = function(grunt) {
               ]
           }
       }
+    },
+    concat: {
+        css: {
+            src: [
+                 'vendor/bootstrap/dist/css/bootstrap.css',
+                 'css/style.min.css'
+            ],
+            dest: 'css/all.css'
+        }
+    },
+    cssmin: {
+            css: {
+                src: 'css/all.css',
+                dest: 'css/core.min.css'
+            }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
-  grunt.registerTask('build', ['uglify', 'less']);
+  grunt.registerTask('build', ['uglify', 'less', 'concat', 'cssmin']);
 };
