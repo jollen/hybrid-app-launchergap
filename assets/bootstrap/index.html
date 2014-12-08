@@ -4,7 +4,8 @@
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
-    <link href="./css/core.min.css" rel="stylesheet" type="text/css" />    	    
+    <link href="./css/core.min.css" rel="stylesheet" type="text/css" />
+    <link href="./css/custom.css" rel="stylesheet" type="text/css" />
     <script src="./js/core.min.js" type="text/javascript"></script>
     <script type="text/javascript">
 	    function updateMetroMenu(json) {
@@ -39,25 +40,28 @@
     </script>
 
     <script id="applicationTemplate" type="text/x-jquery-tmpl">
-		<div id='${id}' onclick='startActivity("${id}","${package}","${activity}","${module}");' class=''>
+		<div class="col-xs-4 col-md-2 app-icon" id='${id}' onclick='startActivity("${id}","${package}","${activity}","${module}");' class=''>
+
+			<div class='imagespan'>
+				<span class='metrotext' id='${app}'>${app}</span>
+			</div>
+
 			<div id='${moduleName}'>
 				<img src='${image}' />
 			</div>
 
-			<div class='imagespan'>
-				<span class='metrotext'>${app}</span>
-			</div>
+
 		</div>
 	</script>
 </head>
 <body>
 
 <div class="row">  
-	<div class="col-sm-10 grid_1">
-		<div id="metroui_itemMenu" class="metro-ui fleft" style="display:block;"></div>	
+	<div class="col-xs-10">
+		<div class="row" id="metroui_itemMenu" class="metro-ui"></div>	
 	</div>
-	<div class="col-sm-2 grid_2">
-		<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
+	<div class="col-xs-2">
+		<div class="options" onClick="MetroMenu.lauchPackageManager();">X</div>
 	</div>
 </div>
 </body>
@@ -69,7 +73,59 @@
 		
 	// TEST CASE 1
     function createDefault() {
-    	   	var json = [{id: "1",package: "",app: "Browser",activity: "",module: "Browser",image: "tiles/IE_64.png",size: "1x1",theme: "metro-green"},{id: "2",package: "",app: "Phone",activity: "",module: "Phone",image: "tiles/Cell_64.png",size: "1x1",theme: "metro-green"},{id: "3",package: "",app: "Youtube",activity: "",module: "Youtube",image: "tiles/YouTube_64.png",size: "1x1",theme: "metro-green"},{id: "4",package: "",app: "Massanger",activity: "",module: "Massanger",image: "tiles/ConversionMassanger_64.png",size: "1x1",theme: "metro-green"},{id: "5",package: "com.android.music",app: "Music Player",activity: "com.android.music.list.activity.MpMainTabActivity",module: "",image: "",size: "1x1",theme: "metro-green"}];
+    	   	var json = [
+				    {
+				        id: "1",
+				        package: "",
+				        app: "Browser!",
+				        activity: "",
+				        module: "Browser",
+				        image: "tiles/IE_64.png",
+				        size: "1x1",
+				        theme: "metro-green"
+				    },
+				    {
+				        id: "2",
+				        package: "",
+				        app: "Phone",
+				        activity: "",
+				        module: "Phone",
+				        image: "tiles/Cell_64.png",
+				        size: "1x1",
+				        theme: "metro-green"
+				    },
+				    {
+				        id: "3",
+				        package: "",
+				        app: "Youtube",
+				        activity: "",
+				        module: "Youtube",
+				        image: "tiles/YouTube_64.png",
+				        size: "1x1",
+				        theme: "metro-green"
+				    },
+				    {
+				        id: "4",
+				        package: "",
+				        app: "Massanger",
+				        activity: "",
+				        module: "Massanger",
+				        image: "tiles/ConversionMassanger_64.png",
+				        size: "1x1",
+				        theme: "metro-green"
+				    },
+				    {
+				        id: "5",
+				        package: "com.android.music",
+				        app: "Music Player",
+				        activity: "com.android.music.list.activity.MpMainTabActivity",
+				        module: "",
+				        image: "",
+				        size: "1x1",
+				        theme: "metro-green"
+				    }
+				];
+
 			updateMetroMenu(json);
 	}	
 </script>

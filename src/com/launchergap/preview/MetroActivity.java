@@ -154,8 +154,8 @@ public class MetroActivity extends Activity {
 
 		this.init(savedInstanceState);
 		//loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
-		loadUrl("file:///android_asset/metromenu/index.html");		
-		//loadUrl("file:///android_asset/bootstrap/index.html");		
+		//loadUrl("file:///android_asset/metromenu/index.html");		
+		loadUrl("file:///android_asset/bootstrap/index.html");		
 		//loadUrl("file:///android_asset/metromenu/cloud.html");						
 	}
 

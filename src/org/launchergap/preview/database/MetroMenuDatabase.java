@@ -287,6 +287,7 @@ public class MetroMenuDatabase extends SQLiteOpenHelper {
 		
 		json_code += "]";
 		
+		Log.i(TAG, json_code);
 		return json_code;
 	}
 
