@@ -1,3 +1,5 @@
+A hybrid app (WebView and HTML5) biolerplate to build Android launcher app.
+
 # LauncherGap
 
 Launcher Gap is a free and open source framework to help front-end developers easily creating Android Launcher apps. This project can help you to build Android Launcher with JavaScript and CSS. 
