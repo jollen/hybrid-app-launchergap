@@ -1,19 +1,13 @@
-<!DOCTYPE html >
+<!DOCTYPE html>
 <html>
 <head>
 	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">	
+	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no">	
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />    
     <link href="./css/all.min.css" rel="stylesheet" type="text/css" />   
     <link href="./vendor/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />    	     	    
     <script src="./js/core.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-	    function updateMetroMenu(json) {
-	    		$("#metroui_itemMenu").empty();
-
-				$("#applicationTemplate").tmpl(json).appendTo("#metroui_itemMenu");
-	    }
-	    
 	    // Helper JavaScript APIs
 		var startActivityWithID = function(id, packageName, activityName) {
 			MetroMenu.startActivity(id, packageName, activityName);		// Java ¦hºA
@@ -34,8 +28,18 @@
 		};
 
 		// WebView Callbacks
+	    function updateMetroMenu(json) {
+	    		$("#metroui_itemMenu").empty();
+
+				$("#applicationTemplate").tmpl(json).appendTo("#metroui_itemMenu");
+	    }
+
 		function updateMissedCalls(calls) {
 				$("#Phone").html("<h2>" + calls + "</h2>");
+		}
+
+		function createDefault() {
+			createDefaultMenu();
 		}
     </script>
 
@@ -69,32 +73,21 @@
         </ul>
     </div>
 
-    <!-- Services -->
     <div id="services" class="services">
         <div class="container">
             <div class="row" id="metroui_itemMenu">
             </div>
         </div>
     </div>
-    <!-- /Services -->
-
-	<div class="row">  
-		<div class="col-sm-10 grid_1">
-			<div id="metroui_itemMenu" class="metro-ui fleft" style="display:block;"></div>	
-		</div>
-		<div class="col-sm-2 grid_2">
-			<div class="options" onClick="MetroMenu.lauchPackageManager();"></div>
-		</div>
-	</div>
 
 	<script>
 
 	    $(function() {
-	    	createDefault();
+	    	//createDefault();
 		});
 			
 		// TEST CASE 1
-	    function createDefault() {
+	    function createDefaultMenu() {
 	    	   	var json = [
 						    {
 						        id: "1",

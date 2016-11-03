@@ -153,18 +153,34 @@ public class MetroActivity extends Activity {
 		mTilePhone = new TilePhone(this);
 
 		this.init(savedInstanceState);
+		
+		// The main demo sample.
+		loadUrl("file:///android_asset/metromenu/index.html");		
+
+		// Other samples.
 		//loadUrl("file:///android_asset/metromenu/sandbox/resizable.html");	
-		//loadUrl("file:///android_asset/metromenu/index.html");		
-		loadUrl("file:///android_asset/bootstrap/index.html");		
 		//loadUrl("file:///android_asset/metromenu/cloud.html");						
+		//loadUrl("file:///android_asset/bootstrap/index.html");		
+		//loadUrl("file:///android_asset/fontawesome/index.html");						
 	}
 
 	public synchronized void createDefaultTile() {
+		createDefaultTileForFontAwesome();
+	}
+	
+	private void createDefaultTileForAny() {
 		mDatabase.putDefaultTile("Browser", "tiles/IE_64.png", "metro-green", "1x1");
 		mDatabase.putDefaultTile("Phone", "tiles/Cell_64.png", "metro-green", "1x1");
 		//mDatabase.putDefaultTile("Camera", "tiles/Digital_Camera.png", "metro-black", "1x2");
 		mDatabase.putDefaultTile("Youtube", "tiles/YouTube_64.png", "metro-green", "1x1");
 		mDatabase.putDefaultTile("Massanger", "tiles/ConversionMassanger_64.png", "metro-green", "1x1"); 
+	}
+	
+	private void createDefaultTileForFontAwesome() {
+		mDatabase.putDefaultTile("Browser", "fa-browser", "metro-green", "");
+		mDatabase.putDefaultTile("Phone", "fa-phone", "metro-green", "");
+		mDatabase.putDefaultTile("Camera", "fa-camera", "metro-black", "");
+		mDatabase.putDefaultTile("Youtube", "fa-youtube", "metro-green", "");
 	}
 	
 	@Override
