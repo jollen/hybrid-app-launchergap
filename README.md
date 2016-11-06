@@ -16,7 +16,7 @@ Have fun with web technologies.
 
 * 以下是一份 Hybrid App 的快速入門教程，你可以在 60 分鐘內，學會以 JavaScript 與 CSS 開發 Android Launcher，以及所需的背景知識
 
-## 第 1 課程：何謂 Hybrid App
+## 第 1 課：何謂 Hybrid App
 
 App 的開發模式有 3 種：
 
