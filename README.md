@@ -83,7 +83,7 @@ MetroMenu.startActivityByModule();
 
 這就是 JavaScript 與 Java 混合開發的核心觀念，[WebView.addJavascriptInterface](https://developer.android.com/reference/android/webkit/WebView.html#addJavascriptInterface(java.lang.Object, java.lang.String)) 是整個 hybrid app 的基礎建設。
 
-## 第 3 課：Launch Apps
+## 第 3 課：整合 Native API
 
 (未完待續)
 
