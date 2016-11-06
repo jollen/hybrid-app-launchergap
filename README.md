@@ -62,7 +62,7 @@ LauncherGap 的 MetroWebView 類別，是 WebView 組件的展。在 [MetroWebVi
 ![](docs/2-launchergap.png)
 Fig 2: LauncherGap 細部架構
 
-接著，在 **MetroJavaScriptInterface** 類別裡設計並實現 API，例如，加入 **startActivity()** API：
+接著，在 **MetroJavaScriptInterface** 類別裡設計並實現 API，例如，加入 **startActivityByModule()** API：
 
 ```
 public class MetroJavaScriptInterface {
