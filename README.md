@@ -42,7 +42,7 @@ JavaScript 便可以透過 **startActivityByModule()** 來啟動所指定的 App
 
 如圖所示，為方便 frontend 開發者使用，再將 **startActivityByModule()** 封裝為 jQuery Plugin（jQuery pattern），文件名為 **jquery.metro.js**。
 
-## 第 2 章：Hybrid App 起步走
+## 第 2 課：Hybrid App 起步走
 
 LauncherGap 的 MetroWebView 類別，是 WebView 組件的展。在 [MetroWebView.java](src/com/launchergap/preview/tiles/MetroWebView.java) 範例中，可以找到最關鍵的程式碼實作：
 
